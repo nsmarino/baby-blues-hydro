@@ -9,15 +9,24 @@ export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
 
   return (
-    <header className="header">
+    <header className="header flex gap-8">
       <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
+        Baby Blues Luncheonette
       </NavLink>
-      <HeaderMenu
+      <NavLink prefetch="intent" to="/contact" style={activeLinkStyle} end>
+        Contact
+      </NavLink>
+      <NavLink prefetch="intent" to="/menu" style={activeLinkStyle} end>
+        Menu
+      </NavLink>
+      <NavLink prefetch="intent" to="/shop" style={activeLinkStyle} end>
+        Shop
+      </NavLink>
+      {/* <HeaderMenu
         menu={menu}
         viewport="desktop"
         primaryDomainUrl={header.shop.primaryDomain.url}
-      />
+      /> */}
       <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
     </header>
   );
@@ -89,14 +98,14 @@ function HeaderCtas({isLoggedIn, cart}) {
   return (
     <nav className="header-ctas" role="navigation">
       <HeaderMenuMobileToggle />
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
+      {/* <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
         <Suspense fallback="Sign in">
           <Await resolve={isLoggedIn} errorElement="Sign in">
             {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
           </Await>
         </Suspense>
       </NavLink>
-      <SearchToggle />
+      <SearchToggle /> */}
       <CartToggle cart={cart} />
     </nav>
   );
@@ -188,7 +197,7 @@ const FALLBACK_HEADER_MENU = {
 function activeLinkStyle({isActive, isPending}) {
   return {
     fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? 'grey' : 'black',
+    color: isPending ? 'grey' : 'blue',
   };
 }
 

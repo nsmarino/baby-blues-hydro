@@ -5,4 +5,14 @@ import typographyPlugin from '@tailwindcss/typography';
 export default {
   content: ['./app/**/*.{js,ts,jsx,tsx}'],
   plugins: [formsPlugin, typographyPlugin],
+  theme: {
+    colors: {
+      blue: "#0057FF"
+    },
+    fontFamily: {
+      'sans': 'Helvetica, Arial, sans-serif',
+      'serif': 'Garamond',
+      'mono': 'Courier New',
+    }
+  }
 };

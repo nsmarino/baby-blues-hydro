@@ -8,11 +8,14 @@ import {
   PredictiveSearchForm,
   PredictiveSearchResults,
 } from '~/components/Search';
+import useWindowDimensions from '~/lib/hooks';
 
 /**
  * @param {LayoutProps}
  */
 export function Layout({cart, children = null, footer, header, isLoggedIn}) {
+  const windowDimensions = useWindowDimensions()
+  // console.log("WINDOW DIMENSIONS", windowDimensions)
   return (
     <>
       <CartAside cart={cart} />
