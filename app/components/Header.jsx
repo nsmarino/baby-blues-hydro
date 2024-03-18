@@ -12,27 +12,27 @@ export function Header({header, isLoggedIn, cart}) {
   return (
     <header>
       <AsteriskBorder top={true} left={true} bottom={true} right={true} fullscreen={true}>
-        <div className='absolute inset-x-1/2 whitespace-nowrap top-[20px] -translate-x-1/2 w-fit bg-[#FFFFFF]'>
+        <div className='fixed inset-x-1/2 whitespace-nowrap top-[20px] -translate-x-1/2 w-fit bg-[#FFFFFF] z-20'>
           <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
             Baby Blues Luncheonette
           </NavLink>          
         </div>
-        <div className='absolute whitespace-nowrap bottom-[20px] right-[20px] w-fit bg-[#FFFFFF]'>
+        <div className='fixed whitespace-nowrap bottom-[20px] right-[20px] w-fit bg-[#FFFFFF] z-20'>
           <NavLink prefetch="intent" to="/contact" style={activeLinkStyle} end>
             Contact
           </NavLink>
         </div>
-        <div className='absolute whitespace-nowrap top-[20px] right-[20px] w-fit bg-[#FFFFFF]'>
+        <div className='fixed whitespace-nowrap top-[20px] right-[20px] w-fit bg-[#FFFFFF] z-20'>
           <NavLink prefetch="intent" to="/menu" style={activeLinkStyle} end>
             Menu
           </NavLink>
         </div>
-        <div className='absolute whitespace-nowrap bottom-[20px] left-[20px] w-fit bg-[#FFFFFF]'>
+        <div className='fixed whitespace-nowrap bottom-[20px] left-[20px] w-fit bg-[#FFFFFF] z-20'>
           <NavLink prefetch="intent" to="/shop" style={activeLinkStyle} end>
             Shop
           </NavLink>
         </div>
-        <div className='absolute whitespace-nowrap top-[20px] left-[20px] w-fit bg-[#FFFFFF]'>
+        <div className='fixed whitespace-nowrap top-[20px] left-[20px] w-fit bg-[#FFFFFF] z-20'>
           <NavLink prefetch="intent" to="/hours" style={activeLinkStyle} end>
             Hours
           </NavLink>

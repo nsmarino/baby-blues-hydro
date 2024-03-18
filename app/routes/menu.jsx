@@ -1,5 +1,7 @@
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {defer} from '@shopify/remix-oxygen';
+import MenuNav from "~/components/Menu/MenuNav"
+import { convertSchemaToHtml } from '@thebeyondgroup/shopify-rich-text-renderer'
 
 function fieldsArrayToObj(arr) {
   const obj = arr.reduce((acc, obj) => {
@@ -11,48 +13,47 @@ function fieldsArrayToObj(arr) {
 
 export async function loader({context}) {
     const {storefront} = context;
-    const {metaobjects: { nodes }} = await storefront.query(MENU_QUERY);    
-    return nodes
+    const {metaobjects: { nodes }} = await storefront.query(MENU_QUERY); 
+    const sections = nodes.map(section => {
+      const sectionWithFieldsReduced = {
+          ...section,
+          fields: section.fields.reduce(
+              (accumulator, currentValue) => {
+                  accumulator[currentValue.key] = {...currentValue}
+                  return accumulator
+              },
+              {},
+          )
+      }
+      return sectionWithFieldsReduced
+  })   
+    return sections
 }
 
 export default function Menu() {
     const sections = useLoaderData()
 
     return (
-        <div>
+        <div className='m-24 flex flex-col gap-24'>
           <MenuNav sections={sections} />
           <MenuSections sections={sections} />
         </div>
     )
 }
 
-const MenuNav = ({sections}) => {
-  return (
-    <nav className='flex gap-4 justify-center p-8 uppercase text-blue font-mono'>
-      {sections.map(section => {
-        return (
-          <a href={`#${section.id}`} key={section.id}>{section.fields.title}</a>
-        )
-      })}
-    </nav>
-  )
-}
 const MenuSections = ({sections}) => {
+
   return (
-    <div className='flex justify-center items-center p-8 flex-col gap-4 uppercase text-blue font-mono'>
+    <div className='flex justify-center items-center flex-col gap-4 uppercase text-blue font-mono max-w-[1000px] mx-auto'>
       {sections.map(section => {
-        const fieldsReduced = section.fields.reduce(
-          (accumulator, currentValue) => {
-            accumulator[currentValue.key] = {...currentValue}
-            return accumulator
-          },
-          {},
-        );
         return (
-          <div key={section.id} className='border-2 w-full'>
-            <h2>{fieldsReduced.title.value}</h2>
+          <div key={section.id} className='w-full flex flex-col gap-8'>
+            <div className='w-full relative'>
+              <div className={`${section.handle !== "drinks" ? "dot-bg" : ""}`}></div>
+              <h2 className='relative w-fit mx-auto border-2 py-4 px-12 rounded-[100%] bg-[#FFFFFF] font-bold'>{section.fields.title.value}</h2>
+            </div>
             {
-              fieldsReduced.items.references.nodes.map(menuItem => <MenuItem item={menuItem} key={menuItem.id} />)
+              section.fields.items.references.nodes.map(menuItem => <MenuItem item={menuItem} key={menuItem.id} />)
             }
           </div>
         )
@@ -71,20 +72,29 @@ const MenuItem = ({item}) => {
   );
   return (
     <>
-    <div>
-      <div>
+    <div className='flex w-full justify-between'>
+      <div className='basis-1/4 font-bold'>
         <div>{(fieldsReduced.gluten_free && fieldsReduced.gluten_free.value==='true')  && "(G.F.) "}{fieldsReduced.title.value}</div>
         <div>{fieldsReduced.subtitle && fieldsReduced.subtitle.value}</div>
       </div>
 
-      <div>
-        <div>{fieldsReduced.description && fieldsReduced.description.value}</div>
-        <div>{fieldsReduced.price && fieldsReduced.price.value}</div>
-
+      <div className='basis-1/2'>
+        {fieldsReduced.content && (<div
+        className="html"
+        dangerouslySetInnerHTML={{
+          __html: convertSchemaToHtml(fieldsReduced.content.value),
+          }}
+         />
+        )}
         {fieldsReduced.variations && <>{fieldsReduced.variations.references.nodes.map(variation => <MenuItemVariation variation={variation} key={variation.id} />)}</> }
       </div>
+
+      <div className='basis-1/4 text-right font-bold'>
+        <div>${fieldsReduced.price && fieldsReduced.price.value}</div>
+      </div>
+
     </div>
-    {fieldsReduced.footer_note && <div>{fieldsReduced.footer_note.value}</div>}
+    {fieldsReduced.footer_note && <div className='italic text-center'>{fieldsReduced.footer_note.value}</div>}
     </>
   )
 }

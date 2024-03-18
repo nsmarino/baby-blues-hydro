@@ -8,6 +8,7 @@
   --header-height: 64px;
   --color-dark: #000;
   --color-light: #fff;
+  --baby-blue: #0057FF;
 }
 
 img {
@@ -486,7 +487,18 @@ body {
 }
 .fullscreen .ast-top {
   width: calc(100% - 40px);
+  left: 20px; 
+  right: 20px; 
+  top: 0px;
+  border-top: 20px solid white;
+  padding-top: 20px;
+  position: fixed;
+  z-index: 1;
+
+}
+.fullscreen .ast-top:after {
   left: 20px; right: 20px; top: 20px;
+  position: fixed;
 }
 .ast-top:before {
   background: url(ast-from-left.svg) no-repeat left top;
@@ -513,14 +525,20 @@ body {
 .fullscreen .ast-left {
   height: calc(100% - 40px);
   left: 20px; bottom: 20px; top: 20px;
+  position: fixed;
+  z-index: 1;
 }
+
 .ast-left:after {
   background: url(ast-from-bottom.svg) no-repeat left bottom;
   content: "";
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 0;
 }
-
+.fullscreen .ast-left:after {
+  position: fixed;
+  left: 20px; bottom: 20px; top: 20px;
+}
 .ast-right {
   background: url(ast-from-top.svg) repeat-y right top;
   display: block;
@@ -533,6 +551,8 @@ body {
 .fullscreen .ast-right {
   height: calc(100% - 40px);
   right: 20px; bottom: 20px; top: 20px;
+  position: fixed;
+  z-index: 1;
 }
 .ast-bottom {
   background: url(ast-from-left.svg) repeat-x left bottom;
@@ -546,11 +566,34 @@ body {
 .fullscreen .ast-bottom {
   width: calc(100% - 40px);
   left: 20px;
-  right: 20px; bottom: 20px; height: 20px;
+  right: 20px; 
+  bottom: 0px; 
+  height: 20px;
+  border-bottom: 20px solid white;
+  padding-bottom: 20px;
+  position: fixed;
+  z-index: 1;
 }
 .ast-bottom:after {
   background: url(ast-from-right.svg) no-repeat right bottom;
   content: "";
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 0;
+}
+
+.small-asterisks .ast-top, .small-asterisks .ast-top:after, .small-asterisks .ast-top:before,
+.small-asterisks .ast-bottom, .small-asterisks .ast-bottom:after, .small-asterisks .ast-bottom:before {
+  background-size: 15px;
+}
+.small-asterisks .ast-left, .ast-left:after, .ast-left:before,
+.small-asterisks .ast-right, .small-asterisks .ast-right:after, .small-asterisks .ast-right:before {
+  background-size: 8px;
+}
+
+.dot-bg {
+  border-top: 4px dotted var(--baby-blue);
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }

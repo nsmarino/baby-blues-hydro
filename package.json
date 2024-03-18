@@ -19,6 +19,7 @@
     "@shopify/cli-hydrogen": "^7.1.2",
     "@shopify/hydrogen": "~2024.1.4",
     "@shopify/remix-oxygen": "^2.0.3",
+    "@thebeyondgroup/shopify-rich-text-renderer": "^1.0.0",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
     "isbot": "^3.6.6",
