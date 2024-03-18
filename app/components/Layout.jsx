@@ -1,5 +1,5 @@
 import {Await} from '@remix-run/react';
-import {Suspense} from 'react';
+import {Suspense, useEffect} from 'react';
 import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header, HeaderMenu} from '~/components/Header';
@@ -15,19 +15,74 @@ import useWindowDimensions from '~/lib/hooks';
  */
 export function Layout({cart, children = null, footer, header, isLoggedIn}) {
   const windowDimensions = useWindowDimensions()
-  // console.log("WINDOW DIMENSIONS", windowDimensions)
+
+  // useEffect(() => {
+  //   console.log("Use effect runs.")
+  //   const leftSeeds = document.querySelectorAll(".asterisks-left")
+  //   const topSeeds = document.querySelectorAll(".asterisks-top")
+  //   const rightSeeds = document.querySelectorAll(".asterisks-right")
+  //   const bottomSeeds = document.querySelectorAll(".asterisks-bottom")
+
+  //   topSeeds.forEach(seed => {
+  //     const container = seed.parentElement
+  //     const rowBorder = document.createElement("span")
+  //     rowBorder.classList.add("border-top")
+  //     const charactersNeededToFillRow = container.offsetWidth / seed.offsetWidth
+  //     for (let i = 0; i < charactersNeededToFillRow - 1; i++) {
+  //       rowBorder.innerText += " *"
+  //     }
+  //     container.appendChild(rowBorder)
+  //   })
+  //   leftSeeds.forEach(seed => {
+  //     const container = seed.parentElement
+  //     const columnBorder = document.createElement("span")
+  //     columnBorder.classList.add("border-left")
+  //     const charactersNeededToFillColumn = container.offsetHeight / seed.offsetHeight
+  //     console.log("Characters needed:", charactersNeededToFillColumn, "Offset Height", container.offsetHeight, "Seed offsetwidth", seed.offsetHeight)
+  //     for (let i = 0; i < charactersNeededToFillColumn; i++) {
+  //       columnBorder.innerHTML += "<span>*</span>"
+  //     }
+  //       container.appendChild(columnBorder)
+  //   })
+
+  //   // bottomSeeds.forEach(seed => {
+  //   //   const container = seed.parentElement
+  //   //   const rowBorder = document.createElement("span")
+  //   //   rowBorder.classList.add("border-bottom")
+  //   //   const charactersNeededToFillRow = container.offsetWidth / seed.offsetWidth
+  //   //   for (let i = 0; i < charactersNeededToFillRow; i++) {
+  //   //     rowBorder.innerText += " *"
+  //   //   }
+  //   //   container.appendChild(rowBorder)
+  //   // })
+
+  //   // rightSeeds.forEach(seed => {
+  //   //   const container = seed.parentElement
+  //   //   const columnBorder = document.createElement("span")
+  //   //   columnBorder.classList.add("border-right")
+  //   //   const charactersNeededToFillColumn = container.offsetHeight / seed.offsetWidth
+  //   //     for (let i = 0; i < charactersNeededToFillColumn; i++) {
+  //   //     columnBorder.innerHTML += "<span>*</span>"
+  //   //   }
+  //   //     container.appendChild(columnBorder)
+  //   // })
+
+
+  // }, [])
+
   return (
     <>
       <CartAside cart={cart} />
-      <SearchAside />
       <MobileMenuAside menu={header?.menu} shop={header?.shop} />
       {header && <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />}
-      <main>{children}</main>
-      <Suspense>
+      <main className='h-full'>
+        {children}
+      </main>
+      {/* <Suspense>
         <Await resolve={footer}>
           {(footer) => <Footer menu={footer?.menu} shop={header?.shop} />}
         </Await>
-      </Suspense>
+      </Suspense> */}
     </>
   );
 }

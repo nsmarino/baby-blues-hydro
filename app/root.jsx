@@ -115,7 +115,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body class="text-blue">
+      <body>
         <Layout {...data}>
           <Outlet />
         </Layout>

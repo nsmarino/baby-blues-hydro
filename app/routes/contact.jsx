@@ -12,7 +12,11 @@ export default function Contact() {
     const data = useLoaderData()
     console.log("Contact page data in component", data)
     return (
-        <div>Contact</div>
+      <div className='h-full flex justify-center items-center gap-8'>
+        <div>notes</div>
+          <div>image that says opa</div>
+          <div>contact info</div>
+      </div>
     )
 }
 

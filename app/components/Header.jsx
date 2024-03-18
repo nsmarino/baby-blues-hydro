@@ -1,6 +1,7 @@
 import {Await, NavLink} from '@remix-run/react';
 import {Suspense} from 'react';
 import {useRootLoaderData} from '~/root';
+import AsteriskBorder from './AsteriskBorder';
 
 /**
  * @param {HeaderProps}
@@ -9,25 +10,36 @@ export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
 
   return (
-    <header className="header flex gap-8">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        Baby Blues Luncheonette
-      </NavLink>
-      <NavLink prefetch="intent" to="/contact" style={activeLinkStyle} end>
-        Contact
-      </NavLink>
-      <NavLink prefetch="intent" to="/menu" style={activeLinkStyle} end>
-        Menu
-      </NavLink>
-      <NavLink prefetch="intent" to="/shop" style={activeLinkStyle} end>
-        Shop
-      </NavLink>
-      {/* <HeaderMenu
-        menu={menu}
-        viewport="desktop"
-        primaryDomainUrl={header.shop.primaryDomain.url}
-      /> */}
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+    <header>
+      <AsteriskBorder top={true} left={true} bottom={true} right={true} fullscreen={true}>
+        <div className='absolute inset-x-1/2 whitespace-nowrap top-[20px] -translate-x-1/2 w-fit bg-[#FFFFFF]'>
+          <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
+            Baby Blues Luncheonette
+          </NavLink>          
+        </div>
+        <div className='absolute whitespace-nowrap bottom-[20px] right-[20px] w-fit bg-[#FFFFFF]'>
+          <NavLink prefetch="intent" to="/contact" style={activeLinkStyle} end>
+            Contact
+          </NavLink>
+        </div>
+        <div className='absolute whitespace-nowrap top-[20px] right-[20px] w-fit bg-[#FFFFFF]'>
+          <NavLink prefetch="intent" to="/menu" style={activeLinkStyle} end>
+            Menu
+          </NavLink>
+        </div>
+        <div className='absolute whitespace-nowrap bottom-[20px] left-[20px] w-fit bg-[#FFFFFF]'>
+          <NavLink prefetch="intent" to="/shop" style={activeLinkStyle} end>
+            Shop
+          </NavLink>
+        </div>
+        <div className='absolute whitespace-nowrap top-[20px] left-[20px] w-fit bg-[#FFFFFF]'>
+          <NavLink prefetch="intent" to="/hours" style={activeLinkStyle} end>
+            Hours
+          </NavLink>
+        </div>
+
+        {/* <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} /> */}
+      </AsteriskBorder>
     </header>
   );
 }
