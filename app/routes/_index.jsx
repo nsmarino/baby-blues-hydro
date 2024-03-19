@@ -26,16 +26,19 @@ export const meta = () => {
 export default function Homepage() {
   /** @type {LoaderReturnData} */
   // const data = useLoaderData();
-  const color = "#0057FF" /* white outline */
-  const r = 1.5 /* width of outline in pixels */
-  const n = Math.ceil(2*Math.PI*r) /* number of shadows */
-  var str = ''
-  for(var i = 0;i<n;i++) /* append shadows in n evenly distributed directions */
-  {
-    const theta = 2*Math.PI*i/n
-    str += (r*Math.cos(theta))+"px "+(r*Math.sin(theta))+"px 0 "+color+(i==n-1?"":",")
-  }
-  console.log(str)
+
+  // PRINTS VALUE FOR TEXT-SHADOW CSS RULE TO CONSOLE:
+  // const color = "#0057FF" /* blue outline */
+  // const r = 0.5 /* width of outline in pixels */
+  // const n = Math.ceil(2*Math.PI*r) /* number of shadows */
+  // var str = ''
+  // for(var i = 0;i<n;i++) /* append shadows in n evenly distributed directions */
+  // {
+  //   const theta = 2*Math.PI*i/n
+  //   str += (r*Math.cos(theta))+"px "+(r*Math.sin(theta))+"px 0 "+color+(i==n-1?"":",")
+  // }
+  // console.log(str)
+
   return (
     <>
     <div className="home h-full flex flex-col justify-center items-center">

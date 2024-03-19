@@ -13,7 +13,7 @@ export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
 
   return (
-    <header className="text-xl font-serif uppercase font-bold">
+    <header className="text-xl serif-font uppercase font-bold">
       <AsteriskBorder top={true} left={true} bottom={true} right={true} fullscreen={true}>
         <div className='fixed inset-x-1/2 whitespace-nowrap top-[20px] -translate-x-1/2 w-fit bg-[#FFFFFF] z-20'>
           <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>

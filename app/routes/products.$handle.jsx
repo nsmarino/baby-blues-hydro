@@ -149,7 +149,7 @@ function ProductMain({selectedVariant, product, variants}) {
   const {title, descriptionHtml} = product;
   return (
     <div className="flex flex-col gap-4 items-center text-center">
-      <h1 class="text-xl uppercase font-bold">{title}</h1>
+      <h1 className="text-xl uppercase font-bold">{title}</h1>
       <ProductPrice selectedVariant={selectedVariant} />
       <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
       <br />

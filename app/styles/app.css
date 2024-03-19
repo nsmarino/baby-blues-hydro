@@ -1,5 +1,10 @@
 @import url('tailwind.css');
+@import url('typography.css');
 
+.test-font {
+  border: 1px solid red;
+  font-family: AlpinaThin;
+}
 :root {
   --aside-width: 400px;
   --cart-aside-summary-height-with-discount: 300px;
@@ -90,7 +95,7 @@ aside li {
   transition: opacity 400ms ease-in-out;
   transition: opacity 400ms;
   visibility: hidden;
-  z-index: 10;
+  z-index: 40;
 }
 
 .overlay .close-outside {
@@ -599,4 +604,10 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+}
+.dot-line {
+  border-top: 4px dotted var(--baby-blue);
+  width: 100%;
+  position: absolute;
+  bottom: 8px;
 }

@@ -8,11 +8,6 @@ export default {
   theme: {
     colors: {
       blue: "#0057FF"
-    },
-    fontFamily: {
-      'sans': 'Helvetica, Arial, sans-serif',
-      'serif': 'Garamond',
-      'mono': 'Courier New',
     }
   }
 };

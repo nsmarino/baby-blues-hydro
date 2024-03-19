@@ -1,0 +1,41 @@
+
+@font-face {
+    font-family: 'EBGaramond';
+    src: url('EBGaramond.ttf');
+}
+
+@font-face {
+    font-family: 'EBGaramondItalic';
+    src: url('EBGaramond-Italic.ttf');
+}
+
+@font-face {
+    font-family: 'AlpinaBold';
+    src: url('GT-Alpina-Typewriter-Bold-Trial.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'AlpinaThin';
+    src: url('GT-Alpina-Typewriter-Thin-Trial.woff2') format('woff2');
+}
+
+.serif-font {
+    font-family: 'EBGaramond';
+}
+.serif-font-italic {
+    font-family: 'EBGaramondItalic';
+}
+
+.mono-font {
+    font-family: 'AlpinaThin';
+    font-weight: normal;
+}
+.mono-font-bold {
+    font-family: 'AlpinaBold';
+    font-weight: normal;
+    text-shadow: 0.5px 0px 0 #0057FF,3.061616997868383e-17px 0.5px 0 #0057FF,-0.5px 6.123233995736766e-17px 0 #0057FF,-9.184850993605148e-17px -0.5px 0 #0057FF;
+}
+
+.sans-font {
+    font-family: Arial, Helvetica, sans-serif;
+}
