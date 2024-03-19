@@ -469,15 +469,18 @@ aside li {
 .account-logout {
   display: inline-block;
 }
-
+.rounded-outline {
+  letter-spacing: 4px;
+  text-shadow: 1.5px 0px 0 #0057FF,1.2135254915624212px 0.8816778784387097px 0 #0057FF,0.4635254915624212px 1.4265847744427302px 0 #0057FF,-0.463525491562421px 1.4265847744427305px 0 #0057FF,-1.213525491562421px 0.8816778784387098px 0 #0057FF,-1.5px 1.8369701987210297e-16px 0 #0057FF,-1.2135254915624214px -0.8816778784387096px 0 #0057FF,-0.46352549156242134px -1.4265847744427302px 0 #0057FF,0.46352549156242084px -1.4265847744427305px 0 #0057FF,1.213525491562421px -0.88167787843871px 0 #0057FF;
+}
 
 body {
   font-family: monospace;
-  color: blue;
+  color: var(--baby-blue);
 }
 
 .ast-top {
-  background: url(ast-from-left.svg) repeat-x left top;
+  background: url(app/assets/ast-from-left.svg) repeat-x left top;
   display: block;
   position: absolute;
   pointer-events: none;
@@ -501,20 +504,20 @@ body {
   position: fixed;
 }
 .ast-top:before {
-  background: url(ast-from-left.svg) no-repeat left top;
+  background: url(app/assets/ast-from-left.svg) no-repeat left top;
   content: "";
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 0;
 }
 .ast-top:after {
-  background: url(ast-from-right.svg) no-repeat right top;
+  background: url(app/assets/ast-from-right.svg) no-repeat right top;
   content: "";
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 0;
 }
 
 .ast-left {
-  background: url(ast-from-top.svg) repeat-y left top;
+  background: url(app/assets/ast-from-top.svg) repeat-y left top;
   display: block;
   position: absolute;
   pointer-events: none;
@@ -530,7 +533,7 @@ body {
 }
 
 .ast-left:after {
-  background: url(ast-from-bottom.svg) no-repeat left bottom;
+  background: url(/app/assets/ast-from-bottom.svg) no-repeat left bottom;
   content: "";
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 0;
@@ -540,7 +543,7 @@ body {
   left: 20px; bottom: 20px; top: 20px;
 }
 .ast-right {
-  background: url(ast-from-top.svg) repeat-y right top;
+  background: url(app/assets/ast-from-top.svg) repeat-y right top;
   display: block;
   position: absolute;
   pointer-events: none;
@@ -555,7 +558,7 @@ body {
   z-index: 1;
 }
 .ast-bottom {
-  background: url(ast-from-left.svg) repeat-x left bottom;
+  background: url(app/assets/ast-from-left.svg) repeat-x left bottom;
   display: block;
   position: absolute;
   pointer-events: none;
@@ -575,7 +578,7 @@ body {
   z-index: 1;
 }
 .ast-bottom:after {
-  background: url(ast-from-right.svg) no-repeat right bottom;
+  background: url(app/assets/ast-from-right.svg) no-repeat right bottom;
   content: "";
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 0;

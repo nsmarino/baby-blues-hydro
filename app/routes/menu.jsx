@@ -2,14 +2,7 @@ import {Await, useLoaderData, Link} from '@remix-run/react';
 import {defer} from '@shopify/remix-oxygen';
 import MenuNav from "~/components/Menu/MenuNav"
 import { convertSchemaToHtml } from '@thebeyondgroup/shopify-rich-text-renderer'
-
-function fieldsArrayToObj(arr) {
-  const obj = arr.reduce((acc, obj) => {
-    acc[obj.key] = {...obj};
-    return acc;
-  }, {});
-  return obj
-}
+import AsteriskBorder from "~/components/AsteriskBorder"
 
 export async function loader({context}) {
     const {storefront} = context;
@@ -33,10 +26,50 @@ export async function loader({context}) {
 export default function Menu() {
     const sections = useLoaderData()
 
+
     return (
-        <div className='m-24 flex flex-col gap-24'>
+        <div className='mx-[20px] flex flex-col'>
           <MenuNav sections={sections} />
           <MenuSections sections={sections} />
+          <div className='relative py-8 text-center uppercase font-serif font-bold'>
+            <AsteriskBorder top={true}>
+              <p>*20% gratuity will be added to parties of six or more</p>
+            </AsteriskBorder>
+          </div>
+          <div className='relative py-8 text-center uppercase font-serif font-bold'>
+            <AsteriskBorder top={true}>
+              <p>!!!!!!!!!!!!!!!!! PLEASE ADVISE US OF ANY FOOD ALLERGIES !!!!!!!!!!!!!!!!!</p>
+            </AsteriskBorder>
+          </div>
+          <div className='relative py-8 text-center uppercase font-serif font-bold'>
+            <AsteriskBorder top={true}>
+              <div className='flex w-full justify-around'>
+                <span>(GF) - GLUTEN FREE</span>
+                <span>(N) - CONTAINS NUTS</span>
+                <span>(V) - VEGAN</span>
+              </div>
+            </AsteriskBorder>
+          </div>
+          <div className='flex gap-8 w-full justify-between'>
+            <div className='relative p-24 basis-full text-center uppercase font-serif font-bold'>
+              <AsteriskBorder top={true} right={true}>
+                <div className='flex flex-col justify-around'>
+                  <span>(GF) - GLUTEN FREE</span>
+                  <span>(N) - CONTAINS NUTS</span>
+                  <span>(V) - VEGAN</span>
+                </div>
+              </AsteriskBorder>
+            </div>          
+            <div className='relative p-24 basis-full text-center uppercase font-serif font-bold'>
+              <AsteriskBorder top={true} left={true}>
+                <div className='flex flex-col justify-around'>
+                  <span>(GF) - GLUTEN FREE</span>
+                  <span>(N) - CONTAINS NUTS</span>
+                  <span>(V) - VEGAN</span>
+                </div>
+              </AsteriskBorder>
+            </div>          
+          </div>
         </div>
     )
 }
@@ -44,7 +77,7 @@ export default function Menu() {
 const MenuSections = ({sections}) => {
 
   return (
-    <div className='flex justify-center items-center flex-col gap-4 uppercase text-blue font-mono max-w-[1000px] mx-auto'>
+    <div className='my-24 flex justify-center items-center flex-col gap-4 uppercase text-blue font-mono max-w-[1000px] mx-auto'>
       {sections.map(section => {
         return (
           <div key={section.id} className='w-full flex flex-col gap-8'>

@@ -1,4 +1,4 @@
-import {Suspense} from 'react';
+import {Suspense, useState} from 'react';
 import {defer, redirect} from '@shopify/remix-oxygen';
 import {Await, Link, useLoaderData} from '@remix-run/react';
 
@@ -107,7 +107,7 @@ export default function Product() {
   const {product, variants} = useLoaderData();
   const {selectedVariant} = product;
   return (
-    <div className="product">
+    <div className="flex flex-row-reverse w-full justify-center [&>*]:basis-full p-24">
       <ProductImage image={selectedVariant?.image} />
       <ProductMain
         selectedVariant={selectedVariant}
@@ -148,9 +148,10 @@ function ProductImage({image}) {
 function ProductMain({selectedVariant, product, variants}) {
   const {title, descriptionHtml} = product;
   return (
-    <div className="product-main">
-      <h1>{title}</h1>
+    <div className="flex flex-col gap-4 items-center text-center">
+      <h1 class="text-xl uppercase font-bold">{title}</h1>
       <ProductPrice selectedVariant={selectedVariant} />
+      <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
       <br />
       <Suspense
         fallback={
@@ -174,14 +175,11 @@ function ProductMain({selectedVariant, product, variants}) {
           )}
         </Await>
       </Suspense>
-      <br />
-      <br />
-      <p>
-        <strong>Description</strong>
-      </p>
-      <br />
-      <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
-      <br />
+      <div className='flex w-full justify-between'>
+        <div>Product Details</div>
+        <div>Size & Fit</div>
+        <div>Shipping & Returns</div>
+      </div>
     </div>
   );
 }
@@ -199,14 +197,14 @@ function ProductPrice({selectedVariant}) {
           <p>Sale</p>
           <br />
           <div className="product-price-on-sale">
-            {selectedVariant ? <Money data={selectedVariant.price} /> : null}
+            {selectedVariant ? <Money data={selectedVariant.price} withoutTrailingZeros/> : null}
             <s>
-              <Money data={selectedVariant.compareAtPrice} />
+              <Money data={selectedVariant.compareAtPrice} withoutTrailingZeros/>
             </s>
           </div>
         </>
       ) : (
-        selectedVariant?.price && <Money data={selectedVariant?.price} />
+        selectedVariant?.price && <Money data={selectedVariant?.price} withoutTrailingZeros />
       )}
     </div>
   );
@@ -220,6 +218,7 @@ function ProductPrice({selectedVariant}) {
  * }}
  */
 function ProductForm({product, selectedVariant, variants}) {
+  const [quantity, setQuantity] = useState(1)
   return (
     <div className="product-form">
       <VariantSelector
@@ -229,6 +228,25 @@ function ProductForm({product, selectedVariant, variants}) {
       >
         {({option}) => <ProductOptions key={option.name} option={option} />}
       </VariantSelector>
+      <br />
+      <div>
+        <p className='uppercase'>Quantity</p>
+        <div className='flex gap-4'>
+          <button 
+            aria-label="Decrease quantity"
+            disabled={quantity <= 1}
+            name="decrease-quantity"
+            onClick={() => setQuantity(Number(Math.max(0, quantity - 1).toFixed(0)))}
+          >-</button>
+          <span>{quantity}</span>
+          <button
+            aria-label="Increase quantity"
+            name="increase-quantity"
+            onClick={() => setQuantity(Number((quantity + 1).toFixed(0)))}
+          >+</button>          
+        </div>
+
+      </div>
       <br />
       <AddToCartButton
         disabled={!selectedVariant || !selectedVariant.availableForSale}
@@ -240,7 +258,7 @@ function ProductForm({product, selectedVariant, variants}) {
             ? [
                 {
                   merchandiseId: selectedVariant.id,
-                  quantity: 1,
+                  quantity: quantity,
                 },
               ]
             : []
@@ -307,6 +325,7 @@ function AddToCartButton({analytics, children, disabled, lines, onClick}) {
             type="submit"
             onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
+            className='border-2 border-blue w-full p-2 uppercase text-center italic text-xl'
           >
             {children}
           </button>

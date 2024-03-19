@@ -2,7 +2,10 @@ import {Await, NavLink} from '@remix-run/react';
 import {Suspense} from 'react';
 import {useRootLoaderData} from '~/root';
 import AsteriskBorder from './AsteriskBorder';
-
+import clockSvg from '~/assets/header/Clock.svg';
+import knifeForkSvg from '~/assets/header/KnifeFork.svg';
+import musicNoteSvg from '~/assets/header/Note.svg';
+import phoneSvg from '~/assets/header/Phone.svg';
 /**
  * @param {HeaderProps}
  */
@@ -10,35 +13,40 @@ export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
 
   return (
-    <header>
+    <header className="text-xl font-serif uppercase font-bold">
       <AsteriskBorder top={true} left={true} bottom={true} right={true} fullscreen={true}>
         <div className='fixed inset-x-1/2 whitespace-nowrap top-[20px] -translate-x-1/2 w-fit bg-[#FFFFFF] z-20'>
           <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-            Baby Blues Luncheonette
+            <span className='rounded-outline font-sans uppercase italic font-bold text-[30px] bg-white px-4 block -translate-y-[2px]'>Baby Blues Luncheonette</span>
           </NavLink>          
         </div>
         <div className='fixed whitespace-nowrap bottom-[20px] right-[20px] w-fit bg-[#FFFFFF] z-20'>
           <NavLink prefetch="intent" to="/contact" style={activeLinkStyle} end>
+            <img src={phoneSvg} alt="" />
             Contact
           </NavLink>
         </div>
         <div className='fixed whitespace-nowrap top-[20px] right-[20px] w-fit bg-[#FFFFFF] z-20'>
           <NavLink prefetch="intent" to="/menu" style={activeLinkStyle} end>
+          <img src={knifeForkSvg} alt="" />
             Menu
           </NavLink>
         </div>
         <div className='fixed whitespace-nowrap bottom-[20px] left-[20px] w-fit bg-[#FFFFFF] z-20'>
           <NavLink prefetch="intent" to="/shop" style={activeLinkStyle} end>
-            Shop
+            <img src={musicNoteSvg} alt="" />
+              Shop
           </NavLink>
         </div>
         <div className='fixed whitespace-nowrap top-[20px] left-[20px] w-fit bg-[#FFFFFF] z-20'>
           <NavLink prefetch="intent" to="/hours" style={activeLinkStyle} end>
+            <img src={clockSvg} alt="" />
             Hours
           </NavLink>
         </div>
-
-        {/* <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} /> */}
+        <div className='fixed whitespace-nowrap top-1/2 -translate-y-1/2 left-[20px] w-fit bg-[#FFFFFF] z-20'>
+          <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+        </div>
       </AsteriskBorder>
     </header>
   );
@@ -139,7 +147,7 @@ function SearchToggle() {
  * @param {{count: number}}
  */
 function CartBadge({count}) {
-  return <a href="#cart-aside">Cart {count}</a>;
+  return <a href="#cart-aside" className='py-8'>Cart <br />({count})</a>;
 }
 
 /**
@@ -209,7 +217,7 @@ const FALLBACK_HEADER_MENU = {
 function activeLinkStyle({isActive, isPending}) {
   return {
     fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? 'grey' : 'blue',
+    color: isPending ? 'grey' : 'var(--baby-blue)',
   };
 }
 
