@@ -1,6 +1,7 @@
 import {Suspense, useState} from 'react';
 import {defer, redirect} from '@shopify/remix-oxygen';
 import {Await, Link, useLoaderData} from '@remix-run/react';
+import Carousel from "react-simply-carousel";
 
 import {
   Image,
@@ -108,7 +109,7 @@ export default function Product() {
   const {selectedVariant} = product;
   return (
     <div className="flex flex-row-reverse w-full justify-center [&>*]:basis-full p-24">
-      <ProductImage image={selectedVariant?.image} />
+      <ProductImages images={product?.images} />
       <ProductMain
         selectedVariant={selectedVariant}
         product={product}
@@ -117,7 +118,84 @@ export default function Product() {
     </div>
   );
 }
+const CarouselButton = ({dir}) => {
+  const renderSwitch = () => {
+    switch(dir) {
+      case 'forward':
+        return <div className='serif-font'>
+          →
+        </div>;
+      default:
+        return <div className='serif-font'>
+          ←
+        </div>;
+    }
+  }
+  return (
+    <>
+      {renderSwitch()}
+    </>
+  )
+}
+function ProductImages({images}) {
+  const [activeSlide, setActiveSlide] = useState(0);
 
+  return (
+    <div className='relative pb-[80px]'>
+    <Carousel
+      containerProps={{
+      }}
+      preventScrollOnSwipe
+      swipeTreshold={60}
+      activeSlideIndex={activeSlide}
+      activeSlideProps={{
+      }}
+      onRequestChange={setActiveSlide}
+      forwardBtnProps={{
+        children: <CarouselButton dir="forward" />,
+        style: {
+          width: 60,
+          height: 60,
+          minWidth: 60,
+          position: "absolute",
+          bottom: 0,
+          right: "33%"
+        }
+      }}
+      backwardBtnProps={{
+        children: <CarouselButton  dir="back" />,
+        style: {
+          width: 60,
+          height: 60,
+          minWidth: 60,
+          position: "absolute",
+          bottom: 0,
+          left: "33%"
+        }
+      }}
+      dotsNav={{
+        show: false,
+      }}
+      itemsToShow={1}
+      speed={400}
+    >
+      {images.nodes.map((item, index) => (
+        <div
+          style={{
+            width: "40vw",
+          }}
+          key={index}
+        >
+          <ProductImage image={item} />
+        </div>
+      ))}
+    </Carousel>
+    <div className='absolute bottom-0 left-1/2 -translate-x-1/2 h-[60px] flex items-center justify-center serif-font'>
+      ( {activeSlide+1} / {images.nodes.length} )
+    </div>
+    </div>
+  )
+}
 /**
  * @param {{image: ProductVariantFragment['image']}}
  */
@@ -126,7 +204,7 @@ function ProductImage({image}) {
     return <div className="product-image" />;
   }
   return (
-    <div className="product-image">
+    <div className="product-image pointer-events-none">
       <Image
         alt={image.altText || 'Product Image'}
         aspectRatio="1/1"
@@ -380,6 +458,15 @@ const PRODUCT_FRAGMENT = `#graphql
     handle
     descriptionHtml
     description
+    images(first: 10) {
+      nodes {
+        id
+        url
+        altText
+        height
+        width
+      }
+    }
     options {
       name
       values
