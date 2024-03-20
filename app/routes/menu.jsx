@@ -3,6 +3,7 @@ import {defer} from '@shopify/remix-oxygen';
 import MenuNav from "~/components/Menu/MenuNav"
 import { convertSchemaToHtml } from '@thebeyondgroup/shopify-rich-text-renderer'
 import AsteriskBorder from "~/components/AsteriskBorder"
+import Marquee from "react-fast-marquee";
 
 export async function loader({context}) {
     const {storefront} = context;
@@ -77,10 +78,24 @@ export default function Menu() {
 const MenuSections = ({sections}) => {
 
   return (
-    <div className='my-24 flex justify-center items-center flex-col gap-4 text-blue mono-font max-w-[1000px] mx-auto'>
+    <div className='my-24 flex justify-center items-center flex-col gap-4 text-blue mono-font w-full mx-auto'>
       {sections.map(section => {
-        return (
-          <div key={section.id} className='w-full flex flex-col gap-8'>
+        if (section.handle === "specials") {
+          return (
+          <div className="w-full flex flex-col gap-8 relative py-12 my-12">
+            <AsteriskBorder bottom={true} top={true}>
+              <Marquee style={{}}>
+                <div class="sans-font text-xl font-bold">SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+              </Marquee>  
+            </AsteriskBorder>
+            <div className='flex flex-col w-full max-w-[1200px] justify-center mx-auto gap-8'>   
+            {
+              section.fields.items.references.nodes.map(menuItem => <MenuItem item={menuItem} key={menuItem.id} />)
+            }
+            </div>
+          </div>
+        )} else return (
+          <div key={section.id} className='w-full flex flex-col gap-8 max-w-[1200px]'>
             <div className='w-full relative'>
               <div className={`${section.handle !== "drinks" ? "dot-bg" : ""}`}></div>
               <h2 className='relative w-fit mx-auto border-2 py-4 px-12 rounded-[100%] bg-[#FFFFFF] mono-font-bold uppercase text-xl'>{section.fields.title.value}</h2>
@@ -121,25 +136,32 @@ const MenuItem = ({item}) => {
           fieldsReduced.variations ? "" : <div className="dot-line"></div>  
         )
         }
+        {/* Variation Titles: */}
         {fieldsReduced.variations && <>{fieldsReduced.variations.references.nodes.map(variation => <MenuItemVariation variation={variation} key={variation.id} />)}</> }
       </div>
 
-      <div className='text-right mono-font-bold text-xl pl-8'>
+      <div className='text-right mono-font-bold text-xl pl-8 flex flex-col'>
+        {/* Item Price: */}
         {fieldsReduced.price && <div>${fieldsReduced.price.value}</div>}
-        {fieldsReduced.variations && 
-          fieldsReduced.variations.references.nodes.map(node => {
-            const reducedVariationFields = node.fields.reduce(
-              (accumulator, currentValue) => {
-                accumulator[currentValue.key] = {...currentValue}
-                return accumulator
-              },
-              {},
-            );
-            return (
-              <div key={reducedVariationFields.price.value}>${reducedVariationFields.price.value}</div>
-            )
-          })
-        }
+
+        {/* Variation Prices: */}
+        <div className='mt-auto'>
+          {fieldsReduced.variations && 
+            fieldsReduced.variations.references.nodes.map(node => {
+              const reducedVariationFields = node.fields.reduce(
+                (accumulator, currentValue) => {
+                  accumulator[currentValue.key] = {...currentValue}
+                  return accumulator
+                },
+                {},
+              );
+              return (
+                <div key={reducedVariationFields.price.value}>${reducedVariationFields.price.value}</div>
+              )
+            })
+          }          
+        </div>
+
       </div>
 
     </div>
