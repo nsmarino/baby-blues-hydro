@@ -2,7 +2,6 @@ import {Suspense, useState} from 'react';
 import {defer, redirect} from '@shopify/remix-oxygen';
 import {Await, Link, useLoaderData} from '@remix-run/react';
 import Carousel from "react-simply-carousel";
-
 import {
   Image,
   Money,
@@ -77,7 +76,10 @@ export async function loader({params, request, context}) {
     variables: {handle},
   });
 
-  return defer({product, variants});
+  const allProducts = storefront.query(ALL_PRODUCTS_QUERY);
+
+
+  return defer({product, variants, allProducts});
 }
 
 /**
@@ -105,17 +107,22 @@ function redirectToFirstVariant({product, request}) {
 
 export default function Product() {
   /** @type {LoaderReturnData} */
-  const {product, variants} = useLoaderData();
+  const {product, variants, allProducts} = useLoaderData();
   const {selectedVariant} = product;
   return (
-    <div className="flex flex-row-reverse w-full justify-center [&>*]:basis-full p-24">
-      <ProductImages images={product?.images} />
-      <ProductMain
-        selectedVariant={selectedVariant}
-        product={product}
-        variants={variants}
-      />
-    </div>
+    <>
+      <div className="flex flex-row-reverse w-full justify-center [&>*]:basis-full p-24">
+        <ProductImages images={product?.images} />
+        <ProductMain
+          selectedVariant={selectedVariant}
+          product={product}
+          variants={variants}
+        />
+      </div>
+      <div>
+        <Products products={allProducts} currentProdId={product?.id} />
+      </div>
+    </>
   );
 }
 const CarouselButton = ({dir}) => {
@@ -414,6 +421,41 @@ function AddToCartButton({analytics, children, disabled, lines, onClick}) {
   );
 }
 
+function Products({products, currentProdId}) {
+  return (
+    <div className="mx-[20px]">
+      <Suspense fallback={<div>Loading...</div>}>
+        <Await resolve={products}>
+          {({products}) => (
+            <div className="flex flex-col max-w-[500px] mx-auto my-24 gap-24">
+              {products.nodes.map((product) => {
+                  if (product.id===currentProdId) return 
+                  return (
+                  <Link
+                    key={product.id}
+                    className="recommended-product gap-4 flex flex-col"
+                    to={`/products/${product.handle}`}
+                  >
+                    <Image
+                      data={product.images.nodes[0]}
+                      aspectRatio="1/1"
+                      sizes="(min-width: 45em) 20vw, 50vw"
+                    />
+                    <h2 className="uppercase font-sans text-center font-bold text-xl">{product.title}</h2>
+                    <p className="uppercase font-sans italic text-center font-bold text-xl">
+                      <Money data={product.priceRange.minVariantPrice} withoutTrailingZeros/>
+                    </p>
+                  </Link>
+                )
+              })}
+            </div>
+          )}
+        </Await>
+      </Suspense>
+    </div>
+  );
+}
+
 const PRODUCT_VARIANT_FRAGMENT = `#graphql
   fragment ProductVariant on ProductVariant {
     availableForSale
@@ -526,6 +568,36 @@ const VARIANTS_QUERY = `#graphql
   }
 `;
 
+const ALL_PRODUCTS_QUERY = `#graphql
+  fragment ProductData on Product {
+    id
+    title
+    handle
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+    images(first: 10) {
+      nodes {
+        id
+        url
+        altText
+        width
+        height
+      }
+    }
+  }
+  query Products ($country: CountryCode, $language: LanguageCode)
+    @inContext(country: $country, language: $language) {
+    products(first: 4, sortKey: UPDATED_AT, reverse: false) {
+      nodes {
+        ...ProductData
+      }
+    }
+  }
+`;
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */
 /** @typedef {import('@remix-run/react').FetcherWithComponents} FetcherWithComponents */
