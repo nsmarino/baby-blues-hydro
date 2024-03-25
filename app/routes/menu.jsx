@@ -32,22 +32,22 @@ export default function Menu() {
         <div className='mx-[20px] flex flex-col'>
           <MenuNav sections={sections} />
           <MenuSections sections={sections} />
-          <div className='relative py-8 text-center uppercase mono-font-bold text-xl'>
+          <div className='relative pb-8 pt-12 text-center uppercase mono-font-bold '>
             <AsteriskBorder top={true}>
-              <p>*20% gratuity will be added to parties of six or more</p>
+              <h3>*20% gratuity will be added to parties of six or more</h3>
             </AsteriskBorder>
           </div>
-          <div className='relative py-8 text-center uppercase sans-font font-bold'>
+          <div className='relative pb-8 pt-12 text-center uppercase sans-font font-bold'>
             <AsteriskBorder top={true}>
-              <p>!!!!!!!!!!!!!!!!! PLEASE ADVISE US OF ANY FOOD ALLERGIES !!!!!!!!!!!!!!!!!</p>
+              <p className='announcement'>!!!!!!!!!!!!!!!!! PLEASE ADVISE US OF ANY FOOD ALLERGIES !!!!!!!!!!!!!!!!!</p>
             </AsteriskBorder>
           </div>
-          <div className='relative py-8 text-center uppercase mono-font-bold'>
+          <div className='relative pb-8 pt-12 text-center uppercase mono-font-bold'>
             <AsteriskBorder top={true}>
               <div className='flex w-full justify-around'>
-                <span>(GF) - GLUTEN FREE</span>
-                <span>(N) - CONTAINS NUTS</span>
-                <span>(V) - VEGAN</span>
+                <p className='h3'>(GF) - GLUTEN FREE</p>
+                <p className='h3'>(N) - CONTAINS NUTS</p>
+                <p className='h3'>(V) - VEGAN</p>
               </div>
             </AsteriskBorder>
           </div>
@@ -78,27 +78,28 @@ export default function Menu() {
 const MenuSections = ({sections}) => {
 
   return (
-    <div className='my-24 flex justify-center items-center flex-col gap-4 text-blue mono-font w-full mx-auto'>
+    <div className='my-24 flex justify-center items-center flex-col gap-[50px] text-blue mono-font w-full mx-auto'>
       {sections.map(section => {
         if (section.handle === "specials") {
           return (
-          <div className="w-full flex flex-col gap-8 relative py-12 my-12">
+          <div key={section.id} className="w-full flex flex-col gap-8 relative py-12 my-12">
             <AsteriskBorder bottom={true} top={true}>
               <Marquee style={{}}>
-                <div class="sans-font text-xl font-bold">SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <h2 className="announcement uppercase">SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
               </Marquee>  
             </AsteriskBorder>
-            <div className='flex flex-col w-full max-w-[1200px] justify-center mx-auto gap-8'>   
-            {
-              section.fields.items.references.nodes.map(menuItem => <MenuItem item={menuItem} key={menuItem.id} />)
-            }
+            <p className='footer-note text-center uppercase py-[40px]'>Ask your server for etc...</p>
+            <div className='flex flex-col w-full max-w-[1300px] justify-center mx-auto gap-8 pb-[100px]'>   
+              {
+                section.fields.items.references.nodes.map(menuItem => <MenuItem item={menuItem} key={menuItem.id} />)
+              }
             </div>
           </div>
         )} else return (
-          <div key={section.id} className='w-full flex flex-col gap-8 max-w-[1200px]'>
+          <div key={section.id} className='w-full flex flex-col gap-[50px] max-w-[1300px]'>
             <div className='w-full relative'>
               <div className={`${section.handle !== "drinks" ? "dot-bg" : ""}`}></div>
-              <h2 className='relative w-fit mx-auto border-2 py-4 px-12 rounded-[100%] bg-[#FFFFFF] mono-font-bold uppercase text-xl'>{section.fields.title.value}</h2>
+              <h2 className='relative w-fit mx-auto border-2 py-4 px-12 rounded-[100%] bg-[#FFFFFF] mono-font-bold uppercase '>{section.fields.title.value}</h2>
             </div>
             {
               section.fields.items.references.nodes.map(menuItem => <MenuItem item={menuItem} key={menuItem.id} />)
@@ -123,11 +124,11 @@ const MenuItem = ({item}) => {
     <>
     <div className='flex w-full justify-between'>
       <div className='basis-1/3 font-bold text-right pr-8 uppercase'>
-        <div>{(fieldsReduced.gluten_free && fieldsReduced.gluten_free.value==='true')  && "(G.F.) "}<span className='mono-font-bold text-xl'>{fieldsReduced.title.value}</span></div>
-        <div>{fieldsReduced.subtitle && fieldsReduced.subtitle.value}</div>
+        <h3>{(fieldsReduced.gluten_free && fieldsReduced.gluten_free.value==='true')  && "(G.F.) "}<span className='mono-font-bold '>{fieldsReduced.title.value}</span></h3>
+        <p className='subtitle'>{fieldsReduced.subtitle && fieldsReduced.subtitle.value}</p>
       </div>
 
-      <div className='basis-full relative text-xl'>
+      <div className='basis-full relative'>
         {
         fieldsReduced.content ? 
           (<div className="html" dangerouslySetInnerHTML={{__html: convertSchemaToHtml(fieldsReduced.content.value)}} />)
@@ -140,9 +141,9 @@ const MenuItem = ({item}) => {
         {fieldsReduced.variations && <>{fieldsReduced.variations.references.nodes.map(variation => <MenuItemVariation variation={variation} key={variation.id} />)}</> }
       </div>
 
-      <div className='text-right mono-font-bold text-xl pl-8 flex flex-col'>
+      <div className='text-right mono-font-bold  pl-8 flex flex-col'>
         {/* Item Price: */}
-        {fieldsReduced.price && <div>${fieldsReduced.price.value}</div>}
+        {fieldsReduced.price && <div className='h3'>${fieldsReduced.price.value}</div>}
 
         {/* Variation Prices: */}
         <div className='mt-auto'>
@@ -156,7 +157,7 @@ const MenuItem = ({item}) => {
                 {},
               );
               return (
-                <div key={reducedVariationFields.price.value}>${reducedVariationFields.price.value}</div>
+                <div className='h3' key={reducedVariationFields.price.value+reducedVariationFields.title.value}>${reducedVariationFields.price.value}</div>
               )
             })
           }          
@@ -165,7 +166,7 @@ const MenuItem = ({item}) => {
       </div>
 
     </div>
-    {fieldsReduced.footer_note && <div className='italic text-center uppercase mono-font'>{fieldsReduced.footer_note.value}</div>}
+    {fieldsReduced.footer_note && <p className='text-center uppercase footer-note'>{fieldsReduced.footer_note.value}</p>}
     </>
   )
 }
@@ -180,7 +181,7 @@ const MenuItemVariation = ({variation}) => {
   );
   return (
   <div className='flex gap-4'>
-    <div className="whitespace-nowrap">{fieldsReduced.title.value}</div>
+    <p className="whitespace-nowrap">{fieldsReduced.title.value}</p>
     <div className="relative basis-full"><div className="dot-line"></div></div>
   </div>
   )

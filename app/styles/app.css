@@ -599,15 +599,15 @@ body {
 }
 
 .dot-bg {
-  border-top: 4px dotted var(--baby-blue);
+  border-top: 7px dotted var(--baby-blue);
   width: 100%;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
 .dot-line {
-  border-top: 4px dotted var(--baby-blue);
+  border-top: 7px dotted var(--baby-blue);
   width: 100%;
   position: absolute;
-  bottom: 8px;
+  bottom: 10px;
 }
