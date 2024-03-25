@@ -72,7 +72,7 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
 
   return (
     <>
-      <CartAside cart={cart} />
+      {/* <CartAside cart={cart} /> */}
       <MobileMenuAside menu={header?.menu} shop={header?.shop} />
       {header && <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />}
       <main className='h-full overflow-y-scroll'>

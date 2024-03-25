@@ -147,7 +147,7 @@ function SearchToggle() {
  * @param {{count: number}}
  */
 function CartBadge({count}) {
-  return <a href="#cart-aside" className='py-8'>Cart <br />({count})</a>;
+  return <NavLink prefetch="intent" to="/cart" style={activeLinkStyle} end>Cart <br />({count})</NavLink>;
 }
 
 /**
