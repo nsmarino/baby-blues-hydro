@@ -71,7 +71,7 @@ export default function Homepage() {
         <span>Brooklyn, New York</span>
       </div> 
     </div>
-    <div className='absolute bottom-[20%] w-full text-center uppercase text-xl font-serif font-bold'>!!!!!!!!! WE ARE CLOSED FOR MEMORIAL DAY!! REOPENING 2/9 !!!!!!!!!</div>
+    <p className='absolute bottom-[20%] w-full text-center uppercase footer-note'>!!!!!!!!! WE ARE CLOSED FOR MEMORIAL DAY!! REOPENING 2/9 !!!!!!!!!</p>
     </>
   );
 }

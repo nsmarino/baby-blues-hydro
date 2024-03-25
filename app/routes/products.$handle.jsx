@@ -200,6 +200,7 @@ function ProductImages({images}) {
  * @param {{image: ProductVariantFragment['image']}}
  */
 function ProductImage({image}) {
+  console.log("PRoduct image", image)
   if (!image) {
     return <div className="product-image" />;
   }

@@ -97,9 +97,25 @@ p.footer-note {
     font-size: 24px;
     font-family: 'AlpinaThin';
     font-weight: normal;
-    font-style: italic;
     line-height: auto;
     letter-spacing: 1px;
+    text-shadow: var(--text-stroke-medium);
+}
+p.info {
+    font-size: 20px;
+    font-family: 'EBGaramond';
+    font-weight: normal;
+    line-height: 120%;
+    letter-spacing: 1px;
+    text-shadow: var(--text-stroke-medium);
+    text-transform: uppercase;
+}
+p.hash-border {
+	font-size: 20px;
+    font-family: 'AlpinaBold';
+	font-weight: normal;
+	letter-spacing: 8px;
+	line-height: auto;
     text-shadow: var(--text-stroke-medium);
 }
 
