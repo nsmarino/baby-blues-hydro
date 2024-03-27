@@ -1,6 +1,7 @@
 import {CartForm, Image, Money} from '@shopify/hydrogen';
 import {Link} from '@remix-run/react';
 import {useVariantUrl} from '~/lib/variants';
+import AsteriskBorder from './AsteriskBorder';
 
 export function CartMain({layout, cart}) {
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
@@ -21,11 +22,23 @@ function CartDetails({layout, cart}) {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
 
   return (
-    <div className="cart-details">
+    <div className="cart-details w-full p-32">
+
+      <header className='relative pb-12'>      
+        <AsteriskBorder bottom={true}>
+        <div className='flex justify-between body-sm font-bold !tracking-normal'>
+          <div>Item</div>
+          <div>Details</div>
+          <div>Quantity</div>
+          <div>Total</div>          
+        </div>
+
+        </AsteriskBorder>
+      </header>
       <CartLines lines={cart?.lines} layout={layout} />
       {cartHasItems && (
         <CartSummary cost={cart.cost} layout={layout}>
-          <CartDiscounts discountCodes={cart.discountCodes} />
+          {/* <CartDiscounts discountCodes={cart.discountCodes} /> */}
           <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
         </CartSummary>
       )}
@@ -54,7 +67,8 @@ function CartLineItem({layout, line}) {
 
   
   return (
-    <li key={id} className="cart-line">
+    <li key={id} className="cart-line w-full justify-between">
+      <CartLineRemoveButton lineIds={[line.id]} />
       {image && (
         <Image
           alt={title}
@@ -81,8 +95,7 @@ function CartLineItem({layout, line}) {
             <strong>{product.title}</strong>
           </p>
         </Link>
-        <CartLinePrice line={line} as="span" />
-        <ul>
+        {/* <ul>
           {selectedOptions.map((option) => (
             <li key={option.name}>
               <small>
@@ -90,9 +103,10 @@ function CartLineItem({layout, line}) {
               </small>
             </li>
           ))}
-        </ul>
-        <CartLineQuantity line={line} />
-      </div>
+        </ul> */}
+      </div>        
+      <CartLineQuantity line={line} />
+      <CartLinePrice line={line} as="span" />
     </li>
   );
 }
@@ -101,9 +115,9 @@ function CartCheckoutActions({checkoutUrl}) {
   if (!checkoutUrl) return null;
 
   return (
-    <div>
-      <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
+    <div className='w-[600px] mx-auto fixed bottom-48 left-1/2 -translate-x-1/2'>
+      <a href={checkoutUrl} target="_self" className='atc-btn block'>
+        Check Out
       </a>
       <br />
     </div>
@@ -111,24 +125,26 @@ function CartCheckoutActions({checkoutUrl}) {
 }
 
 export function CartSummary({cost, layout, children = null}) {
-  const className =
-    layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
 
   return (
-    <div aria-labelledby="cart-summary" className={className}>
-      <h4>Totals</h4>
-      <dl className="cart-subtotal">
-        <dt>Subtotal</dt>
-        <dd>
-          {cost?.subtotalAmount?.amount ? (
-            <Money data={cost?.subtotalAmount} />
-          ) : (
-            '-'
-          )}
-        </dd>
-      </dl>
+    <>
+      <div aria-labelledby="cart-summary" className='relative py-12'>
+        <AsteriskBorder top={true} bottom={true}>
+          <div className="flex w-full justify-between relative">
+            <div>Total:</div>
+            <div>X items</div>
+            <div>{cost?.subtotalAmount?.amount ? (
+                  <Money data={cost?.subtotalAmount} />
+                ) : (
+                  '-'
+                )}
+              </div>
+          </div>
+        </AsteriskBorder>
+      </div>
+
       {children}
-    </div>
+    </>
   );
 }
 
@@ -174,7 +190,6 @@ function CartLineQuantity({line}) {
         </button>
       </CartLineUpdateButton>
       &nbsp;
-      <CartLineRemoveButton lineIds={[lineId]} />
     </div>
   );
 }
@@ -201,8 +216,8 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
 export function CartEmpty({hidden = false, layout = 'aside'}) {
   return (
     <div hidden={hidden}>
-
-      <p>Your cart is empty !!!</p>
+<div className='flex flex-col items-center justify-center gap-24 md:min-w-[600px]'>
+      <h2 className='uppercase -rotate-[2deg] scale-[1.25]'>Your cart is empty !!!</h2>
       
       <div>
         <svg width="157" height="172" viewBox="0 0 157 172" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -219,6 +234,7 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
       
       <Link
         to="/shop"
+        className='atc-btn'
         onClick={() => {
           if (layout === 'aside') {
             window.location.href = '/collections';
@@ -226,7 +242,9 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
         }}
       >
         Go Shopping
-      </Link>
+      </Link>  
+</div>
+
     </div>
   );
 }

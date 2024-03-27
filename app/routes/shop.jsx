@@ -52,11 +52,9 @@ function Products({products}) {
         </Await>
       </Suspense>
       <br />
-      <div className='relative py-8 text-center uppercase font-serif font-bold'>
-            <AsteriskBorder top={true}>
-              <p>!!!!!!!!!!!!!!!!! PLEASE ADVISE US OF ANY FOOD ALLERGIES !!!!!!!!!!!!!!!!!</p>
-            </AsteriskBorder>
-          </div>
+
+      {/* Shop Footer */}
+
           <div className='relative py-8 text-center uppercase font-serif font-bold'>
             <AsteriskBorder top={true}>
               <div className='flex w-full justify-around'>
@@ -68,24 +66,29 @@ function Products({products}) {
             </AsteriskBorder>
           </div>
           <div className='flex gap-8 w-full justify-between'>
-            <div className='relative p-24 basis-full text-center uppercase font-serif font-bold'>
-              <AsteriskBorder top={true} right={true}>
-                <div className='flex flex-col justify-around'>
-                  <span>(GF) - GLUTEN FREE</span>
-                  <span>(N) - CONTAINS NUTS</span>
-                  <span>(V) - VEGAN</span>
+            <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch'>
+              <AsteriskBorder top={true} right={true} />
+                <div className='flex flex-col h-full'>
+                  <div className='flex h2'><span>IG:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>@babybluesny</span></div>
+                  <div className='flex h2'><span>E:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>info@babyblues.nyc</span></div>
+                  <div className='relative py-8'><div className="dot-line"></div></div>
+                  <div className='h2 mt-auto mb-4'>No reservations - walk ins only</div>
                 </div>
-              </AsteriskBorder>
+              
             </div>          
-            <div className='relative p-24 basis-full text-center uppercase font-serif font-bold'>
-              <AsteriskBorder top={true} left={true}>
-                <div className='flex flex-col justify-around'>
-                  <span>(GF) - GLUTEN FREE</span>
-                  <span>(N) - CONTAINS NUTS</span>
-                  <span>(V) - VEGAN</span>
+            <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch'>
+              <AsteriskBorder top={true} left={true} />
+                <div className='flex flex-col h-full'>
+                  <div className='flex h2'><span>Monday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
+                  <div className='flex h2'><span>Tuesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
+                  <div className='flex h2'><span>Wednesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
+                  <div className='flex h2'><span>Thursday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
+                  <div className='flex h2'><span>Friday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
+                  <div className='flex h2'><span>Saturday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 3.30</span></div>
+                  <div className='flex h2'><span>Sunday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 3.30</span></div>
                 </div>
-              </AsteriskBorder>
-            </div>          
+              
+            </div>        
           </div>
 
     </div>
