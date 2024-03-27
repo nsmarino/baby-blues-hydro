@@ -38,10 +38,13 @@ function Products({products}) {
                     aspectRatio="1/1"
                     sizes="(min-width: 45em) 20vw, 50vw"
                   />
-                  <h2 className="uppercase font-sans text-center font-bold text-xl">{product.title}</h2>
-                  <p className="uppercase font-sans italic text-center font-bold text-xl">
-                    <Money data={product.priceRange.minVariantPrice} withoutTrailingZeros/>
-                  </p>
+                  <h2 className="uppercase sans-font text-center">
+                    <span>{product.title}</span>
+                    <span className="uppercase italic text-center">
+                      <Money data={product.priceRange.minVariantPrice} withoutTrailingZeros/>
+                    </span>                  
+                  </h2>
+
                 </Link>
               ))}
             </div>

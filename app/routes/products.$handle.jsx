@@ -111,7 +111,7 @@ export default function Product() {
   const {selectedVariant} = product;
   return (
     <>
-      <div className="flex flex-row-reverse w-full justify-center [&>*]:basis-full p-24">
+      <div className="flex flex-row-reverse w-full justify-center [&>*]:basis-full px-24 py-[160px] gap-8">
         <ProductImages images={product?.images} />
         <ProductMain
           selectedVariant={selectedVariant}
@@ -148,7 +148,7 @@ function ProductImages({images}) {
   const [activeSlide, setActiveSlide] = useState(0);
 
   return (
-    <div className='relative pb-[80px]'>
+    <div className='relative pb-[80px] self-start sticky top-24'>
     <Carousel
       containerProps={{
       }}
@@ -207,7 +207,7 @@ function ProductImages({images}) {
  * @param {{image: ProductVariantFragment['image']}}
  */
 function ProductImage({image}) {
-  console.log("PRoduct image", image)
+
   if (!image) {
     return <div className="product-image" />;
   }
@@ -233,12 +233,13 @@ function ProductImage({image}) {
  */
 function ProductMain({selectedVariant, product, variants}) {
   const {title, descriptionHtml} = product;
+  const [activeTab, setActiveTab] = useState("")
+
   return (
-    <div className="flex flex-col gap-4 items-center text-center">
-      <h1 className="text-xl uppercase font-bold">{title}</h1>
+    <div className="flex flex-col gap-[40px] items-center text-center">
+      <h2 className="sans-font uppercase leading-none">{title}</h2>
       <ProductPrice selectedVariant={selectedVariant} />
-      <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
-      <br />
+      <div className="body-sm" dangerouslySetInnerHTML={{__html: descriptionHtml}} />
       <Suspense
         fallback={
           <ProductForm
@@ -261,11 +262,19 @@ function ProductMain({selectedVariant, product, variants}) {
           )}
         </Await>
       </Suspense>
-      <div className='flex w-full justify-between'>
-        <div>Product Details</div>
-        <div>Size & Fit</div>
-        <div>Shipping & Returns</div>
+      <div className='border-2 h-[600px]'>
+        <div className='flex w-full justify-between p-12 gap-24'>
+          <button className="hover:underline" onClick={()=>setActiveTab("details")}>Product Details</button>
+          <button className="hover:underline" onClick={()=>setActiveTab("size-fit")}>Size & Fit</button>
+          <button className="hover:underline" onClick={()=>setActiveTab("shipping")}>Shipping & Returns</button>
+        </div>
+        <div className='relative'>
+          <div className='absolute p-12' style={activeTab==="details" ? {display: "block"} : {display: "none"}}>CONTENT _ PRODUCT DETAILS</div>
+          <div className='absolute p-12' style={activeTab==="size-fit" ? {display: "block"} : {display: "none"}}>CONTENT _ Size and Fit</div>
+          <div className='absolute p-12' style={activeTab==="shipping" ? {display: "block"} : {display: "none"}}>CONTENT _ Shipping and Returns</div>
+        </div>   
       </div>
+
     </div>
   );
 }
@@ -277,11 +286,10 @@ function ProductMain({selectedVariant, product, variants}) {
  */
 function ProductPrice({selectedVariant}) {
   return (
-    <div className="product-price">
+    <div className="h2 sans-font italic leading-none">
       {selectedVariant?.compareAtPrice ? (
         <>
           <p>Sale</p>
-          <br />
           <div className="product-price-on-sale">
             {selectedVariant ? <Money data={selectedVariant.price} withoutTrailingZeros/> : null}
             <s>
@@ -306,7 +314,7 @@ function ProductPrice({selectedVariant}) {
 function ProductForm({product, selectedVariant, variants}) {
   const [quantity, setQuantity] = useState(1)
   return (
-    <div className="product-form">
+    <div className="product-form flex flex-col gap-[40px] w-full justify-center">
       <VariantSelector
         handle={product.handle}
         options={product.options}
@@ -314,11 +322,11 @@ function ProductForm({product, selectedVariant, variants}) {
       >
         {({option}) => <ProductOptions key={option.name} option={option} />}
       </VariantSelector>
-      <br />
       <div>
-        <p className='uppercase'>Quantity</p>
-        <div className='flex gap-4'>
-          <button 
+        <div className='body-sm bold' style={{textShadow: "var(--text-stroke-medium)"}}>Quantity</div>
+        <div className='flex gap-4 justify-center items-center h2 [&>*]:leading-none'>
+          <button
+            style={{fontSize: "60px"}}
             aria-label="Decrease quantity"
             disabled={quantity <= 1}
             name="decrease-quantity"
@@ -326,6 +334,7 @@ function ProductForm({product, selectedVariant, variants}) {
           >-</button>
           <span>{quantity}</span>
           <button
+            style={{fontSize: "40px", textShadow: "var(--text-stroke-thick)"}}
             aria-label="Increase quantity"
             name="increase-quantity"
             onClick={() => setQuantity(Number((quantity + 1).toFixed(0)))}
@@ -333,7 +342,6 @@ function ProductForm({product, selectedVariant, variants}) {
         </div>
 
       </div>
-      <br />
       <AddToCartButton
         disabled={!selectedVariant || !selectedVariant.availableForSale}
         onClick={() => {
@@ -361,20 +369,18 @@ function ProductForm({product, selectedVariant, variants}) {
  */
 function ProductOptions({option}) {
   return (
-    <div className="product-options" key={option.name}>
-      <h5>{option.name}</h5>
+    <div className="product-options mx-auto" key={option.name}>
       <div className="product-options-grid">
         {option.values.map(({value, isAvailable, isActive, to}) => {
           return (
             <Link
-              className="product-options-item"
+              className={`h2 italic sans-font ${isActive ? "selected relative" : ""}`}
               key={option.name + value}
               prefetch="intent"
               preventScrollReset
               replace
               to={to}
               style={{
-                border: isActive ? '1px solid black' : '1px solid transparent',
                 opacity: isAvailable ? 1 : 0.3,
               }}
             >
@@ -383,7 +389,6 @@ function ProductOptions({option}) {
           );
         })}
       </div>
-      <br />
     </div>
   );
 }
@@ -411,7 +416,7 @@ function AddToCartButton({analytics, children, disabled, lines, onClick}) {
             type="submit"
             onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
-            className='border-2 border-blue w-full p-2 uppercase text-center italic text-xl'
+            className='atc-btn'
           >
             {children}
           </button>
@@ -441,10 +446,12 @@ function Products({products, currentProdId}) {
                       aspectRatio="1/1"
                       sizes="(min-width: 45em) 20vw, 50vw"
                     />
-                    <h2 className="uppercase font-sans text-center font-bold text-xl">{product.title}</h2>
-                    <p className="uppercase font-sans italic text-center font-bold text-xl">
-                      <Money data={product.priceRange.minVariantPrice} withoutTrailingZeros/>
-                    </p>
+                    <h2 className="uppercase sans-font text-center">
+                      <span>{product.title}</span>
+                      <span className="italic">
+                        <Money data={product.priceRange.minVariantPrice} withoutTrailingZeros/>
+                      </span> 
+                    </h2>
                   </Link>
                 )
               })}
