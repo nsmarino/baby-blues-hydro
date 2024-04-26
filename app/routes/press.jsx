@@ -2,11 +2,11 @@ import {Await, useLoaderData, Link} from '@remix-run/react';
 import {defer} from '@shopify/remix-oxygen';
 import MenuNav from "~/components/Menu/MenuNav"
 import { convertSchemaToHtml } from '@thebeyondgroup/shopify-rich-text-renderer'
-import AsteriskBorder from "~/components/AsteriskBorder"
 import Marquee from "react-fast-marquee";
 import {
     Image,
   } from '@shopify/hydrogen';
+import HashBorder from '~/components/HashBorder';
 export async function loader({context}) {
     const {storefront} = context;
     const {metaobjects: { nodes }} = await storefront.query(PRESS_QUERY); 
@@ -46,10 +46,11 @@ export default function Press() {
             <div className='absolute top-[500px] right-[200px] rotate-[10deg]'>Press</div>
             <div className='absolute top-[800px] right-[200px] rotate-[25deg]'>Press</div>
         </header>
-        <div className='max-w-[40vw] mx-auto flex flex-col gap-24 mt-[300px] bg-[#FFFFFF] relative'>
+        <div className='max-w-[50vw] mx-auto flex flex-col mt-[300px] bg-[#FFFFFF] relative p-12 hash-border'>
+            <HashBorder top={true} />
             {articles.map(article => {
                 return (
-                    <article key={article.id}>
+                    <article key={article.id} className='mb-12'>
                         <h2 className='uppercase'>{article.fields.title.value}</h2>
                         <p className="sans-font uppercase">{article.fields.subtitle.value}</p>
                         <Image

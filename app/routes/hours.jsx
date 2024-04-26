@@ -23,22 +23,18 @@ export default function Hours() {
             </Marquee>
             </div>
             <div className='h-full flex justify-center items-center gap-8'>
-                <div className='flex flex-col justify-center items-center gap-4'>
-                    <p className='hash-border'>##########</p>
+                <div className='flex flex-col justify-center items-center gap-4 hash-border'>
                     <p className='info'>Monday - Friday:</p>
                     <p className='info'>9AM - 2.30PM</p>
-                    <p className='hash-border'>##########</p>
                 </div>
 
                 <div>
                     <SimpleCarousel images={images} />
                 </div>
 
-                <div className='flex flex-col justify-center items-center gap-4'>
-                    <p className='hash-border'>##########</p>
+                <div className='flex flex-col justify-center items-center gap-4 hash-border'>
                     <p className='info'>Saturday - Sunday:</p>
                     <p className='info'>9AM - 3.30PM</p>
-                    <p className='hash-border'>##########</p>
                 </div>
             </div>
         </>
