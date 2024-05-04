@@ -1,105 +1,79 @@
 import {json} from '@shopify/remix-oxygen';
 import {Link, useLoaderData} from '@remix-run/react';
+import {defer, redirect} from '@shopify/remix-oxygen';
+import AsteriskBorder from "~/components/AsteriskBorder"
+import { convertSchemaToHtml } from '@thebeyondgroup/shopify-rich-text-renderer'
 
 /**
  * @type {MetaFunction<typeof loader>}
  */
 export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.policy.title ?? ''}`}];
+
+  return [{title: `Baby Blues | ${data.wys.fields.title.value}`}];
 };
 
-/**
- * @param {LoaderFunctionArgs}
- */
 export async function loader({params, context}) {
-  if (!params.handle) {
-    throw new Response('No handle was passed in', {status: 404});
-  }
+  const {handle} = params;
 
-  const policyName = params.handle.replace(/-([a-z])/g, (_, m1) =>
-    m1.toUpperCase(),
-  );
-
-  const data = await context.storefront.query(POLICY_CONTENT_QUERY, {
-    variables: {
-      privacyPolicy: false,
-      shippingPolicy: false,
-      termsOfService: false,
-      refundPolicy: false,
-      [policyName]: true,
-      language: context.storefront.i18n?.language,
-    },
+  const {storefront} = context;
+  const wys = await storefront.query(WYSIWYG_QUERY, {
+    variables: {handle},
   });
+  const wysReduced = {
+      ...wys,
+      fields: wys.metaobject.fields.reduce(
+          (accumulator, currentValue) => {
+              accumulator[currentValue.key] = {...currentValue}
+              return accumulator
+          },
+          {},
+      )
+  }  
 
-  const policy = data.shop?.[policyName];
+  const allWysiwyg = await storefront.query(ALL_WYSIWYG_QUERY);
 
-  if (!policy) {
-    throw new Response('Could not find the policy', {status: 404});
-  }
-
-  return json({policy});
+  return defer({wys: wysReduced, allWysiwyg})
 }
 
 export default function Policy() {
-  /** @type {LoaderReturnData} */
-  const {policy} = useLoaderData();
+  const { wys, allWysiwyg} = useLoaderData();
 
   return (
-    <div className="policy">
-      <br />
-      <br />
-      <div>
-        <Link to="/policies">← Back to Policies</Link>
+    <div className='relative max-w-[50vw] mx-auto'>
+      <AsteriskBorder top={true}>
+        <div className='flex w-full justify-around mt-24 p-8 '>
+          {allWysiwyg.metaobjects.nodes.map(node => 
+            <a key={node.handle} href={`/policies/${node.handle}`}>{node.field.value}</a>
+          )}
+        </div>
+      </AsteriskBorder>
+      <div className='max-w-[50vw] mx-auto flex flex-col my-[100px]'>
+        <div className="richtext" dangerouslySetInnerHTML={{__html: convertSchemaToHtml(wys.fields.content.value)}} />
       </div>
-      <br />
-      <h1>{policy.title}</h1>
-      <div dangerouslySetInnerHTML={{__html: policy.body}} />
     </div>
   );
 }
 
-// NOTE: https://shopify.dev/docs/api/storefront/latest/objects/Shop
-const POLICY_CONTENT_QUERY = `#graphql
-  fragment Policy on ShopPolicy {
-    body
-    handle
-    id
-    title
-    url
-  }
-  query Policy(
-    $country: CountryCode
-    $language: LanguageCode
-    $privacyPolicy: Boolean!
-    $refundPolicy: Boolean!
-    $shippingPolicy: Boolean!
-    $termsOfService: Boolean!
-  ) @inContext(language: $language, country: $country) {
-    shop {
-      privacyPolicy @include(if: $privacyPolicy) {
-        ...Policy
-      }
-      shippingPolicy @include(if: $shippingPolicy) {
-        ...Policy
-      }
-      termsOfService @include(if: $termsOfService) {
-        ...Policy
-      }
-      refundPolicy @include(if: $refundPolicy) {
-        ...Policy
+const WYSIWYG_QUERY = `#graphql
+  query Wysiwyg($handle: String!) {
+    metaobject(handle: {handle: $handle, type: "wysiwyg"}) {
+      fields {
+        key
+        value
       }
     }
   }
-`;
+`
 
-/**
- * @typedef {keyof Pick<
- *   Shop,
- *   'privacyPolicy' | 'shippingPolicy' | 'termsOfService' | 'refundPolicy'
- * >} SelectedPolicies
- */
-
-/** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
-/** @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */
-/** @typedef {import('@shopify/hydrogen/storefront-api-types').Shop} Shop */
-/** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */
+const ALL_WYSIWYG_QUERY = `#graphql
+  query {
+    metaobjects(type: "wysiwyg", first: 10) {
+      nodes {
+        handle
+        field(key: "title") {
+          value
+        }
+      }
+    }
+  }
+`

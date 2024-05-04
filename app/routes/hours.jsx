@@ -5,6 +5,10 @@ import { useState } from 'react';
 import Carousel from "react-simply-carousel";
 import {Image} from '@shopify/hydrogen';
 
+export const meta = ({data}) => {
+  return [{title: `Baby Blues | Hours`}];
+};
+
 export async function loader({context}) {
     const {storefront} = context;
     const { metaobjects: {nodes} } = await storefront.query(IMAGE_GALLERY_QUERY);
@@ -22,7 +26,7 @@ export default function Hours() {
                 <p className='announcement !text-[20px]'>THIS IS WHAT THE RESTAURANT LOOKS LIKE!!!!!!! WOW!!!!!! NICE!!!!!!!! IT IS REALLY BLUE!!!!!! THIS IS WHAT THE RESTAURANT LOOKS LIKE!!!!!!! WOW!!!!!! NICE!!!!!!!! IT IS REALLY BLUE!!!!!!&nbsp;</p>
             </Marquee>
             </div>
-            <div className='h-full flex justify-center items-center gap-8'>
+            <div className='h-full justify-center items-center gap-8'>
                 <div className='flex flex-col justify-center items-center gap-4 hash-border'>
                     <p className='info'>Monday - Friday:</p>
                     <p className='info'>9AM - 2.30PM</p>
@@ -65,43 +69,43 @@ function SimpleCarousel({images}) {
 const [activeSlide, setActiveSlide] = useState(0);
 
 return (
-    <div className='relative pb-[80px]'>
+  <div className='relative pb-[80px]'>
     <Carousel
-    containerProps={{
-    }}
-    preventScrollOnSwipe
-    swipeTreshold={60}
-    activeSlideIndex={activeSlide}
-    activeSlideProps={{
-    }}
-    onRequestChange={setActiveSlide}
-    forwardBtnProps={{
-        children: <CarouselButton dir="forward" />,
-        style: {
-        width: 60,
-        height: 60,
-        minWidth: 60,
-        position: "absolute",
-        bottom: 0,
-        right: "33%"
-        }
-    }}
-    backwardBtnProps={{
-        children: <CarouselButton  dir="back" />,
-        style: {
-        width: 60,
-        height: 60,
-        minWidth: 60,
-        position: "absolute",
-        bottom: 0,
-        left: "33%"
-        }
-    }}
-    dotsNav={{
-        show: false,
-    }}
-    itemsToShow={1}
-    speed={400}
+      containerProps={{
+      }}
+      preventScrollOnSwipe
+      swipeTreshold={60}
+      activeSlideIndex={activeSlide}
+      activeSlideProps={{
+      }}
+      onRequestChange={setActiveSlide}
+      forwardBtnProps={{
+          children: <CarouselButton dir="forward" />,
+          style: {
+          width: 60,
+          height: 60,
+          minWidth: 60,
+          position: "absolute",
+          bottom: 0,
+          right: "33%"
+          }
+      }}
+      backwardBtnProps={{
+          children: <CarouselButton  dir="back" />,
+          style: {
+          width: 60,
+          height: 60,
+          minWidth: 60,
+          position: "absolute",
+          bottom: 0,
+          left: "33%"
+          }
+      }}
+      dotsNav={{
+          show: false,
+      }}
+      itemsToShow={1}
+      speed={400}
     >
     {images.map((item, index) => (
         <div
@@ -110,14 +114,16 @@ return (
         }}
         key={index}
         >
+          {index}
         <CarouselImage image={item} />
         </div>
     ))}
+
     </Carousel>
     <div className='absolute bottom-0 left-1/2 -translate-x-1/2 h-[60px] flex items-center justify-center serif-font'>
     ( {activeSlide+1} / {images.length} )
     </div>
-    </div>
+  </div>
 )
 }
 

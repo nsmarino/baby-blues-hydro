@@ -8,7 +8,7 @@ import AsteriskBorder from '~/components/AsteriskBorder';
  * @type {MetaFunction}
  */
 export const meta = () => {
-  return [{title: 'Hydrogen | Home'}];
+  return [{title: 'Baby Blues | Home'}];
 };
 
 /**

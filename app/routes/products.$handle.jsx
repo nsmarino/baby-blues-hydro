@@ -16,7 +16,7 @@ import AsteriskBorder from "~/components/AsteriskBorder"
  * @type {MetaFunction<typeof loader>}
  */
 export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.product.title ?? ''}`}];
+  return [{title: `Baby Blues | ${data?.product.title ?? ''}`}];
 };
 
 /**
@@ -78,9 +78,9 @@ export async function loader({params, request, context}) {
   });
 
   const allProducts = storefront.query(ALL_PRODUCTS_QUERY);
+  const allWysiwyg = await storefront.query(ALL_WYSIWYG_QUERY);
 
-
-  return defer({product, variants, allProducts});
+  return defer({product, variants, allProducts, allWysiwyg});
 }
 
 /**
@@ -108,7 +108,7 @@ function redirectToFirstVariant({product, request}) {
 
 export default function Product() {
   /** @type {LoaderReturnData} */
-  const {product, variants, allProducts} = useLoaderData();
+  const {product, variants, allProducts, allWysiwyg} = useLoaderData();
   const {selectedVariant} = product;
   return (
     <>
@@ -126,10 +126,9 @@ export default function Product() {
       <div className='relative py-8 text-center uppercase font-serif font-bold'>
             <AsteriskBorder top={true}>
               <div className='flex w-full justify-around'>
-                <span>T&C</span>
-                <span>SHIPPING</span>
-                <span>PRIVACY</span>
-                <span>ADA</span>
+                {allWysiwyg.metaobjects.nodes.map(node => 
+                  <a key={node.handle} href={`/policies/${node.handle}`}>{node.field.value}</a>
+                )}
               </div>
             </AsteriskBorder>
           </div>
@@ -641,6 +640,19 @@ const ALL_PRODUCTS_QUERY = `#graphql
     }
   }
 `;
+
+const ALL_WYSIWYG_QUERY = `#graphql
+  query {
+    metaobjects(type: "wysiwyg", first: 10) {
+      nodes {
+        handle
+        field(key: "title") {
+          value
+        }
+      }
+    }
+  }
+`
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */
 /** @typedef {import('@remix-run/react').FetcherWithComponents} FetcherWithComponents */
