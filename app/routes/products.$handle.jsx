@@ -11,6 +11,7 @@ import {
 } from '@shopify/hydrogen';
 import {getVariantUrl} from '~/lib/variants';
 import AsteriskBorder from "~/components/AsteriskBorder"
+import HashBorder from '~/components/HashBorder';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -297,19 +298,27 @@ function ProductMain({selectedVariant, product, variants}) {
           )}
         </Await>
       </Suspense>
-      <div className='border-2 h-[600px]'>
-        <div className='flex w-full justify-between p-12 gap-24'>
-          <button className="hover:underline" onClick={()=>setActiveTab("details")}>Product Details</button>
-          <button className="hover:underline" onClick={()=>setActiveTab("size-fit")}>Size & Fit</button>
-          <button className="hover:underline" onClick={()=>setActiveTab("shipping")}>Shipping & Returns</button>
+        <div className={activeTab != "" ? "hash-border" : ""}>
+            <div className='flex w-full justify-between px-12 pt-12 gap-12 '>
+              <button style={{textShadow: "var(--text-stroke-thin);"}} className="hover:underline serif-font uppercase font-bold whitespace-nowrap" onClick={()=>setActiveTab("details")}>Product Details</button>
+              <button style={{textShadow: "var(--text-stroke-thin);"}} className="hover:underline serif-font uppercase font-bold whitespace-nowrap" onClick={()=>setActiveTab("size-fit")}>Size & Fit</button>
+              <button style={{textShadow: "var(--text-stroke-thin);"}} className="hover:underline serif-font uppercase font-bold whitespace-nowrap" onClick={()=>setActiveTab("shipping")}>Shipping & Returns</button>
+            </div>
+            <div className='relative min-h-[600px]'>
+              <div className='p-12 text-left uppercase italic [&>p]:text-sm [&>p]:font-sans' style={activeTab==="details" ? {display: "block"} : {display: "none"}}>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              </div>
+              <div className='absolute p-12 text-left uppercase italic [&>p]:text-sm [&>p]:font-sans' style={activeTab==="size-fit" ? {display: "block"} : {display: "none"}}>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              </div>
+              <div className='absolute p-12 text-left uppercase italic [&>p]:text-sm [&>p]:font-sans' style={activeTab==="shipping" ? {display: "block"} : {display: "none"}}>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              </div>
+            </div> 
         </div>
-        <div className='relative'>
-          <div className='absolute p-12' style={activeTab==="details" ? {display: "block"} : {display: "none"}}>CONTENT _ PRODUCT DETAILS</div>
-          <div className='absolute p-12' style={activeTab==="size-fit" ? {display: "block"} : {display: "none"}}>CONTENT _ Size and Fit</div>
-          <div className='absolute p-12' style={activeTab==="shipping" ? {display: "block"} : {display: "none"}}>CONTENT _ Shipping and Returns</div>
-        </div>   
-      </div>
-
     </div>
   );
 }
@@ -324,12 +333,13 @@ function ProductPrice({selectedVariant}) {
     <div className="h2 sans-font italic leading-none">
       {selectedVariant?.compareAtPrice ? (
         <>
-          <p>Sale</p>
-          <div className="product-price-on-sale">
-            {selectedVariant ? <Money data={selectedVariant.price} withoutTrailingZeros/> : null}
-            <s>
-              <Money data={selectedVariant.compareAtPrice} withoutTrailingZeros/>
-            </s>
+          
+          <div className="product-price-on-sale relative">
+            <div className='absolute -top-2 -left-2 w-[100px] h-[3px] opacity-40 bg-blue rotate-[30deg] origin-top-left'></div>
+            <Money data={selectedVariant.compareAtPrice} withoutTrailingZeros/>
+            <div className='absolute -top-2 -right-12 translate-x-full flex gap-4 items-end -rotate-12'>
+              {selectedVariant ? <Money data={selectedVariant.price} withoutTrailingZeros/> : null} <span className='text-sm tracking-[0.4em]'>SALE!</span>
+            </div>
           </div>
         </>
       ) : (
@@ -379,8 +389,15 @@ function ProductForm({product, selectedVariant, variants}) {
       </div>
       <AddToCartButton
         disabled={!selectedVariant || !selectedVariant.availableForSale}
-        onClick={() => {
+        onClick={(e) => {
           window.location.href = window.location.href + '#cart-aside';
+          const innerText = e.target.innerText
+          e.target.classList.add("add-confirmed")
+          e.target.innerText = "Added to your cart!"
+          setTimeout(() => {
+            e.target.classList.remove("add-confirmed")
+            e.target.innerText = innerText
+          }, 2000)
         }}
         lines={
           selectedVariant
