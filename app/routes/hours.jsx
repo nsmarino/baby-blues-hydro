@@ -26,13 +26,13 @@ export default function Hours() {
                 <p className='announcement !text-[20px]'>THIS IS WHAT THE RESTAURANT LOOKS LIKE!!!!!!! WOW!!!!!! NICE!!!!!!!! IT IS REALLY BLUE!!!!!! THIS IS WHAT THE RESTAURANT LOOKS LIKE!!!!!!! WOW!!!!!! NICE!!!!!!!! IT IS REALLY BLUE!!!!!!&nbsp;</p>
             </Marquee>
             </div>
-            <div className='h-full justify-center items-center gap-8'>
+            <div className='h-full flex justify-center items-center gap-16'>
                 <div className='flex flex-col justify-center items-center gap-4 hash-border'>
                     <p className='info'>Monday - Friday:</p>
                     <p className='info'>9AM - 2.30PM</p>
                 </div>
 
-                <div>
+                <div className='w-[33vw]'>
                     <SimpleCarousel images={images} />
                 </div>
 
@@ -49,11 +49,11 @@ const CarouselButton = ({dir}) => {
     const renderSwitch = () => {
       switch(dir) {
         case 'forward':
-          return <div className='serif-font'>
+          return <div className='info'>
             →
           </div>;
         default:
-          return <div className='serif-font'>
+          return <div className='info'>
             ←
           </div>;
       }
@@ -87,7 +87,7 @@ return (
           minWidth: 60,
           position: "absolute",
           bottom: 0,
-          right: "33%"
+          right: "15%"
           }
       }}
       backwardBtnProps={{
@@ -98,7 +98,7 @@ return (
           minWidth: 60,
           position: "absolute",
           bottom: 0,
-          left: "33%"
+          left: "15%"
           }
       }}
       dotsNav={{
@@ -108,20 +108,14 @@ return (
       speed={400}
     >
     {images.map((item, index) => (
-        <div
-        style={{
-            width: "33vw",
-        }}
-        key={index}
-        >
-          {index}
-        <CarouselImage image={item} />
+        <div style={{ width: "33vw" }} key={index}>
+          <CarouselImage image={item} />
         </div>
     ))}
 
     </Carousel>
-    <div className='absolute bottom-0 left-1/2 -translate-x-1/2 h-[60px] flex items-center justify-center serif-font'>
-    ( {activeSlide+1} / {images.length} )
+    <div className='absolute bottom-0 left-1/2 -translate-x-1/2 h-[60px] flex items-center justify-center info'>
+    (&nbsp;{activeSlide+1}&nbsp; /&nbsp; {images.length}&nbsp; )
     </div>
   </div>
 )
