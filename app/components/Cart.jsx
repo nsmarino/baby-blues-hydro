@@ -125,7 +125,7 @@ export function CartSummary({cost, layout, children = null, itemCount=0}) {
     <>
       <div aria-labelledby="cart-summary" className='relative py-12'>
         <AsteriskBorder top={true} bottom={true}>
-          <div className="flex w-full justify-between relative pl-24 uppercase">
+          <div className="flex w-full justify-between items-center relative pl-24 uppercase">
             <div>Total:</div>
             <div>{itemCount} items</div>
             <div className='text-[2rem] sans-font'>{cost?.subtotalAmount?.amount ? (

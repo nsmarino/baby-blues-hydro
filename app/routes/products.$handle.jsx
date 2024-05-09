@@ -124,11 +124,11 @@ export default function Product() {
       <div>
         <Products products={allProducts} currentProdId={product?.id} />
       </div>
-      <div className='relative py-8 text-center uppercase font-serif font-bold'>
+      <div className='relative py-8 text-center uppercase'>
             <AsteriskBorder top={true}>
               <div className='flex w-full justify-around'>
                 {allWysiwyg.metaobjects.nodes.map(node => 
-                  <a key={node.handle} href={`/policies/${node.handle}`}>{node.field.value}</a>
+                  <a className="h2" key={node.handle} href={`/policies/${node.handle}`}>{node.field.value}</a>
                 )}
               </div>
             </AsteriskBorder>
@@ -165,11 +165,11 @@ const CarouselButton = ({dir}) => {
   const renderSwitch = () => {
     switch(dir) {
       case 'forward':
-        return <div className='serif-font'>
+        return <div className='info'>
           →
         </div>;
       default:
-        return <div className='serif-font'>
+        return <div className='info'>
           ←
         </div>;
     }
@@ -233,8 +233,8 @@ function ProductImages({images}) {
         </div>
       ))}
     </Carousel>
-    <div className='absolute bottom-0 left-1/2 -translate-x-1/2 h-[60px] flex items-center justify-center serif-font'>
-      ( {activeSlide+1} / {images.nodes.length} )
+    <div className='absolute bottom-0 left-1/2 -translate-x-1/2 h-[60px] flex items-center justify-center info'>
+      {activeSlide+1}&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;{images.nodes.length}
     </div>
     </div>
   )
@@ -298,7 +298,7 @@ function ProductMain({selectedVariant, product, variants}) {
           )}
         </Await>
       </Suspense>
-        <div className={activeTab != "" ? "hash-border" : ""}>
+        <div className={activeTab != "" ? "hash-border w-full" : "w-full"}>
             <div className='flex w-full justify-between px-12 pt-12 gap-12 '>
               <button style={{textShadow: "var(--text-stroke-thin);"}} className="hover:underline serif-font uppercase font-bold whitespace-nowrap" onClick={()=>setActiveTab("details")}>Product Details</button>
               <button style={{textShadow: "var(--text-stroke-thin);"}} className="hover:underline serif-font uppercase font-bold whitespace-nowrap" onClick={()=>setActiveTab("size-fit")}>Size & Fit</button>

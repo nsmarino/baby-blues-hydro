@@ -3,7 +3,7 @@ import AsteriskBorder from "~/components/AsteriskBorder"
 const MenuNav = ({sections}) => {
 
     return (
-        <nav className="relative mx-auto mt-[100px] py-4 w-full max-w-[1300px] mx-auto">
+        <nav className="bg-[#FFFFFF] z-10 relative mx-auto mt-[100px] sticky top-[100px] py-4 w-full max-w-[1600px] mx-auto">
             <AsteriskBorder bottom={true} top={true} small={true}>
                 <div className='flex justify-between justify-center uppercase text-blue font-mono px-1'>
                     {

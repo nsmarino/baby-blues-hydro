@@ -46,11 +46,11 @@ function Products({products, wys}) {
       </div>
       <br />
 
-      <div className='relative py-8 text-center uppercase font-serif font-bold'>
+      <div className='relative py-8 text-center uppercase'>
         <AsteriskBorder top={true}>
           <div className='flex w-full justify-around'>
             {wys.metaobjects.nodes.map(node => 
-              <a key={node.handle} href={`/policies/${node.handle}`}>{node.field.value}</a>
+              <a className="h2" key={node.handle} href={`/policies/${node.handle}`}>{node.field.value}</a>
             )}
           </div>
         </AsteriskBorder>

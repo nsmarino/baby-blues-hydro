@@ -27,7 +27,7 @@ export default function Hours() {
             </Marquee>
             </div>
             <div className='h-full flex justify-center items-center gap-16'>
-                <div className='flex flex-col justify-center items-center gap-4 hash-border'>
+                <div className='flex flex-col justify-center items-center gap-4 hash-border w-[200px] h-[160px]' style={{ borderImageWidth: "22px 0;"}}>
                     <p className='info'>Monday - Friday:</p>
                     <p className='info'>9AM - 2.30PM</p>
                 </div>
@@ -36,7 +36,7 @@ export default function Hours() {
                     <SimpleCarousel images={images} />
                 </div>
 
-                <div className='flex flex-col justify-center items-center gap-4 hash-border'>
+                <div className='flex flex-col justify-center items-center gap-4 hash-border w-[200px] h-[160px]' style={{ borderImageWidth: "22px 0;"}}>
                     <p className='info'>Saturday - Sunday:</p>
                     <p className='info'>9AM - 3.30PM</p>
                 </div>

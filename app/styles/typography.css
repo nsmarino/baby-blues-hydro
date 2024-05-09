@@ -112,7 +112,7 @@ p.info, .info {
     letter-spacing: 1px;
     text-shadow: var(--text-stroke-medium);
 }
-p.info-lg {
+p.info-lg, a.info-lg {
     font-size: 32px;
     font-family: 'EBGaramond';
     font-weight: normal;

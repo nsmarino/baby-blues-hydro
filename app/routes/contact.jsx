@@ -31,12 +31,12 @@ export default function Contact() {
         <div><img src="./OPA.png" alt="" className='w-[400px]'/></div>
         <div>
           <p className='info uppercase'>For Private Events & Parties:</p>
-          <p className='info-lg mb-8 uppercase'>info@babyblues.nyc</p>
+          <p className='h2 mb-8 uppercase'>info@babyblues.nyc</p>
           <p className='info uppercase'>Address:</p>
-          <p className='info-lg'>97 Montrose Avenue</p>
-          <p className='info-lg mb-8'>Brooklyn, NY 11221</p>
+          <p className='h2'>97 Montrose Avenue</p>
+          <p className='h2 mb-8'>Brooklyn, NY 11221</p>
           <p className='info uppercase'>Filming:</p>
-          <p className='info-lg mb-8 uppercase'>scout@babyblues.nyc</p>
+          <p className='h2 mb-8 uppercase'>scout@babyblues.nyc</p>
         </div>
         <div className='absolute bottom-[15%] left-1/2 -translate-x-1/2'>
           <p className='info uppercase'><a href="/press">PRESS</a></p>

@@ -497,14 +497,20 @@ body {
 }
 
 .hash-border {
-  border-image-source: url(app/assets/test-border-src.svg);
-  border-image-slice: 21;
-  border-image-width: auto 0;
+  border-image-source: url(app/assets/weird-hash.png);
+  border-image-slice: 33%;
+  border-image-width: 22px;
   border-image-outset: 0;
   border-image-repeat: round;
-  min-height: 210px;
-  min-width: 210px;
 }
+.ast-border {
+  border-image-source: url(app/assets/big-ast.png);
+  border-image-slice: 33%;
+  border-image-width: 27px;
+  border-image-outset: 0;
+  border-image-repeat: round;
+}
+
 .ast-top {
   background: url(app/assets/ast-from-left.svg) repeat-x left top;
   display: block;
