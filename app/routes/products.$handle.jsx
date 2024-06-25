@@ -113,7 +113,7 @@ export default function Product() {
   const {selectedVariant} = product;
   return (
     <>
-      <div className="flex flex-row-reverse w-full justify-center [&>*]:basis-full px-24 py-[160px] gap-8">
+      <div className="flex flex-col md:flex-row-reverse w-full justify-center [&>*]:basis-full md:px-24 pt-24 md:py-[160px] gap-8">
         <ProductImages images={product?.images} />
         <ProductMain
           selectedVariant={selectedVariant}
@@ -124,40 +124,40 @@ export default function Product() {
       <div>
         <Products products={allProducts} currentProdId={product?.id} />
       </div>
-      <div className='relative py-8 text-center uppercase'>
-            <AsteriskBorder top={true}>
-              <div className='flex w-full justify-around'>
-                {allWysiwyg.metaobjects.nodes.map(node => 
-                  <a className="h2" key={node.handle} href={`/policies/${node.handle}`}>{node.field.value}</a>
-                )}
-              </div>
-            </AsteriskBorder>
+      <div className='relative py-8 text-center uppercase hidden md:block'>
+        <AsteriskBorder top={true}>
+          <div className='flex w-full justify-around'>
+            {allWysiwyg.metaobjects.nodes.map(node => 
+              <a className="h2" key={node.handle} href={`/policies/${node.handle}`}>{node.field.value}</a>
+            )}
           </div>
-          <div className='flex gap-8 w-full justify-between'>
-            <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch'>
-              <AsteriskBorder top={true} right={true} />
-                <div className='flex flex-col h-full'>
-                  <div className='flex h2'><span>IG:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>@babybluesny</span></div>
-                  <div className='flex h2'><span>E:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>info@babyblues.nyc</span></div>
-                  <div className='relative py-8'><div className="dot-line"></div></div>
-                  <div className='h2 mt-auto mb-4'>No reservations - walk ins only</div>
-                </div>
-              
-            </div>          
-            <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch'>
-              <AsteriskBorder top={true} left={true} />
-                <div className='flex flex-col h-full'>
-                  <div className='flex h2'><span>Monday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-                  <div className='flex h2'><span>Tuesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-                  <div className='flex h2'><span>Wednesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-                  <div className='flex h2'><span>Thursday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-                  <div className='flex h2'><span>Friday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-                  <div className='flex h2'><span>Saturday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 3.30</span></div>
-                  <div className='flex h2'><span>Sunday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 3.30</span></div>
-                </div>
-              
-            </div>        
-          </div>
+        </AsteriskBorder>
+      </div>
+      <div className='gap-8 w-full justify-between hidden md:flex'>
+        <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch'>
+          <AsteriskBorder top={true} right={true} />
+            <div className='flex flex-col h-full'>
+              <div className='flex h2'><span>IG:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>@babybluesny</span></div>
+              <div className='flex h2'><span>E:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>info@babyblues.nyc</span></div>
+              <div className='relative py-8'><div className="dot-line"></div></div>
+              <div className='h2 mt-auto mb-4'>No reservations - walk ins only</div>
+            </div>
+          
+        </div>          
+        <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch'>
+          <AsteriskBorder top={true} left={true} />
+            <div className='flex flex-col h-full'>
+              <div className='flex h2'><span>Monday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
+              <div className='flex h2'><span>Tuesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
+              <div className='flex h2'><span>Wednesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
+              <div className='flex h2'><span>Thursday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
+              <div className='flex h2'><span>Friday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
+              <div className='flex h2'><span>Saturday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 3.30</span></div>
+              <div className='flex h2'><span>Sunday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 3.30</span></div>
+            </div>
+          
+        </div>        
+      </div>
     </>
   );
 }
@@ -202,7 +202,7 @@ function ProductImages({images}) {
           minWidth: 60,
           position: "absolute",
           bottom: 0,
-          right: "33%"
+          right: "20%"
         }
       }}
       backwardBtnProps={{
@@ -213,7 +213,7 @@ function ProductImages({images}) {
           minWidth: 60,
           position: "absolute",
           bottom: 0,
-          left: "33%"
+          left: "20%"
         }
       }}
       dotsNav={{
@@ -223,12 +223,7 @@ function ProductImages({images}) {
       speed={400}
     >
       {images.nodes.map((item, index) => (
-        <div
-          style={{
-            width: "40vw",
-          }}
-          key={index}
-        >
+        <div className='w-screen md:w-[40vw]' key={index}>
           <ProductImage image={item} />
         </div>
       ))}
@@ -272,7 +267,7 @@ function ProductMain({selectedVariant, product, variants}) {
   const [activeTab, setActiveTab] = useState("")
 
   return (
-    <div className="flex flex-col gap-[40px] items-center text-center">
+    <div className="flex flex-col gap-[40px] items-center text-center px-4">
       <h2 className="sans-font uppercase leading-none">{title}</h2>
       <ProductPrice selectedVariant={selectedVariant} />
       <div className="body-sm" dangerouslySetInnerHTML={{__html: descriptionHtml}} />
@@ -299,10 +294,10 @@ function ProductMain({selectedVariant, product, variants}) {
         </Await>
       </Suspense>
         <div className={activeTab != "" ? "hash-border w-full" : "w-full"}>
-            <div className='flex w-full justify-between px-12 pt-12 gap-12 '>
-              <button style={{textShadow: "var(--text-stroke-thin);"}} className="hover:underline serif-font uppercase font-bold whitespace-nowrap" onClick={()=>setActiveTab("details")}>Product Details</button>
-              <button style={{textShadow: "var(--text-stroke-thin);"}} className="hover:underline serif-font uppercase font-bold whitespace-nowrap" onClick={()=>setActiveTab("size-fit")}>Size & Fit</button>
-              <button style={{textShadow: "var(--text-stroke-thin);"}} className="hover:underline serif-font uppercase font-bold whitespace-nowrap" onClick={()=>setActiveTab("shipping")}>Shipping & Returns</button>
+            <div className='flex w-full flex-col md:flex-row justify-between px-12 pt-12 gap-12 '>
+              <button style={{textShadow: "var(--text-stroke-thin);"}} className="underline md:no-underline hover:underline serif-font uppercase font-bold whitespace-nowrap" onClick={()=>setActiveTab("details")}>Product Details</button>
+              <button style={{textShadow: "var(--text-stroke-thin);"}} className="underline md:no-underline hover:underline serif-font uppercase font-bold whitespace-nowrap" onClick={()=>setActiveTab("size-fit")}>Size & Fit</button>
+              <button style={{textShadow: "var(--text-stroke-thin);"}} className="underline md:no-underline hover:underline serif-font uppercase font-bold whitespace-nowrap" onClick={()=>setActiveTab("shipping")}>Shipping & Returns</button>
             </div>
             <div className='relative min-h-[600px]'>
               <div className='p-12 text-left uppercase italic [&>p]:text-sm [&>p]:font-sans' style={activeTab==="details" ? {display: "block"} : {display: "none"}}>
@@ -337,7 +332,7 @@ function ProductPrice({selectedVariant}) {
           <div className="product-price-on-sale relative">
             <div className='absolute -top-2 -left-2 w-[100px] h-[3px] opacity-40 bg-blue rotate-[30deg] origin-top-left'></div>
             <Money data={selectedVariant.compareAtPrice} withoutTrailingZeros/>
-            <div className='absolute -top-2 -right-12 translate-x-full flex gap-4 items-end -rotate-12'>
+            <div className='absolute -top-2 -right-6 translate-x-full flex gap-4 items-end -rotate-12'>
               {selectedVariant ? <Money data={selectedVariant.price} withoutTrailingZeros/> : null} <span className='text-sm tracking-[0.4em]'>SALE!</span>
             </div>
           </div>

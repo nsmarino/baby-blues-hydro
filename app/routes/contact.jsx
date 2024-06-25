@@ -12,7 +12,7 @@ export default function Contact() {
     const data = useLoaderData()
 
     return (
-      <div className='relative h-full flex justify-center items-center gap-8 [&>*]:basis-full max-w-[80%] mx-auto'>
+      <div className='relative h-full flex flex-col md:flex-row mt-32 md:mt-0 justify-center items-center gap-8 [&>*]:basis-full max-w-[80%] mx-auto'>
         <div>
           <p className='info uppercase mb-8'>Some things to note:</p>
           <p className='info'>We are walk ins only.</p>

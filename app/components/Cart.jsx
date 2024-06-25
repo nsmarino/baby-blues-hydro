@@ -23,7 +23,7 @@ function CartDetails({hidden, layout, cart}) {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
 
   return (
-    <div className="cart-details w-full p-32" hidden={hidden}>
+    <div className="cart-details w-full md:p-32" hidden={hidden}>
 
       <header className='relative pb-12'>      
         <AsteriskBorder bottom={true}>
@@ -69,16 +69,16 @@ function CartLineItem({layout, line}) {
   
   return (
     <li key={id} className="cart-line">
-      <div className='flex gap-12 items-center'>
+      <div className='flex md:gap-12 items-center'>
         <CartLineRemoveButton lineIds={[line.id]} />
         {image && (
           <Image
             alt={title}
             aspectRatio="1/1"
             data={image}
-            height={100}
+            height={200}
             loading="lazy"
-            width={100}
+            width={200}
           />
         )}        
       </div>
@@ -110,7 +110,7 @@ function CartCheckoutActions({checkoutUrl}) {
   if (!checkoutUrl) return null;
 
   return (
-    <div className='w-[600px] mx-auto fixed bottom-48 left-1/2 -translate-x-1/2'>
+    <div className='md:w-[600px] mx-auto md:fixed md:bottom-48 md:left-1/2 md:-translate-x-1/2'>
       <a href={checkoutUrl} target="_self" className='atc-btn block'>
         Check Out
       </a>
@@ -125,9 +125,9 @@ export function CartSummary({cost, layout, children = null, itemCount=0}) {
     <>
       <div aria-labelledby="cart-summary" className='relative py-12'>
         <AsteriskBorder top={true} bottom={true}>
-          <div className="flex w-full justify-between items-center relative pl-24 uppercase">
-            <div>Total:</div>
-            <div>{itemCount} items</div>
+          <div className="flex w-full justify-center md:justify-between items-center relative md:pl-24 uppercase">
+            <div className='hidden md:block'>Total:</div>
+            <div className='hidden md:block'>{itemCount} items</div>
             <div className='text-[2rem] sans-font'>{cost?.subtotalAmount?.amount ? (
                   <Money data={cost?.subtotalAmount} withoutTrailingZeros />
                 ) : (
@@ -145,12 +145,13 @@ export function CartSummary({cost, layout, children = null, itemCount=0}) {
 
 function CartLineRemoveButton({lineIds}) {
   return (
+
     <CartForm
       route="/cart"
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button type="submit">
+      <button  className="hidden md:block" type="submit">
       <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 <mask id="path-1-outside-1_707_1425" maskUnits="userSpaceOnUse" x="-1" y="0" width="22" height="23" fill="black">
 <rect fill="white" x="-1" width="22" height="23"/>
@@ -219,8 +220,8 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
 export function CartEmpty({hidden = false, layout = 'aside'}) {
   return (
     <div hidden={hidden}>
-      <div className='flex flex-col items-center justify-center gap-24 md:min-w-[600px]'>
-            <h2 className='uppercase -rotate-[2deg] scale-[1.25]'>Your cart is empty !!!</h2>
+      <div className='flex flex-col items-center justify-center gap-24 md:min-w-[600px] p-4 mt-32'>
+            <h2 className='uppercase -rotate-[2deg] md:scale-[1.25]'>Your cart is empty !!!</h2>
             
             <div>
               <svg width="157" height="172" viewBox="0 0 157 172" fill="none" xmlns="http://www.w3.org/2000/svg">

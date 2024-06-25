@@ -41,8 +41,8 @@ export default function Homepage() {
 
   return (
     <>
-    <div className="home h-full flex flex-col justify-center items-center">
-      <div className="relative w-[810px] px-24 py-12 ast-border">
+    <div className="home h-[75vh] mx-[20px] md:h-full flex flex-col justify-center items-center">
+      <div className="relative w-full md:w-[810px] px-24 py-12 ast-border mt-auto md:mt-0">
         {/* <AsteriskBorder top={true} bottom={true} left={true} right={true}> */}
           <h1>
             <svg className="max-h-[150px] w-full" viewBox="0 0 378 184" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -66,12 +66,12 @@ export default function Homepage() {
           </h1>
         {/* </AsteriskBorder> */}
       </div>
-      <div className='w-[810px] flex justify-between font-sans uppercase italic pt-2 text-xl'>
+      <div className='w-full md:w-[810px] flex justify-between font-sans uppercase italic p-2 text-lg md:text-xl'>
         <span>97 Montrose Ave</span>
-        <span>Brooklyn, New York</span>
+        <span>Brooklyn, <span className='inline md:hidden'>NY</span><span className='hidden md:inline'>New York</span></span>
       </div> 
     </div>
-    <p className='absolute bottom-[20%] w-full text-center uppercase footer-note'>!!!!!!!!! WE ARE CLOSED FOR MEMORIAL DAY!! REOPENING 2/9 !!!!!!!!!</p>
+    <p className='hidden md:block absolute bottom-[20%] w-full text-center uppercase footer-note'>!!!!!!!!! WE ARE CLOSED FOR MEMORIAL DAY!! REOPENING 2/9 !!!!!!!!!</p>
     </>
   );
 }

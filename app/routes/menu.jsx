@@ -44,16 +44,15 @@ export default function Menu() {
           </div>
           <div className='relative pb-8 pt-12 text-center uppercase mono-font-bold'>
             <AsteriskBorder top={true}>
-              <div className='flex w-full justify-around'>
+              <div className='flex w-full justify-around flex-col md:flex-row'>
                 <p className='h3'>(GF) - GLUTEN FREE</p>
                 <p className='h3'>(N) - CONTAINS NUTS</p>
                 <p className='h3'>(V) - VEGAN</p>
               </div>
             </AsteriskBorder>
           </div>
-          <div className='flex gap-8 w-full justify-between'>
-            <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch'>
-              <AsteriskBorder top={true} right={true} />
+          <div className='gap-8 flex-col md:flex-row w-full justify-between flex'>
+            <div className='relative py-12 md:px-12 md:pb-32 basis-full text-center uppercase font-serif font-bold justify-stretch ast-border md:top-and-right hidden md:block'>
                 <div className='flex flex-col h-full'>
                   <div className='flex h2'><span>IG:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>@babybluesny</span></div>
                   <div className='flex h2'><span>E:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>info@babyblues.nyc</span></div>
@@ -62,8 +61,7 @@ export default function Menu() {
                 </div>
               
             </div>          
-            <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch'>
-              <AsteriskBorder top={true} left={true} />
+            <div className='relative py-12 md:px-12 md:pb-32 basis-full text-center uppercase font-serif font-bold justify-stretch ast-border top-only md:top-and-left'>
                 <div className='flex flex-col h-full'>
                   <div className='flex h2'><span>Monday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
                   <div className='flex h2'><span>Tuesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
@@ -103,8 +101,8 @@ const MenuSections = ({sections}) => {
         )} else return (
           <div key={section.id} className='w-full flex flex-col gap-[50px] max-w-[1300px]'>
             <div className='w-full relative'>
-              <div className={`${section.handle !== "drinks" ? "dot-bg" : ""}`}></div>
-              <h2 className='relative w-fit mx-auto border-2 py-4 px-12 rounded-[100%] bg-[#FFFFFF] mono-font-bold uppercase '>{section.fields.title.value}</h2>
+              <div className={`${section.handle !== "drinks" ? "hidden md:block dot-bg" : ""}`}></div>
+              <h2 className='relative w-fit md:mx-auto md:border-2 md:py-4 md:px-12 rounded-[100%] bg-[#FFFFFF] mono-font md:mono-font-bold uppercase '>{section.fields.title.value}</h2>
             </div>
             {
               section.fields.items.references.nodes.map(menuItem => <MenuItem item={menuItem} key={menuItem.id} />)
@@ -127,28 +125,30 @@ const MenuItem = ({item}) => {
 
   return (
     <>
-    <div className='flex w-full justify-between'>
-      <div className='basis-1/3 font-bold text-right pr-8 uppercase'>
-        <h3>{(fieldsReduced.gluten_free && fieldsReduced.gluten_free.value==='true')  && "(G.F.) "}<span className='mono-font-bold '>{fieldsReduced.title.value}</span></h3>
+    <div className='flex flex-wrap md:flex-nowrap md:flex-row w-full justify-between'>
+      <div className='w-full md:basis-1/3 md:text-right md:pr-8 uppercase'>
+        <h3 className='flex flex-row-reverse md:flex-row justify-end gap-4'>{(fieldsReduced.gluten_free && fieldsReduced.gluten_free.value==='true')  && <span>(G.F.)</span>}<span className='serif-font-bold md:mono-font-bold '>{fieldsReduced.title.value}</span></h3>
         <p className='subtitle'>{fieldsReduced.subtitle && fieldsReduced.subtitle.value}</p>
       </div>
 
-      <div className='basis-full relative'>
+      <div className='w-full md:basis-full relative'>
         {
         fieldsReduced.content ? 
-          (<div className="html" dangerouslySetInnerHTML={{__html: convertSchemaToHtml(fieldsReduced.content.value)}} />)
+          (<div className="html [&>p]:serif-font" dangerouslySetInnerHTML={{__html: convertSchemaToHtml(fieldsReduced.content.value)}} />)
         : 
         (
-          fieldsReduced.variations ? "" : <div className="dot-line"></div>  
+          fieldsReduced.variations ? "" : <div className="dot-line hidden md:block"></div>  
         )
         }
+        {fieldsReduced.price && <div className='h3 md:hidden'>${fieldsReduced.price.value}</div>}
+
         {/* Variation Titles: */}
         {fieldsReduced.variations && <>{fieldsReduced.variations.references.nodes.map(variation => <MenuItemVariation variation={variation} key={variation.id} />)}</> }
       </div>
 
-      <div className='text-right mono-font-bold  pl-8 flex flex-col'>
+      <div className='md:text-right md:mono-font-bold  md:pl-8 flex flex-col'>
         {/* Item Price: */}
-        {fieldsReduced.price && <div className='h3'>${fieldsReduced.price.value}</div>}
+        {fieldsReduced.price && <div className='hidden md:block h3'>${fieldsReduced.price.value}</div>}
 
         {/* Variation Prices: */}
         <div className='mt-auto'>
@@ -162,7 +162,7 @@ const MenuItem = ({item}) => {
                 {},
               );
               return (
-                <div className='h3' key={reducedVariationFields.price.value+reducedVariationFields.title.value}>${reducedVariationFields.price.value}</div>
+                <div className='hidden md:block h3' key={reducedVariationFields.price.value+reducedVariationFields.title.value}>${reducedVariationFields.price.value}</div>
               )
             })
           }          
@@ -184,10 +184,12 @@ const MenuItemVariation = ({variation}) => {
     },
     {},
   );
+
   return (
   <div className='flex gap-4'>
-    <p className="whitespace-nowrap">{fieldsReduced.title.value}</p>
-    <div className="relative basis-full"><div className="dot-line"></div></div>
+    <p className="text-[16px] md:text-[28px] md:whitespace-nowrap">{fieldsReduced.title.value}</p>
+    <p className='ml-auto md:hidden'>${fieldsReduced.price.value}</p>
+    <div className="relative md:basis-full"><div className="dot-line hidden md:block"></div></div>
   </div>
   )
 }

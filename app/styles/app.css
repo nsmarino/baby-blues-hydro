@@ -36,6 +36,11 @@ aside {
   top: 0;
   transition: transform 200ms ease-in-out;
 }
+@media (max-width: 768px) {
+  aside {
+    --aside-width: 100%;
+  }
+}
 
 aside header {
   align-items: center;
@@ -55,7 +60,7 @@ aside header .close {
   opacity: 0.8;
   text-decoration: none;
   transition: all 200ms;
-  width: 20px;
+  font-size: 40px;
 }
 
 aside header .close:hover {
@@ -68,7 +73,14 @@ aside header h2 {
 }
 
 aside main {
-  margin: 1rem;
+  height: calc(100% - var(--header-height));
+  text-align: center;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+}
+aside footer {
+  margin-top: auto;
 }
 
 aside p {
@@ -155,7 +167,8 @@ aside li {
 .header-menu-mobile {
   display: flex;
   flex-direction: column;
-  grid-gap: 1rem;
+  grid-gap: 2rem;
+  padding: 40px 0;
 }
 
 .header-menu-desktop {
@@ -217,11 +230,16 @@ aside li {
   padding: 0.75rem 0;
   align-items: center;
 }
+@media (max-width: 768px) {
+  .cart-line {
+    display: flex;
+    flex-direction: column;
+  }
+}
 
 .cart-line img {
   height: 100%;
   display: block;
-  margin-right: 0.75rem;
 }
 
 .cart-summary-page {
@@ -429,6 +447,7 @@ aside li {
   display: flex;
   flex-wrap: wrap;
   grid-gap: 60px;
+  justify-content: center;
 }
 .product-options-grid .selected::after {
   content: "";
@@ -500,13 +519,6 @@ body {
   border-image-source: url(app/assets/weird-hash.png);
   border-image-slice: 33%;
   border-image-width: 22px;
-  border-image-outset: 0;
-  border-image-repeat: round;
-}
-.ast-border {
-  border-image-source: url(app/assets/big-ast.png);
-  border-image-slice: 33%;
-  border-image-width: 27px;
   border-image-outset: 0;
   border-image-repeat: round;
 }

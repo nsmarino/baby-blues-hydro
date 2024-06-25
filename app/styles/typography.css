@@ -24,25 +24,6 @@
     --text-stroke-medium: 1px 0px 0 #0057FF,0.6234898018587336px 0.7818314824680298px 0 #0057FF,-0.22252093395631434px 0.9749279121818236px 0 #0057FF,-0.900968867902419px 0.43388373911755823px 0 #0057FF,-0.9009688679024191px -0.433883739117558px 0 #0057FF,-0.2225209339563146px -0.9749279121818236px 0 #0057FF,0.6234898018587334px -0.7818314824680299px 0 #0057FF;
     --text-stroke-thin: 0.33px 0px 0 #0057FF,-0.16499999999999992px 0.2857883832488648px 0 #0057FF,-0.16500000000000015px -0.2857883832488647px 0 #0057FF;
 }
-.serif-font {
-    font-family: 'EBGaramond';
-}
-.serif-font-italic {
-    font-family: 'EBGaramondItalic';
-}
-
-.mono-font {
-    font-family: 'AlpinaThin';
-    font-weight: normal;
-}
-.mono-font-bold {
-    font-family: 'AlpinaBold';
-    font-weight: normal;
-}
-
-.sans-font {
-    font-family: Arial, Helvetica, sans-serif;
-}
 
 h2, .h2 {
 	font-size: 30px;
@@ -185,5 +166,27 @@ p.hash-border {
     padding: 10px;
 }
 @media (max-width: 768px) {
+    h2,.h2 {
+        font-size: 24px;
+        text-shadow: var(--text-stroke-thin);
+    }
+    h3,.h3 {
+        font-size: 18px;
+        text-shadow: var(--text-stroke-thin);
+    }
+    p, p.subtitle {
+        font-family: "EBGaramond";
+        text-shadow: var(--text-stroke-thin);
+        font-size: 20px;
+        line-height: 130%;
+    }
+    p.announcement, h2.announcement {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 20px;
+        letter-spacing: 0;
+        text-shadow: none;
+    }
+
 }
   

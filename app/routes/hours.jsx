@@ -21,22 +21,22 @@ export default function Hours() {
 
     return (
         <>
-            <div className='w-1/2 absolute left-1/2 top-[15%] -translate-x-1/2'>
+            <div className='md:w-1/2 md:absolute md:left-1/2 md:top-[10%] md:-translate-x-1/2 mt-32 mb-12'>
             <Marquee style={{}}>
                 <p className='announcement !text-[20px]'>THIS IS WHAT THE RESTAURANT LOOKS LIKE!!!!!!! WOW!!!!!! NICE!!!!!!!! IT IS REALLY BLUE!!!!!! THIS IS WHAT THE RESTAURANT LOOKS LIKE!!!!!!! WOW!!!!!! NICE!!!!!!!! IT IS REALLY BLUE!!!!!!&nbsp;</p>
             </Marquee>
             </div>
-            <div className='h-full flex justify-center items-center gap-16'>
-                <div className='flex flex-col justify-center items-center gap-4 hash-border w-[200px] h-[160px]' style={{ borderImageWidth: "22px 0;"}}>
+            <div className='h-full flex flex-col md:flex-row justify-center items-center gap-12 md:gap-16 mb-12'>
+                <div className='flex flex-col justify-center items-center gap-4 hash-border w-[200px] h-[160px] order-2 md:order-1' style={{ borderImageWidth: "22px 0;"}}>
                     <p className='info'>Monday - Friday:</p>
                     <p className='info'>9AM - 2.30PM</p>
                 </div>
 
-                <div className='w-[33vw]'>
+                <div className='w-full p-4 md:w-[33vw] order-1 md:order-2'>
                     <SimpleCarousel images={images} />
                 </div>
 
-                <div className='flex flex-col justify-center items-center gap-4 hash-border w-[200px] h-[160px]' style={{ borderImageWidth: "22px 0;"}}>
+                <div className=' order-3 flex flex-col justify-center items-center gap-4 hash-border w-[200px] h-[160px]' style={{ borderImageWidth: "22px 0;"}}>
                     <p className='info'>Saturday - Sunday:</p>
                     <p className='info'>9AM - 3.30PM</p>
                 </div>
@@ -108,7 +108,7 @@ return (
       speed={400}
     >
     {images.map((item, index) => (
-        <div style={{ width: "33vw" }} key={index}>
+        <div className="w-screen md:w-[33vw]" key={index}>
           <CarouselImage image={item} />
         </div>
     ))}

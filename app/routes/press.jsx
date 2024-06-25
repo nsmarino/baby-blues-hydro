@@ -32,7 +32,7 @@ export default function Press() {
 
     return (
         <>
-        <header className='h2 uppercase'>
+        <header className='h2 uppercase hidden md:block'>
             {/* left side */}
             <div className='absolute top-[200px] left-[300px] -rotate-[6deg]'>Press</div>
             <div className='absolute top-[500px] left-[200px] -rotate-[10deg]'>Press</div>
@@ -46,7 +46,7 @@ export default function Press() {
             <div className='absolute top-[500px] right-[200px] rotate-[10deg]'>Press</div>
             <div className='absolute top-[800px] right-[200px] rotate-[25deg]'>Press</div>
         </header>
-        <div className='max-w-[50vw] mx-auto flex flex-col mt-[300px] bg-[#FFFFFF] relative p-12 hash-border'>
+        <div className='md:max-w-[50vw] mx-auto flex flex-col mt-32 md:mt-[300px] bg-[#FFFFFF] relative p-12 m-4 hash-border'>
             <HashBorder top={true} />
             {articles.map(article => {
                 return (

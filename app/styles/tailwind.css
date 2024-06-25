@@ -1,3 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .serif-font {
+        font-family: 'EBGaramond';
+    }
+    .serif-font-italic {
+        font-family: 'EBGaramondItalic';
+    }
+    
+    .mono-font {
+        font-family: 'AlpinaThin';
+        font-weight: normal;
+    }
+    
+    .sans-font {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .mono-font-bold {
+        font-family: 'AlpinaBold';
+        font-weight: normal;
+    }
+    .ast-border {
+        border-image-source: url(app/assets/big-ast.png);
+        border-image-slice: 33%;
+        border-image-width: 27px;
+        border-image-outset: 0;
+        border-image-repeat: round;
+      }
+
+    .ast-border.top-and-right {
+        border-image-width: 27px 27px 0 0;
+    }
+    .ast-border.top-only {
+        border-image-width: 27px 0 0 0;
+    }
+    .ast-border.bottom-only {
+        border-image-width: 0 0 27px 0;
+    }
+    .ast-border.top-and-left {
+        border-image-width: 27px 0 0 27px;
+    }
+}
