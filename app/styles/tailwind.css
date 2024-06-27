@@ -23,12 +23,12 @@
         font-weight: normal;
     }
     .ast-border {
-        border-image-source: url(app/assets/big-ast.png);
+        border-image-source: url(app/assets/tst-ast.png);
         border-image-slice: 33%;
         border-image-width: 27px;
         border-image-outset: 0;
         border-image-repeat: round;
-      }
+    }
 
     .ast-border.top-and-right {
         border-image-width: 27px 27px 0 0;
@@ -39,6 +39,13 @@
     .ast-border.bottom-only {
         border-image-width: 0 0 27px 0;
     }
+    @media (min-width: 768px) {
+        .ast-border.border-mobile-only {
+            border: none;
+        }
+    }
+
+
     .ast-border.top-and-left {
         border-image-width: 27px 0 0 27px;
     }

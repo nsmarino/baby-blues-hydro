@@ -24,25 +24,25 @@ export function Header({header, isLoggedIn, cart}) {
               <span className='rounded-outline font-sans uppercase italic font-bold text-[30px] bg-white px-4 block -translate-y-[2px]'>Baby Blues Luncheonette</span>
             </NavLink>          
           </div>
-          <div className='fixed whitespace-nowrap bottom-[20px] right-[20px] w-fit bg-[#FFFFFF] z-20'>
+          <div className='fixed whitespace-nowrap bottom-[20px] right-[20px] w-fit bg-[#FFFFFF] z-20 pl-2'>
             <NavLink prefetch="intent" to="/contact" style={activeLinkStyle} end>
               <img src={phoneSvg} alt="" />
               Contact
             </NavLink>
           </div>
-          <div className='fixed whitespace-nowrap top-[20px] right-[20px] w-fit bg-[#FFFFFF] z-20'>
+          <div className='fixed whitespace-nowrap top-[20px] right-[20px] pl-2 w-fit bg-[#FFFFFF] z-20'>
             <NavLink prefetch="intent" to="/menu" style={activeLinkStyle} end>
             <img src={knifeForkSvg} alt="" />
               Menu
             </NavLink>
           </div>
-          <div className='fixed whitespace-nowrap bottom-[20px] left-[20px] w-fit bg-[#FFFFFF] z-20'>
+          <div className='fixed whitespace-nowrap bottom-[20px] left-[20px] w-fit bg-[#FFFFFF] z-20 pr-2'>
             <NavLink prefetch="intent" to="/shop" style={activeLinkStyle} end>
               <img src={musicNoteSvg} alt="" />
                 Shop
             </NavLink>
           </div>
-          <div className='fixed whitespace-nowrap top-[20px] left-[20px] w-fit bg-[#FFFFFF] z-20'>
+          <div className='fixed whitespace-nowrap top-[20px] left-[20px] w-fit bg-[#FFFFFF] z-20 pr-2'>
             <NavLink prefetch="intent" to="/hours" style={activeLinkStyle} end>
               <img src={clockSvg} alt="" />
               Hours
@@ -110,7 +110,7 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
  */
 function HeaderCtas({isLoggedIn, cart}) {
   return (
-    <nav className="header-ctas justify-between p-4" role="navigation">
+    <nav className="header-ctas justify-between p-4 pb-8 md:pb-4 md:pl-0 ast-border bottom-only border-mobile-only" role="navigation">
       <HeaderMenuMobileToggle />
       <a href="/" className='block md:hidden max-w-[60%]'>
       <svg className='w-full h-auto' viewBox="0 -2 245 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -146,7 +146,7 @@ function SearchToggle() {
  * @param {{count: number}}
  */
 function CartBadge({count}) {
-  return <NavLink prefetch="intent" to="/cart" style={activeLinkStyle} end><span className='flex flex-col justify-center'><span className='text-[14px]'>CART</span><span className='text-center !text-[24px] serif-font info'>({count})</span></span></NavLink>;
+  return <NavLink prefetch="intent" to="/cart" style={activeLinkStyle} end><span className='flex flex-col justify-center md:justify-start'><span className='text-[14px] md:text-[24px]'>CART</span><span className='text-center md:text-left !text-[24px] serif-font info'>({count})</span></span></NavLink>;
 }
 
 /**

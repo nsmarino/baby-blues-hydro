@@ -102,7 +102,7 @@ const MenuSections = ({sections}) => {
           <div key={section.id} className='w-full flex flex-col gap-[50px] max-w-[1300px]'>
             <div className='w-full relative'>
               <div className={`${section.handle !== "drinks" ? "hidden md:block dot-bg" : ""}`}></div>
-              <h2 className='relative w-fit md:mx-auto md:border-2 md:py-4 md:px-12 rounded-[100%] bg-[#FFFFFF] mono-font md:mono-font-bold uppercase '>{section.fields.title.value}</h2>
+              <h2 className='relative w-fit md:mx-auto md:border-2 md:py-4 md:px-12 rounded-[100%] bg-[#FFFFFF] mono-font md:mono-font-bold uppercase -mb-[30px] md:mb-0'>{section.fields.title.value}</h2>
             </div>
             {
               section.fields.items.references.nodes.map(menuItem => <MenuItem item={menuItem} key={menuItem.id} />)
@@ -134,7 +134,7 @@ const MenuItem = ({item}) => {
       <div className='w-full md:basis-full relative'>
         {
         fieldsReduced.content ? 
-          (<div className="html [&>p]:serif-font" dangerouslySetInnerHTML={{__html: convertSchemaToHtml(fieldsReduced.content.value)}} />)
+          (<div className="html [&>p]:serif-font md:[&>p]:mono-font" dangerouslySetInnerHTML={{__html: convertSchemaToHtml(fieldsReduced.content.value)}} />)
         : 
         (
           fieldsReduced.variations ? "" : <div className="dot-line hidden md:block"></div>  
@@ -171,7 +171,7 @@ const MenuItem = ({item}) => {
       </div>
 
     </div>
-    {fieldsReduced.footer_note && <p className='text-center uppercase footer-note'>{fieldsReduced.footer_note.value}</p>}
+    {fieldsReduced.footer_note && <p className='!text-[12px] md:!text-[20px] md:text-center uppercase footer-note italic'>{fieldsReduced.footer_note.value}</p>}
     </>
   )
 }
