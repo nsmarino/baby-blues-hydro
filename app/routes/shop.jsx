@@ -9,20 +9,29 @@ export async function loader({context}) {
     const {products} = await storefront.query(PRODUCTS_QUERY);
     const allWysiwyg = await storefront.query(ALL_WYSIWYG_QUERY);
 
-    return defer({products, allWysiwyg});
+    const settingsQu = await storefront.query(SETTINGS_QUERY);
+    const settings = settingsQu.metaobjects.nodes[0].fields.reduce(
+      (accumulator, currentValue) => {
+          accumulator[currentValue.key] = {...currentValue}
+          return accumulator
+        },
+      {},
+    )
+
+    return defer({products, allWysiwyg, settings});
 }
 
 export default function Shop() {
-    const {products, allWysiwyg} = useLoaderData()
+    const {products, allWysiwyg, settings} = useLoaderData()
     return (
-        <Products products={products} wys={allWysiwyg} />
+        <Products products={products} wys={allWysiwyg} settings={settings} />
     )
 }
-function Products({products, wys}) {
+function Products({products, wys, settings}) {
   console.log(wys)
   return (
     <div className="mx-[20px]">
-      <div className="flex flex-col max-w-[500px] mx-auto my-24 gap-24">
+      <div className="flex flex-col max-w-[500px] mx-auto my-24 gap-4 md:gap-12">
         {products.nodes.map((product) => (
           <Link
             key={product.id}
@@ -55,8 +64,8 @@ function Products({products, wys}) {
           </div>
         </AsteriskBorder>
       </div>
-      <div className='flex gap-8 w-full justify-between'>
-        <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch'>
+      <div className='gap-8 w-full justify-between hidden md:flex'>
+        <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch pb-32'>
           <AsteriskBorder top={true} right={true} />
             <div className='flex flex-col h-full'>
               <div className='flex h2'><span>IG:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>@babybluesny</span></div>
@@ -66,16 +75,16 @@ function Products({products, wys}) {
             </div>
           
         </div>          
-        <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch'>
+        <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch pb-32'>
           <AsteriskBorder top={true} left={true} />
             <div className='flex flex-col h-full'>
-              <div className='flex h2'><span>Monday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-              <div className='flex h2'><span>Tuesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-              <div className='flex h2'><span>Wednesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-              <div className='flex h2'><span>Thursday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-              <div className='flex h2'><span>Friday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-              <div className='flex h2'><span>Saturday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 3.30</span></div>
-              <div className='flex h2'><span>Sunday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 3.30</span></div>
+              <div className='flex h2'><span>Monday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+              <div className='flex h2'><span>Tuesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+              <div className='flex h2'><span>Wednesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+              <div className='flex h2'><span>Thursday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+              <div className='flex h2'><span>Friday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+              <div className='flex h2'><span>Saturday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekend_hours.value}</span></div>
+              <div className='flex h2'><span>Sunday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekend_hours.value}</span></div>
             </div>
           
         </div>        
@@ -127,3 +136,15 @@ const PRODUCTS_QUERY = `#graphql
     }
   }
 `;
+
+const SETTINGS_QUERY = `#graphql
+query {
+    metaobjects(type: "settings", first: 1) {
+      nodes {
+        fields {
+          key
+          value
+        }
+      }
+    }
+  }`;

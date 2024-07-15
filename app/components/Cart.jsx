@@ -51,7 +51,7 @@ function CartLines({lines, layout}) {
   if (!lines) return null;
 
   return (
-    <div aria-labelledby="cart-lines">
+    <div class="pt-12" aria-labelledby="cart-lines">
       <ul>
         {lines.nodes.map((line) => (
           <CartLineItem key={line.id} line={line} layout={layout} />
@@ -76,9 +76,9 @@ function CartLineItem({layout, line}) {
             alt={title}
             aspectRatio="1/1"
             data={image}
-            height={200}
+            height={160}
             loading="lazy"
-            width={200}
+            width={160}
           />
         )}        
       </div>
@@ -110,8 +110,8 @@ function CartCheckoutActions({checkoutUrl}) {
   if (!checkoutUrl) return null;
 
   return (
-    <div className='md:w-[600px] mx-auto md:fixed md:bottom-48 md:left-1/2 md:-translate-x-1/2'>
-      <a href={checkoutUrl} target="_self" className='atc-btn block'>
+    <div className='w-full px-4 md:w-[600px] mx-auto fixed bottom-2 md:bottom-48 md:left-1/2 md:-translate-x-1/2'>
+      <a href={checkoutUrl} target="_self" className='atc-btn bg-[#fff] block'>
         Check Out
       </a>
       <br />
@@ -125,8 +125,8 @@ export function CartSummary({cost, layout, children = null, itemCount=0}) {
     <>
       <div aria-labelledby="cart-summary" className='relative py-12'>
         <AsteriskBorder top={true} bottom={true}>
-          <div className="flex w-full justify-center md:justify-between items-center relative md:pl-24 uppercase">
-            <div className='hidden md:block'>Total:</div>
+          <div className="flex w-full justify-between items-center relative px-12 md:pr-0 md:pl-24 uppercase">
+            <div>Total:</div>
             <div className='hidden md:block'>{itemCount} items</div>
             <div className='text-[2rem] sans-font'>{cost?.subtotalAmount?.amount ? (
                   <Money data={cost?.subtotalAmount} withoutTrailingZeros />

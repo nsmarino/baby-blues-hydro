@@ -24,7 +24,7 @@ export function Aside({children, heading, id = 'aside'}) {
         }}
       />
       <aside>
-        <header className="ast-border bottom-only pb-8 flex gap-2rem">
+        <header className="ast-border bottom-only pb-8 flex gap-8">
           <h3>{heading}</h3>
           <CloseAside />
         </header>

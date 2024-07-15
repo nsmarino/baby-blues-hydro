@@ -12,24 +12,33 @@ export const meta = ({data}) => {
 export async function loader({context}) {
     const {storefront} = context;
     const { metaobjects: {nodes} } = await storefront.query(IMAGE_GALLERY_QUERY);
+    const settingsQu = await storefront.query(SETTINGS_QUERY);
+    const settingsObj = settingsQu.metaobjects.nodes[0].fields.reduce(
+      (accumulator, currentValue) => {
+          accumulator[currentValue.key] = {...currentValue}
+          return accumulator
+        },
+      {},
+    )
+
     const images = nodes.map(node => node.fields[0].reference.image)
-    return images
+    return { images, settings: settingsObj }
 }
 
 export default function Hours() {
-    const images = useLoaderData()
+    const {images, settings} = useLoaderData()
 
     return (
         <>
-            <div className='md:w-1/2 md:absolute md:left-1/2 md:top-[10%] md:-translate-x-1/2 mt-32 mb-12'>
+            <div className='md:w-1/2 md:absolute md:left-1/2 md:top-[7%] md:-translate-x-1/2 mt-32 mb-12'>
             <Marquee style={{}}>
-                <p className='announcement !text-[20px]'>THIS IS WHAT THE RESTAURANT LOOKS LIKE!!!!!!! WOW!!!!!! NICE!!!!!!!! IT IS REALLY BLUE!!!!!! THIS IS WHAT THE RESTAURANT LOOKS LIKE!!!!!!! WOW!!!!!! NICE!!!!!!!! IT IS REALLY BLUE!!!!!!&nbsp;</p>
+                <p className='announcement !text-[20px]'>{settings.hours_announcement.value}&nbsp;</p>
             </Marquee>
             </div>
-            <div className='h-full flex flex-col md:flex-row justify-center items-center gap-12 md:gap-16 mb-12'>
+            <div className='h-full flex flex-col md:flex-row justify-center items-center gap-12 md:gap-16 mb-12 md:mb-0'>
                 <div className='flex flex-col justify-center items-center gap-4 hash-border w-[200px] h-[160px] order-2 md:order-1' style={{ borderImageWidth: "22px 0;"}}>
                     <p className='info'>Monday - Friday:</p>
-                    <p className='info'>9AM - 2.30PM</p>
+                    <p className='info'>{settings.weekday_hours.value}</p>
                 </div>
 
                 <div className='w-full p-4 md:w-[33vw] order-1 md:order-2'>
@@ -38,7 +47,7 @@ export default function Hours() {
 
                 <div className=' order-3 flex flex-col justify-center items-center gap-4 hash-border w-[200px] h-[160px]' style={{ borderImageWidth: "22px 0;"}}>
                     <p className='info'>Saturday - Sunday:</p>
-                    <p className='info'>9AM - 3.30PM</p>
+                    <p className='info'>{settings.weekend_hours.value}</p>
                 </div>
             </div>
         </>
@@ -155,6 +164,18 @@ query {
               }
             }
           }
+        }
+      }
+    }
+  }`;
+
+const SETTINGS_QUERY = `#graphql
+query {
+    metaobjects(type: "settings", first: 1) {
+      nodes {
+        fields {
+          key
+          value
         }
       }
     }

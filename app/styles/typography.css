@@ -136,6 +136,9 @@ p.hash-border {
     text-shadow: none;
 }
 
+.richtext p a {
+    text-decoration: underline;
+}
 
 .atc-btn {
     border: 3px solid #0057FF;

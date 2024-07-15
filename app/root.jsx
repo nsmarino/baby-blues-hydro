@@ -151,14 +151,15 @@ export function ErrorBoundary() {
       </head>
       <body>
         <Layout {...rootData}>
-          <div className="route-error">
-            <h1>Oops</h1>
-            <h2>{errorStatus}</h2>
-            {errorMessage && (
-              <fieldset>
-                <pre>{errorMessage}</pre>
-              </fieldset>
-            )}
+          <div className="route-error h-screen flex flex-col items-center justify-center m-4 gap-4 md:gap-8">
+            <h1 className='serif-font text-[56px]' style={{textShadow: "var(--text-stroke-medium)"}}>404</h1>
+            <div className='flex flex-col items-center justify-center md:flex-row'>
+              <p className='info flex-1 whitespace-nowrap'>And you may ask yourself...</p>
+              <img src="./404.png" className='w-[200px]' alt="" />
+              <p className='info flex-1 whitespace-nowrap'>How did I get here?</p>
+            </div>
+            <a href="/" className='atc-btn max-w-[400px]'>Back to home</a>
+
           </div>
         </Layout>
         <ScrollRestoration nonce={nonce} />

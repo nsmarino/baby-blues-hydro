@@ -1,6 +1,8 @@
 import {Suspense, useState} from 'react';
 import {defer, redirect} from '@shopify/remix-oxygen';
 import {Await, Link, useLoaderData} from '@remix-run/react';
+import { convertSchemaToHtml } from '@thebeyondgroup/shopify-rich-text-renderer'
+
 import Carousel from "react-simply-carousel";
 import {
   Image,
@@ -26,6 +28,15 @@ export const meta = ({data}) => {
 export async function loader({params, request, context}) {
   const {handle} = params;
   const {storefront} = context;
+
+  const settingsQu = await storefront.query(SETTINGS_QUERY);
+  const settings = settingsQu.metaobjects.nodes[0].fields.reduce(
+    (accumulator, currentValue) => {
+        accumulator[currentValue.key] = {...currentValue}
+        return accumulator
+      },
+    {},
+  )
 
   const selectedOptions = getSelectedProductOptions(request).filter(
     (option) =>
@@ -81,7 +92,7 @@ export async function loader({params, request, context}) {
   const allProducts = storefront.query(ALL_PRODUCTS_QUERY);
   const allWysiwyg = await storefront.query(ALL_WYSIWYG_QUERY);
 
-  return defer({product, variants, allProducts, allWysiwyg});
+  return defer({product, variants, allProducts, allWysiwyg, settings});
 }
 
 /**
@@ -109,7 +120,7 @@ function redirectToFirstVariant({product, request}) {
 
 export default function Product() {
   /** @type {LoaderReturnData} */
-  const {product, variants, allProducts, allWysiwyg} = useLoaderData();
+  const {product, variants, allProducts, allWysiwyg, settings} = useLoaderData();
   const {selectedVariant} = product;
   return (
     <>
@@ -134,7 +145,7 @@ export default function Product() {
         </AsteriskBorder>
       </div>
       <div className='gap-8 w-full justify-between hidden md:flex'>
-        <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch'>
+        <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch pb-32'>
           <AsteriskBorder top={true} right={true} />
             <div className='flex flex-col h-full'>
               <div className='flex h2'><span>IG:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>@babybluesny</span></div>
@@ -144,16 +155,16 @@ export default function Product() {
             </div>
           
         </div>          
-        <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch'>
+        <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch pb-32'>
           <AsteriskBorder top={true} left={true} />
             <div className='flex flex-col h-full'>
-              <div className='flex h2'><span>Monday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-              <div className='flex h2'><span>Tuesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-              <div className='flex h2'><span>Wednesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-              <div className='flex h2'><span>Thursday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-              <div className='flex h2'><span>Friday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-              <div className='flex h2'><span>Saturday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 3.30</span></div>
-              <div className='flex h2'><span>Sunday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 3.30</span></div>
+              <div className='flex h2'><span>Monday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+              <div className='flex h2'><span>Tuesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+              <div className='flex h2'><span>Wednesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+              <div className='flex h2'><span>Thursday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+              <div className='flex h2'><span>Friday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+              <div className='flex h2'><span>Saturday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekend_hours.value}</span></div>
+              <div className='flex h2'><span>Sunday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekend_hours.value}</span></div>
             </div>
           
         </div>        
@@ -263,9 +274,10 @@ function ProductImage({image}) {
  * }}
  */
 function ProductMain({selectedVariant, product, variants}) {
-  const {title, descriptionHtml} = product;
+  const {title, descriptionHtml, shipping, fit, details } = product;
   const [activeTab, setActiveTab] = useState("")
 
+  console.log(product)
   return (
     <div className="flex flex-col gap-[40px] items-center text-center px-4">
       <h2 className="sans-font uppercase leading-none">{title}</h2>
@@ -300,17 +312,11 @@ function ProductMain({selectedVariant, product, variants}) {
               <button style={{textShadow: "var(--text-stroke-thin);"}} className="underline md:no-underline hover:underline serif-font uppercase font-bold whitespace-nowrap" onClick={()=>setActiveTab("shipping")}>Shipping & Returns</button>
             </div>
             <div className={activeTab != "" ? "w-full relative min-h-[600px]" : ""}>
-              <div className='p-12 text-left uppercase italic [&>p]:text-sm [&>p]:font-sans' style={activeTab==="details" ? {display: "block"} : {display: "none"}}>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <div className='p-12 text-left uppercase italic [&>p]:text-sm [&>p]:font-sans' style={activeTab==="details" ? {display: "block"} : {display: "none"}}  dangerouslySetInnerHTML={{__html: convertSchemaToHtml(details[0].value)}}>
               </div>
-              <div className='absolute p-12 text-left uppercase italic [&>p]:text-sm [&>p]:font-sans' style={activeTab==="size-fit" ? {display: "block"} : {display: "none"}}>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <div className='absolute p-12 text-left uppercase italic [&>p]:text-sm [&>p]:font-sans' style={activeTab==="size-fit" ? {display: "block"} : {display: "none"}}  dangerouslySetInnerHTML={{__html: convertSchemaToHtml(fit[0].value)}}>
               </div>
-              <div className='absolute p-12 text-left uppercase italic [&>p]:text-sm [&>p]:font-sans' style={activeTab==="shipping" ? {display: "block"} : {display: "none"}}>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <div className='absolute p-12 text-left uppercase italic [&>p]:text-sm [&>p]:font-sans' style={activeTab==="shipping" ? {display: "block"} : {display: "none"}}  dangerouslySetInnerHTML={{__html: convertSchemaToHtml(shipping[0].value)}}>
               </div>
             </div> 
         </div>
@@ -479,7 +485,7 @@ function Products({products, currentProdId}) {
       <Suspense fallback={<div>Loading...</div>}>
         <Await resolve={products}>
           {({products}) => (
-            <div className="flex flex-col max-w-[500px] mx-auto my-24 gap-24">
+            <div className="flex flex-col max-w-[500px] mx-auto my-24 gap-4 md:gap-12">
               {products.nodes.map((product) => {
                   if (product.id===currentProdId) return 
                   return (
@@ -555,6 +561,18 @@ const PRODUCT_FRAGMENT = `#graphql
     handle
     descriptionHtml
     description
+    shipping: metafields(identifiers: {key: "shipping_returns", namespace: "custom"}) {
+      key
+      value
+    }
+    fit: metafields(identifiers: {key: "size_fit", namespace: "custom"}) {
+      key
+      value
+    }
+    details: metafields(identifiers: {key: "details", namespace: "custom"}) {
+      key
+      value
+    }
     images(first: 10) {
       nodes {
         id
@@ -665,6 +683,18 @@ const ALL_WYSIWYG_QUERY = `#graphql
     }
   }
 `
+
+const SETTINGS_QUERY = `#graphql
+query {
+    metaobjects(type: "settings", first: 1) {
+      nodes {
+        fields {
+          key
+          value
+        }
+      }
+    }
+  }`;
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */
 /** @typedef {import('@remix-run/react').FetcherWithComponents} FetcherWithComponents */

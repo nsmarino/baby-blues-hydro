@@ -180,7 +180,7 @@ function MobileLogo() {
 
 function MobileFooter() {
   return (
-    <footer className='ast-border top-only md:hidden m-[20px] pt-[40px]'>
+    <footer className='ast-border top-only md:hidden mx-[20px] py-[40px]'>
       <h3 className='uppercase'>For Private Events:</h3>
       <a className="uppercase h2 underline" href="mailto:info@babyblues.nyc">info@babyblues.nyc</a>
       <div className='flex items-end mt-8'>

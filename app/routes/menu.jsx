@@ -20,12 +20,22 @@ export async function loader({context}) {
           )
       }
       return sectionWithFieldsReduced
-  })   
-    return sections
+  })
+  const settingsQu = await storefront.query(SETTINGS_QUERY);
+  const settingsObj = settingsQu.metaobjects.nodes[0].fields.reduce(
+    (accumulator, currentValue) => {
+        accumulator[currentValue.key] = {...currentValue}
+        return accumulator
+      },
+    {},
+  )
+
+
+  return {sections, settingsObj}
 }
 
 export default function Menu() {
-    const sections = useLoaderData()
+    const {sections, settingsObj: settings} = useLoaderData()
 
 
     return (
@@ -63,13 +73,13 @@ export default function Menu() {
             </div>          
             <div className='relative py-12 md:px-12 md:pb-32 basis-full text-center uppercase font-serif font-bold justify-stretch ast-border top-only md:top-and-left'>
                 <div className='flex flex-col h-full'>
-                  <div className='flex h2'><span>Monday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-                  <div className='flex h2'><span>Tuesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-                  <div className='flex h2'><span>Wednesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-                  <div className='flex h2'><span>Thursday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-                  <div className='flex h2'><span>Friday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 2.30</span></div>
-                  <div className='flex h2'><span>Saturday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 3.30</span></div>
-                  <div className='flex h2'><span>Sunday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>9 - 3.30</span></div>
+                  <div className='flex h2'><span>Monday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+                  <div className='flex h2'><span>Tuesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+                  <div className='flex h2'><span>Wednesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+                  <div className='flex h2'><span>Thursday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+                  <div className='flex h2'><span>Friday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+                  <div className='flex h2'><span>Saturday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekend_hours.value}</span></div>
+                  <div className='flex h2'><span>Sunday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekend_hours.value}</span></div>
                 </div>
               
             </div>        
@@ -229,3 +239,15 @@ query {
     }
   }
 }`;
+
+const SETTINGS_QUERY = `#graphql
+query {
+    metaobjects(type: "settings", first: 1) {
+      nodes {
+        fields {
+          key
+          value
+        }
+      }
+    }
+  }`;

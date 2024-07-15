@@ -523,6 +523,13 @@ body {
   border-image-repeat: round;
 }
 
+
+@media (max-width: 768px) {
+
+.hash-border.dk-only {
+  border-image: unset;
+}
+}
 .ast-top {
   background: url(app/assets/ast-from-left.svg) repeat-x left top;
   display: block;

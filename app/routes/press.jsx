@@ -46,19 +46,20 @@ export default function Press() {
             <div className='absolute top-[500px] right-[200px] rotate-[10deg]'>Press</div>
             <div className='absolute top-[800px] right-[200px] rotate-[25deg]'>Press</div>
         </header>
-        <div className='md:max-w-[50vw] mx-auto flex flex-col mt-32 md:mt-[300px] bg-[#FFFFFF] relative p-12 m-4 hash-border'>
+        <div className='md:max-w-[50vw] mx-auto flex flex-col mt-32 md:mt-[300px] bg-[#FFFFFF] relative p-4 md:p-12 m-4 hash-border dk-only'>
             <HashBorder top={true} />
             {articles.map(article => {
                 return (
                     <article key={article.id} className='mb-12'>
                         <h2 className='uppercase'>{article.fields.title.value}</h2>
                         <p className="sans-font uppercase">{article.fields.subtitle.value}</p>
+                        {article.fields.image &&
                         <Image
                             alt={article.fields.subtitle.value}
                             aspectRatio="4/3"
                             data={article.fields.image.reference.image}
                             sizes="(min-width: 45em) 50vw, 100vw"
-                        />
+                        />}
                         <div className="richtext" dangerouslySetInnerHTML={{__html: convertSchemaToHtml(article.fields.content.value)}} />
                     </article>
                 )
