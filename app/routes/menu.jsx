@@ -93,9 +93,10 @@ const MenuSections = ({sections}) => {
   return (
     <div className='my-24 flex justify-center items-center flex-col gap-[50px] text-blue mono-font w-full mx-auto'>
       {sections.map(section => {
+        console.log(section)
         if (section.handle === "specials") {
           return (
-          <div key={section.id} className="w-full flex flex-col gap-8 relative py-12 my-12">
+          <div key={section.id} id={section.handle} className="w-full flex flex-col gap-8 relative py-12 my-12">
             <AsteriskBorder bottom={true} top={true}>
               <Marquee style={{}}>
                 <h2 className="announcement uppercase">SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
@@ -109,7 +110,7 @@ const MenuSections = ({sections}) => {
             </div>
           </div>
         )} else return (
-          <div key={section.id} className='w-full flex flex-col gap-[50px] max-w-[1300px]'>
+          <div key={section.id} id={section.handle} className='w-full flex flex-col gap-[50px] max-w-[1300px]'>
             <div className='w-full relative'>
               <div className={`${section.handle !== "drinks" ? "hidden md:block dot-bg" : ""}`}></div>
               <h2 className='relative w-fit md:mx-auto md:border-2 md:py-4 md:px-12 rounded-[100%] bg-[#FFFFFF] mono-font md:mono-font-bold uppercase -mb-[30px] md:mb-0'>{section.fields.title.value}</h2>

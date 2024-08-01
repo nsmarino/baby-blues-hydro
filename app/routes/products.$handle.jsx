@@ -307,17 +307,24 @@ function ProductMain({selectedVariant, product, variants}) {
       </Suspense>
         <div className={activeTab != "" ? "hash-border w-full" : "w-full"}>
             <div className='flex w-full flex-col md:flex-row justify-between px-12 pt-12 gap-12 '>
-              <button style={{textShadow: "var(--text-stroke-thin);"}} className="underline md:no-underline hover:underline serif-font uppercase font-bold whitespace-nowrap" onClick={()=>setActiveTab("details")}>Product Details</button>
-              <button style={{textShadow: "var(--text-stroke-thin);"}} className="underline md:no-underline hover:underline serif-font uppercase font-bold whitespace-nowrap" onClick={()=>setActiveTab("size-fit")}>Size & Fit</button>
-              <button style={{textShadow: "var(--text-stroke-thin);"}} className="underline md:no-underline hover:underline serif-font uppercase font-bold whitespace-nowrap" onClick={()=>setActiveTab("shipping")}>Shipping & Returns</button>
+              {details[0] && <button style={{textShadow: "var(--text-stroke-thin);"}} className="underline md:no-underline hover:underline serif-font uppercase font-bold whitespace-nowrap" onClick={()=>setActiveTab("details")}>Product Details</button>}
+              {fit[0] && <button style={{textShadow: "var(--text-stroke-thin);"}} className="underline md:no-underline hover:underline serif-font uppercase font-bold whitespace-nowrap" onClick={()=>setActiveTab("size-fit")}>Size & Fit</button>}
+              {shipping[0] && <button style={{textShadow: "var(--text-stroke-thin);"}} className="underline md:no-underline hover:underline serif-font uppercase font-bold whitespace-nowrap" onClick={()=>setActiveTab("shipping")}>Shipping & Returns</button>}
             </div>
             <div className={activeTab != "" ? "w-full relative min-h-[600px]" : ""}>
-              <div className='p-12 text-left uppercase italic [&>p]:text-sm [&>p]:font-sans' style={activeTab==="details" ? {display: "block"} : {display: "none"}}  dangerouslySetInnerHTML={{__html: convertSchemaToHtml(details[0].value)}}>
-              </div>
-              <div className='absolute p-12 text-left uppercase italic [&>p]:text-sm [&>p]:font-sans' style={activeTab==="size-fit" ? {display: "block"} : {display: "none"}}  dangerouslySetInnerHTML={{__html: convertSchemaToHtml(fit[0].value)}}>
-              </div>
-              <div className='absolute p-12 text-left uppercase italic [&>p]:text-sm [&>p]:font-sans' style={activeTab==="shipping" ? {display: "block"} : {display: "none"}}  dangerouslySetInnerHTML={{__html: convertSchemaToHtml(shipping[0].value)}}>
-              </div>
+              {details[0] &&     
+                <div className='p-12 text-left uppercase italic [&>p]:text-sm [&>p]:font-sans' style={activeTab==="details" ? {display: "block"} : {display: "none"}}  dangerouslySetInnerHTML={{__html: convertSchemaToHtml(details[0].value)}}>
+                </div>
+              }
+              {fit[0] &&
+                <div className='absolute p-12 text-left uppercase italic [&>p]:text-sm [&>p]:font-sans' style={activeTab==="size-fit" ? {display: "block"} : {display: "none"}}  dangerouslySetInnerHTML={{__html: convertSchemaToHtml(fit[0].value)}}>
+                </div>
+              }
+              {shipping[0] &&
+                <div className='absolute p-12 text-left uppercase italic [&>p]:text-sm [&>p]:font-sans' style={activeTab==="shipping" ? {display: "block"} : {display: "none"}}  dangerouslySetInnerHTML={{__html: convertSchemaToHtml(shipping[0].value)}}>
+                </div>              
+              }
+
             </div> 
         </div>
     </div>
