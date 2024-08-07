@@ -3,8 +3,9 @@ import AsteriskBorder from "~/components/AsteriskBorder"
 const MenuNav = ({sections}) => {
 
     return (
-        <nav className="bg-[#FFFFFF] z-10 mx-auto mt-[90px] md:mt-[100px] sticky top-[90px] md:top-[100px] py-4 w-full max-w-[1000px]">
-            <AsteriskBorder bottom={true} top={true} small={true}>
+        <nav className="menu-nav bg-[#FFFFFF] z-10 mx-auto pt-[90px] md:pt-[100px] sticky top-[0px] md:top-[0px] w-full">
+            <div className="max-w-[1222px] relative mx-auto py-4">
+              <AsteriskBorder bottom={true} top={true} small={true}>
                 <div className='flex flex-col md:flex-row items-center gap-4 py-4 justify-center lg:justify-between uppercase text-blue font-mono px-1'>
                     {
                         sections
@@ -17,7 +18,9 @@ const MenuNav = ({sections}) => {
                             })
                     }
                 </div>
-            </AsteriskBorder>
+            </AsteriskBorder>  
+            </div>
+            
         </nav>
     )
 }

@@ -17,11 +17,13 @@ export function Header({header, isLoggedIn, cart}) {
       {/* Desktop nav */}
       <div className='hidden md:block'>
         <div className='inset-0 absolute pointer-events-none z-10' style={{border: "18px solid white"}}>
-          <div className="ast-border w-full h-full"></div>
+          <div className="ast-border m-[-1px] w-full h-full">
+             <div className='w-full h-full' style={{border: "31px solid white", position: "relative", zIndex: "-1"}}></div>
+          </div>
         </div>
           <div className='fixed inset-x-1/2 whitespace-nowrap top-[20px] -translate-x-1/2 w-fit bg-[#FFFFFF] z-20'>
             <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-              <span className='rounded-outline font-sans uppercase italic font-bold text-[30px] bg-white px-4 block -translate-y-[2px]'>Baby Blues Luncheonette</span>
+              <span className='rounded-outline font-sans uppercase italic font-bold text-[30px] bg-white px-4 block -translate-y-[2px] :focus:text-inherit'>Baby Blues Luncheonette</span>
             </NavLink>          
           </div>
           <div className='fixed whitespace-nowrap bottom-[20px] right-[20px] w-fit bg-[#FFFFFF] z-20 pl-2'>
@@ -216,7 +218,7 @@ const FALLBACK_HEADER_MENU = {
 function activeLinkStyle({isActive, isPending}) {
   return {
     fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? 'grey' : 'var(--baby-blue)',
+    color: isPending ? 'var(--baby-blue)' : 'var(--baby-blue)',
   };
 }
 

@@ -3,6 +3,7 @@ import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import AsteriskBorder from '~/components/AsteriskBorder';
+import Marquee from "react-fast-marquee";
 
 /**
  * @type {MetaFunction}
@@ -53,12 +54,16 @@ export default function Homepage() {
 
           </h1>
       </div>
-      <div className='w-full md:w-[810px] flex justify-between font-sans uppercase italic p-2 text-lg md:text-xl'>
-        <span>97 Montrose Ave</span>
-        <span>Brooklyn, <span className='inline md:hidden'>NY</span><span className='hidden md:inline'>New York</span></span>
-      </div> 
+      <div className='w-full md:w-[810px] flex justify-between font-sans uppercase italic p-2 text-lg md:text-[14px]'>
+        <span><a href="https://maps.app.goo.gl/BJhhWQ3buH4231rr5" target='_blank'>97 Montrose Ave</a></span>
+        <span><a href="https://maps.app.goo.gl/BJhhWQ3buH4231rr5" target='_blank'>Brooklyn, <span className='inline md:hidden'>NY</span><span className='hidden md:inline'>New York</span></a></span>
+      </div>  
+
+      <Marquee style={{}}>
+        <p className='hidden md:block w-full text-center uppercase footer-note mt-24'>{settings.homepage_announcement.value}&nbsp;{settings.homepage_announcement.value}</p>
+      </Marquee> 
     </div>
-    <p className='hidden md:block absolute bottom-[20%] w-full text-center uppercase footer-note'>{settings.homepage_announcement.value}</p>
+
     </>
   );
 }

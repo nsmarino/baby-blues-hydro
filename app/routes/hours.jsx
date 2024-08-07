@@ -30,26 +30,28 @@ export default function Hours() {
 
     return (
         <>
-            <div className='md:w-1/2 md:absolute md:left-1/2 md:top-[7%] md:-translate-x-1/2 mt-32 mb-12'>
-            <Marquee style={{}}>
-                <p className='announcement !text-[20px]'>{settings.hours_announcement.value}&nbsp;</p>
-            </Marquee>
+          <div className='hoursGrid h-full flex flex-col md:grid justify-center items-center gap-12 md:gap-16 mb-12 md:mb-0'>
+            <div className='marquee-in-grid'>
+              <Marquee>
+                  <p className='announcement !text-[20px]'>{settings.hours_announcement.value}&nbsp;</p>
+              </Marquee>                 
             </div>
-            <div className='h-full flex flex-col md:flex-row justify-center items-center gap-12 md:gap-16 mb-12 md:mb-0'>
-                <div className='flex flex-col justify-center items-center gap-4 hash-border w-[200px] h-[160px] order-2 md:order-1' style={{ borderImageWidth: "22px 0;"}}>
-                    <p className='info'>Monday - Friday:</p>
-                    <p className='info'>{settings.weekday_hours.value}</p>
-                </div>
-
-                <div className='w-full p-4 md:w-[33vw] order-1 md:order-2'>
-                    <SimpleCarousel images={images} />
-                </div>
-
-                <div className=' order-3 flex flex-col justify-center items-center gap-4 hash-border w-[200px] h-[160px]' style={{ borderImageWidth: "22px 0;"}}>
-                    <p className='info'>Saturday - Sunday:</p>
-                    <p className='info'>{settings.weekend_hours.value}</p>
-                </div>
+            
+            <div className='hours-1-in-grid flex flex-col justify-center items-center gap-4 hash-border top-and-bottom-hash w-[222px] h-[160px] order-2 md:order-1' style={{ borderImageWidth: "22px 0;"}}>
+                <p className='info-light uppercase'>Monday - Friday:</p>
+                <p className='info-light uppercase'>{settings.weekday_hours.value}</p>
             </div>
+
+            <div className='images-in-grid w-full md:w-[40vw] order-1 md:order-2'>
+                <SimpleCarousel images={images} />
+                
+            </div>
+
+            <div className='hours-2-in-grid order-3 flex flex-col justify-center items-center gap-4 hash-border top-and-bottom-hash w-[222px] h-[160px]' style={{ borderImageWidth: "22px 0;"}}>
+                <p className='info-light uppercase'>Saturday - Sunday:</p>
+                <p className='info-light uppercase'>{settings.weekend_hours.value}</p>
+            </div>
+          </div>
         </>
     )
 }

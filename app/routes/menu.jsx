@@ -64,10 +64,11 @@ export default function Menu() {
           <div className='gap-8 flex-col md:flex-row w-full justify-between flex'>
             <div className='relative py-12 md:px-12 md:pb-32 basis-full text-center uppercase font-serif font-bold justify-stretch ast-border md:top-and-right hidden md:block'>
                 <div className='flex flex-col h-full'>
-                  <div className='flex h2'><span>IG:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>@babybluesny</span></div>
-                  <div className='flex h2'><span>E:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>info@babyblues.nyc</span></div>
-                  <div className='relative py-8'><div className="dot-line"></div></div>
+                  <div className='flex h2'><span>IG:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span><a href="https://www.instagram.com/babybluesny/" target="_blank">@babybluesny</a></span></div>
+                  <div className='flex h2'><span>E:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span><a href="mailto:info@babyblues.nyc" target="_blank">info@babyblues.nyc</a></span></div>
+                  <div className='relative py-12'><div className="dot-line"></div></div>
                   <div className='h2 mt-auto mb-4'>No reservations - walk ins only</div>
+
                 </div>
               
             </div>          
@@ -96,7 +97,7 @@ const MenuSections = ({sections}) => {
         console.log(section)
         if (section.handle === "specials") {
           return (
-          <div key={section.id} id={section.handle} className="w-full flex flex-col gap-8 relative py-12 my-12">
+          <div key={section.id} id={section.handle} className="menu-section md:px-[80px] w-full flex flex-col gap-8 relative py-12 my-12">
             <AsteriskBorder bottom={true} top={true}>
               <Marquee style={{}}>
                 <h2 className="announcement uppercase">SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
@@ -110,7 +111,7 @@ const MenuSections = ({sections}) => {
             </div>
           </div>
         )} else return (
-          <div key={section.id} id={section.handle} className='w-full flex flex-col gap-[50px] max-w-[1300px]'>
+          <div key={section.id} id={section.handle} className='menu-section md:px-[80px] w-full flex flex-col gap-[50px] max-w-[1300px]'>
             <div className='w-full relative'>
               <div className={`${section.handle !== "drinks" ? "hidden md:block dot-bg" : ""}`}></div>
               <h2 className='relative w-fit md:mx-auto md:border-2 md:py-4 md:px-12 rounded-[100%] bg-[#FFFFFF] mono-font md:mono-font-bold uppercase -mb-[30px] md:mb-0'>{section.fields.title.value}</h2>
@@ -133,12 +134,21 @@ const MenuItem = ({item}) => {
     },
     {},
   );
+  const modifiers = () => {
+    const showMod = (fieldsReduced.gluten_free && fieldsReduced.gluten_free.value==='true') || (fieldsReduced.vegan && fieldsReduced.vegan.value==='true')
+    const bothMod = (fieldsReduced.gluten_free && fieldsReduced.gluten_free.value==='true') && (fieldsReduced.vegan && fieldsReduced.vegan.value==='true')
+    return (
+      <>
+        {showMod && <span className='text-[18px]'>({(fieldsReduced.gluten_free && fieldsReduced.gluten_free.value==='true') && "G.F."}{bothMod && ","}{(fieldsReduced.vegan && fieldsReduced.vegan.value==='true') && "V."})</span>}
+      </>
+    )
+  }
 
   return (
     <>
     <div className='flex flex-wrap md:flex-nowrap md:flex-row w-full justify-between'>
       <div className='w-full md:basis-1/3 md:text-right md:pr-8 uppercase'>
-        <h3 className='flex flex-row-reverse md:flex-row justify-end gap-4'>{(fieldsReduced.gluten_free && fieldsReduced.gluten_free.value==='true')  && <span>(G.F.)</span>}<span className='serif-font-bold md:mono-font-bold '>{fieldsReduced.title.value}</span></h3>
+        <h3 className='flex flex-row-reverse md:flex-row justify-end gap-4'>{modifiers()}<span className='serif-font-bold md:mono-font-bold '>{fieldsReduced.title.value}</span></h3>
         <p className='subtitle'>{fieldsReduced.subtitle && fieldsReduced.subtitle.value}</p>
       </div>
 

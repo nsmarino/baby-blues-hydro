@@ -52,7 +52,7 @@ export default function Press() {
                 return (
                     <article key={article.id} className='mb-12'>
                         <h2 className='uppercase'>{article.fields.title.value}</h2>
-                        <p className="sans-font uppercase">{article.fields.subtitle.value}</p>
+                        <p className="sans-font uppercase text-[20px]">{article.fields.subtitle.value}</p>
                         {article.fields.image &&
                         <Image
                             alt={article.fields.subtitle.value}
@@ -60,7 +60,7 @@ export default function Press() {
                             data={article.fields.image.reference.image}
                             sizes="(min-width: 45em) 50vw, 100vw"
                         />}
-                        <div className="richtext" dangerouslySetInnerHTML={{__html: convertSchemaToHtml(article.fields.content.value)}} />
+                        <div className=" mt-8 richtext" dangerouslySetInnerHTML={{__html: convertSchemaToHtml(article.fields.content.value)}} />
                     </article>
                 )
             })}            

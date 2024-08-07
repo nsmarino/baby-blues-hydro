@@ -59,7 +59,7 @@ function Products({products, wys, settings}) {
         <AsteriskBorder top={true}>
           <div className='flex w-full justify-around'>
             {wys.metaobjects.nodes.map(node => 
-              <a className="h2" key={node.handle} href={`/policies/${node.handle}`}>{node.field.value}</a>
+              <a className="h2 !text-[20px]" key={node.handle} href={`/policies/${node.handle}`}>{node.field.value}</a>
             )}
           </div>
         </AsteriskBorder>
@@ -68,23 +68,23 @@ function Products({products, wys, settings}) {
         <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch pb-32'>
           <AsteriskBorder top={true} right={true} />
             <div className='flex flex-col h-full'>
-              <div className='flex h2'><span>IG:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>@babybluesny</span></div>
-              <div className='flex h2'><span>E:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>info@babyblues.nyc</span></div>
+              <div className='flex h2 !text-[20px]'><span>IG:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>@babybluesny</span></div>
+              <div className='flex h2 !text-[20px]'><span>E:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>info@babyblues.nyc</span></div>
               <div className='relative py-8'><div className="dot-line"></div></div>
-              <div className='h2 mt-auto mb-4'>No reservations - walk ins only</div>
+              <div className='h2 !text-[20px] mt-auto mb-4'>No reservations - walk ins only</div>
             </div>
           
         </div>          
         <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch pb-32'>
           <AsteriskBorder top={true} left={true} />
             <div className='flex flex-col h-full'>
-              <div className='flex h2'><span>Monday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
-              <div className='flex h2'><span>Tuesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
-              <div className='flex h2'><span>Wednesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
-              <div className='flex h2'><span>Thursday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
-              <div className='flex h2'><span>Friday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
-              <div className='flex h2'><span>Saturday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekend_hours.value}</span></div>
-              <div className='flex h2'><span>Sunday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekend_hours.value}</span></div>
+              <div className='flex h2 !text-[20px]'><span>Monday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+              <div className='flex h2 !text-[20px]'><span>Tuesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+              <div className='flex h2 !text-[20px]'><span>Wednesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+              <div className='flex h2 !text-[20px]'><span>Thursday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+              <div className='flex h2 !text-[20px]'><span>Friday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
+              <div className='flex h2 !text-[20px]'><span>Saturday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekend_hours.value}</span></div>
+              <div className='flex h2 !text-[20px]'><span>Sunday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekend_hours.value}</span></div>
             </div>
           
         </div>        
