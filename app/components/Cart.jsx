@@ -5,7 +5,6 @@ import AsteriskBorder from './AsteriskBorder';
 
 export function CartMain({layout, cart}) {
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
-  console.log("linesCount", linesCount)
   const withDiscount =
     cart &&
     Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length);
@@ -23,7 +22,7 @@ function CartDetails({hidden, layout, cart}) {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
 
   return (
-    <div className="cart-details w-full md:p-32" hidden={hidden}>
+    <div className="cart-details w-full md:p-32 md:flex md:flex-col" hidden={hidden}>
 
       <header className='relative pb-12'>      
         <AsteriskBorder bottom={true}>
@@ -51,7 +50,7 @@ function CartLines({lines, layout}) {
   if (!lines) return null;
 
   return (
-    <div class="pt-12" aria-labelledby="cart-lines">
+    <div class="pt-12 md:pb-32" aria-labelledby="cart-lines">
       <ul>
         {lines.nodes.map((line) => (
           <CartLineItem key={line.id} line={line} layout={layout} />
@@ -62,6 +61,7 @@ function CartLines({lines, layout}) {
 }
 
 function CartLineItem({layout, line}) {
+  console.log(line)
   const {id, merchandise} = line;
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
@@ -96,7 +96,7 @@ function CartLineItem({layout, line}) {
           }}
         >
           <div className='sans-font uppercase text-[2rem]'>
-            {product.title}
+            {product.title}{merchandise.title != "Default Title" && <> - {merchandise.title}</>}
           </div>
         </Link>
       </div>        
@@ -110,7 +110,7 @@ function CartCheckoutActions({checkoutUrl}) {
   if (!checkoutUrl) return null;
 
   return (
-    <div className='w-full px-4 md:w-[600px] mx-auto fixed bottom-2 md:bottom-48 md:left-1/2 md:-translate-x-1/2'>
+    <div className='w-full px-4 md:w-[600px] mx-auto'>
       <a href={checkoutUrl} target="_self" className='atc-btn bg-[#fff] block'>
         Check Out
       </a>
@@ -122,10 +122,9 @@ function CartCheckoutActions({checkoutUrl}) {
 export function CartSummary({cost, layout, children = null, itemCount=0}) {
 
   return (
-    <>
-      <div aria-labelledby="cart-summary" className='relative py-12'>
-        <AsteriskBorder top={true} bottom={true}>
-          <div className="flex w-full justify-between items-center relative px-12 md:pr-0 md:pl-24 uppercase">
+      <div aria-labelledby="cart-summary" className='fixed bottom-0 pt-4 md:py-12 w-full md:w-[calc(100%-16rem)] bg-[#FFF] border-t-2 border-[#FFF]'>
+        <AsteriskBorder top={true}>
+          <div className="flex w-full justify-between items-center px-12 uppercase">
             <div>Total:</div>
             <div className='hidden md:block'>{itemCount} items</div>
             <div className='text-[2rem] sans-font'>{cost?.subtotalAmount?.amount ? (
@@ -133,13 +132,10 @@ export function CartSummary({cost, layout, children = null, itemCount=0}) {
                 ) : (
                   '-'
                 )}
-              </div>
-          </div>
+            </div>
+          </div>{children}
         </AsteriskBorder>
       </div>
-
-      {children}
-    </>
   );
 }
 

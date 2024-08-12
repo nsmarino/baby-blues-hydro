@@ -9,7 +9,21 @@ import {
   PredictiveSearchResults,
 } from '~/components/Search';
 import useWindowDimensions from '~/lib/hooks';
+import { useLocation } from "react-router-dom";
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    document.querySelector(".overflow-y-scroll").scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant", // Optional if you want to skip the scrolling animation
+    });
+  }, [pathname]);
+
+  return null;
+}
 /**
  * @param {LayoutProps}
  */
@@ -76,6 +90,7 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
       <MobileMenuAside menu={header?.menu} shop={header?.shop} />
       {header && <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />}
       <main className='h-full overflow-y-scroll'>
+        <ScrollToTop />
         {children}
       </main>
       <MobileFooter />
@@ -179,8 +194,10 @@ function MobileLogo() {
 }
 
 function MobileFooter() {
+  const { pathname } = useLocation();
+
   return (
-    <footer className='ast-border top-only md:hidden mx-[20px] py-[40px]'>
+    <footer className={`ast-border top-only md:hidden mx-[20px] py-[40px] ${pathname==='/cart' && 'mb-[140px]'}`}>
       <h3 className='uppercase'>For Private Events:</h3>
       <a className="uppercase h2 underline" href="mailto:info@babyblues.nyc">info@babyblues.nyc</a>
       <div className='flex items-end mt-8'>

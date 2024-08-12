@@ -277,7 +277,6 @@ function ProductMain({selectedVariant, product, variants}) {
   const {title, descriptionHtml, shipping, fit, details } = product;
   const [activeTab, setActiveTab] = useState("")
 
-  console.log(product)
   return (
     <div className="flex flex-col gap-[40px] items-center text-center px-4">
       <h2 className="sans-font uppercase leading-none">{title}</h2>
