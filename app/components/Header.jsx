@@ -155,7 +155,7 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
  */
 function HeaderCtas({isLoggedIn, cart}) {
   return (
-    <nav className="header-ctas justify-between p-4 pb-8 md:pb-4 md:pl-0 ast-border bottom-only border-mobile-only bg-[#FFF] md:bg-none" role="navigation">
+    <nav className="header-ctas justify-between p-4 pb-8 md:pb-4 md:pl-0 ast-border bottom-only border-mobile-only bg-[#FFF] md:bg-transparent" role="navigation">
       <HeaderMenuMobileToggle />
       <a href="/" className='block md:hidden max-w-[60%]'>
       <svg className='w-full h-auto' viewBox="0 -2 245 50" fill="none" xmlns="http://www.w3.org/2000/svg">
