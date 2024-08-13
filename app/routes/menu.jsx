@@ -139,7 +139,7 @@ const MenuItem = ({item}) => {
     const bothMod = (fieldsReduced.gluten_free && fieldsReduced.gluten_free.value==='true') && (fieldsReduced.vegan && fieldsReduced.vegan.value==='true')
     return (
       <>
-        {showMod && <span className='text-[18px]'>({(fieldsReduced.gluten_free && fieldsReduced.gluten_free.value==='true') && "G.F."}{bothMod && ","}{(fieldsReduced.vegan && fieldsReduced.vegan.value==='true') && "V."})</span>}
+        {showMod && <span className='text-[14px]'>({(fieldsReduced.gluten_free && fieldsReduced.gluten_free.value==='true') && "G.F."}{bothMod && ","}{(fieldsReduced.vegan && fieldsReduced.vegan.value==='true') && "V."})</span>}
       </>
     )
   }

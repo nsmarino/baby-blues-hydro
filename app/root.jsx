@@ -86,6 +86,16 @@ export async function loader({context}) {
     },
   });
 
+  const settingsQu = await storefront.query(SETTINGS_QUERY);
+  const settingsObj = settingsQu.metaobjects.nodes[0].fields.reduce(
+    (accumulator, currentValue) => {
+        accumulator[currentValue.key] = {...currentValue}
+        return accumulator
+      },
+    {},
+  )
+
+
   return defer(
     {
       cart: cartPromise,
@@ -93,6 +103,7 @@ export async function loader({context}) {
       header: await headerPromise,
       isLoggedIn: isLoggedInPromise,
       publicStoreDomain,
+      settings: settingsObj,
     },
     {
       headers: {
@@ -226,6 +237,29 @@ const HEADER_QUERY = `#graphql
   }
   ${MENU_FRAGMENT}
 `;
+
+const SETTINGS_QUERY = `#graphql
+query {
+    metaobjects(type: "settings", first: 1) {
+      nodes {
+        fields {
+          key
+          value
+          reference {
+            ... on MediaImage {
+              image {
+                url
+                width
+                id
+                height
+                altText
+              }
+            }
+          }
+        }
+      }
+    }
+  }`;
 
 const FOOTER_QUERY = `#graphql
   query Footer(

@@ -27,7 +27,7 @@ function ScrollToTop() {
 /**
  * @param {LayoutProps}
  */
-export function Layout({cart, children = null, footer, header, isLoggedIn}) {
+export function Layout({cart, children = null, footer, header, settings, isLoggedIn}) {
   const windowDimensions = useWindowDimensions()
 
   // useEffect(() => {
@@ -84,11 +84,12 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
 
   // }, [])
 
+  console.log("Settings", settings)
   return (
     <>
       {/* <CartAside cart={cart} /> */}
       <MobileMenuAside menu={header?.menu} shop={header?.shop} />
-      {header && <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />}
+      {header && <Header header={header} cart={cart} isLoggedIn={isLoggedIn} settings={settings} />}
       <main className='h-full overflow-y-scroll'>
         <ScrollToTop />
         {children}

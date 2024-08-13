@@ -9,7 +9,7 @@ import phoneSvg from '~/assets/header/Phone.svg';
 /**
  * @param {HeaderProps}
  */
-export function Header({header, isLoggedIn, cart}) {
+export function Header({header, settings, isLoggedIn, cart}) {
   const {shop, menu} = header;
 
   return (
@@ -21,39 +21,82 @@ export function Header({header, isLoggedIn, cart}) {
              <div className='w-full h-full' style={{border: "31px solid white", position: "relative", zIndex: "-1"}}></div>
           </div>
         </div>
-          <div className='fixed inset-x-1/2 whitespace-nowrap top-[20px] -translate-x-1/2 w-fit bg-[#FFFFFF] z-20'>
+          <div className='fixed inset-x-1/2 whitespace-nowrap top-[20px] -translate-x-1/2 w-fit z-20'>
             <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-              <span className='rounded-outline font-sans uppercase italic font-bold text-[30px] bg-white px-4 block -translate-y-[2px] :focus:text-inherit'>Baby Blues Luncheonette</span>
+              <span className='rounded-outline font-sans uppercase italic font-bold text-[30px] bg-white block -translate-y-[2px] :focus:text-inherit bg-[#FFF]'>Baby Blues Luncheonette</span>
             </NavLink>          
           </div>
-          <div className='fixed whitespace-nowrap bottom-[20px] right-[20px] w-fit bg-[#FFFFFF] z-20 pl-2'>
+          <div className='fixed whitespace-nowrap bottom-[20px] right-[20px] w-fit z-20 pl-2  flex flex-col items-end'>
             <NavLink prefetch="intent" to="/contact" style={activeLinkStyle} end>
-              <img src={phoneSvg} alt="" />
-              Contact
+            <div className='flex flex-col items-end nav-link will-bounce'>
+              <img src={settings.contact_icon.reference.image.url} alt="" className='bg-[#fff]' />
+              <div className='bg-[#FFF] '>
+                <span>C</span>
+                <span>o</span>
+                <span>n</span>
+                <span>t</span>
+                <span>a</span>
+                <span>c</span>
+                <span>t</span>
+              </div>
+            </div>
             </NavLink>
           </div>
-          <div className='fixed whitespace-nowrap top-[20px] right-[20px] pl-2 w-fit bg-[#FFFFFF] z-20'>
+          <div className='fixed whitespace-nowrap top-[20px] right-[20px] pl-2 w-fit z-20  flex flex-col items-end'>
             <NavLink prefetch="intent" to="/menu" style={activeLinkStyle} end>
-            <img src={knifeForkSvg} alt="" />
-              Menu
+            <div className=' flex flex-col items-end nav-link will-bounce'>
+              <img src={settings.menu_icon.reference.image.url} alt=""  className='bg-[#fff]'/>
+              <div className='bg-[#FFF]'>
+                <span>M</span>
+                <span>e</span>
+                <span>n</span>
+                <span>u</span>
+              </div>
+            </div>
+
             </NavLink>
           </div>
-          <div className='fixed whitespace-nowrap bottom-[20px] left-[20px] w-fit bg-[#FFFFFF] z-20 pr-2'>
+          <div className='fixed whitespace-nowrap bottom-[20px] left-[20px] w-fit z-20 pr-2 nav-link will-bounce'>
             <NavLink prefetch="intent" to="/shop" style={activeLinkStyle} end>
-              <img src={musicNoteSvg} alt="" />
-                Shop
+            <img src={settings.shop_icon.reference.image.url} className='bg-[#fff]' />
+            <div className='bg-[#FFF]'>
+              <span>S</span>
+              <span>h</span>
+              <span>o</span>
+              <span>p</span>
+            </div>
             </NavLink>
           </div>
-          <div className='fixed whitespace-nowrap top-[20px] left-[20px] w-fit bg-[#FFFFFF] z-20 pr-2'>
+          <div className='fixed whitespace-nowrap top-[20px] left-[20px] w-fit z-20 pr-2 nav-link will-bounce'>
             <NavLink prefetch="intent" to="/hours" style={activeLinkStyle} end>
-              <img src={clockSvg} alt="" />
-              Hours
+            <img src={settings.hours_icon.reference.image.url} alt=""  className='bg-[#fff]'/>
+            <div className='bg-[#FFF]'>
+              <span>H</span>
+              <span>o</span>
+              <span>u</span>
+              <span>r</span>
+              <span>s</span>
+            </div>
             </NavLink>
           </div>
 
       </div>          
-      <div className='fixed whitespace-nowrap top-0 md:top-1/2 md:-translate-y-1/2 md:left-[20px] w-full md:w-fit bg-[#FFFFFF] z-20'>
+      <div className='fixed whitespace-nowrap top-0 md:top-1/2 md:-translate-y-1/2 md:left-[20px] w-full md:w-fit z-20'>
         <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+      </div>
+      <div className='fixed whitespace-nowrap top-0 md:top-1/2 md:-translate-y-1/2 md:right-[20px] w-full md:w-fit z-20 flex flex-col items-end'>
+      <NavLink prefetch="intent" to="/press" style={activeLinkStyle} end>
+        <div className='flex flex-col items-end nav-link will-bounce'>
+          <img src={settings.press_icon.reference.image.url} alt="" style={{maxWidth: '45px'}}  className='bg-[#fff]'/>
+          <div className='bg-[#FFF]'>
+            <span>P</span>
+            <span>r</span>
+            <span>e</span>
+            <span>s</span>
+            <span>s</span>
+          </div>
+        </div>
+      </NavLink>
       </div>
     </header>
   );
@@ -148,7 +191,12 @@ function SearchToggle() {
  * @param {{count: number}}
  */
 function CartBadge({count}) {
-  return <NavLink prefetch="intent" to="/cart" style={activeLinkStyle} end><span className='flex flex-col justify-center md:justify-start'><span className='text-[14px] md:text-[24px]'>CART</span><span className='text-center md:text-left !text-[24px] serif-font info'>({count})</span></span></NavLink>;
+  return <NavLink prefetch="intent" to="/cart" style={activeLinkStyle} end><span className='flex flex-col justify-center md:justify-start'><span className='text-[14px] md:text-[24px] bg-[#FFF] pb-2 will-bounce'>
+    <span>C</span>
+    <span>a</span>
+    <span>r</span>
+    <span>t</span>
+    </span><span className='text-center md:text-left !text-[24px] serif-font info bg-[#FFF]'>({count})</span></span></NavLink>;
 }
 
 /**
