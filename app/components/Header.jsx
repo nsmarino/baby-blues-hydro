@@ -84,7 +84,7 @@ export function Header({header, settings, isLoggedIn, cart}) {
       <div className='fixed whitespace-nowrap top-0 md:top-1/2 md:-translate-y-1/2 md:left-[20px] w-full md:w-fit z-20'>
         <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
       </div>
-      <div className='fixed whitespace-nowrap top-0 md:top-1/2 md:-translate-y-1/2 md:right-[20px] w-full md:w-fit z-20 flex flex-col items-end'>
+      <div className='fixed whitespace-nowrap top-0 md:top-1/2 md:-translate-y-1/2 md:right-[20px] w-full md:w-fit z-20 hidden md:flex flex-col items-end'>
       <NavLink prefetch="intent" to="/press" style={activeLinkStyle} end>
         <div className='flex flex-col items-end nav-link will-bounce'>
           <img src={settings.press_icon.reference.image.url} alt="" style={{maxWidth: '45px'}}  className='bg-[#fff]'/>
@@ -155,7 +155,7 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
  */
 function HeaderCtas({isLoggedIn, cart}) {
   return (
-    <nav className="header-ctas justify-between p-4 pb-8 md:pb-4 md:pl-0 ast-border bottom-only border-mobile-only" role="navigation">
+    <nav className="header-ctas justify-between p-4 pb-8 md:pb-4 md:pl-0 ast-border bottom-only border-mobile-only bg-[#FFF] md:bg-none" role="navigation">
       <HeaderMenuMobileToggle />
       <a href="/" className='block md:hidden max-w-[60%]'>
       <svg className='w-full h-auto' viewBox="0 -2 245 50" fill="none" xmlns="http://www.w3.org/2000/svg">
