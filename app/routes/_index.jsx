@@ -46,15 +46,13 @@ export default function Homepage() {
 
   return (
     <>
-    <div className="home h-[75vh] mx-[20px] md:h-full flex flex-col justify-center items-center">
+    <div className="home h-[66vh] mx-[20px] md:h-full flex flex-col justify-center items-center">
       <div className="relative w-full md:w-[810px] px-24 py-24 ast-border mt-auto md:mt-0">
           <h1>
-            
             <img src={settings.homepage_logo.reference.image.url} alt="" className='w-full max-h-[150px]' />
-
           </h1>
       </div>
-      <div className='w-full md:w-[810px] flex justify-between font-sans uppercase italic p-2 text-lg md:text-[14px]'>
+      <div className='w-full md:w-[810px]  hidden md:flex justify-between font-sans uppercase italic p-2 text-lg md:text-[14px]'>
         <span><a href="https://maps.app.goo.gl/BJhhWQ3buH4231rr5" target='_blank'>97 Montrose Ave</a></span>
         <span><a href="https://maps.app.goo.gl/BJhhWQ3buH4231rr5" target='_blank'>Brooklyn, <span className='inline md:hidden'>NY</span><span className='hidden md:inline'>New York</span></a></span>
       </div>  

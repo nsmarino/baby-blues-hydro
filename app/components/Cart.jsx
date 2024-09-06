@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {CartForm, Image, Money} from '@shopify/hydrogen';
 import {Link} from '@remix-run/react';
 import {useVariantUrl} from '~/lib/variants';
@@ -20,9 +21,8 @@ export function CartMain({layout, cart}) {
 
 function CartDetails({hidden, layout, cart}) {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
-
   return (
-    <div className="cart-details w-full md:p-32 md:flex md:flex-col" hidden={hidden}>
+    <div className={`cart-details w-full md:p-32 md:flex md:flex-col ${hidden && 'hidden md:!hidden'}`}>
 
       <header className='relative pb-12'>      
         <AsteriskBorder bottom={true}>
@@ -39,7 +39,7 @@ function CartDetails({hidden, layout, cart}) {
       {cartHasItems && (
         <CartSummary cost={cart.cost} layout={layout} itemCount={cart.totalQuantity}>
           {/* <CartDiscounts discountCodes={cart.discountCodes} /> */}
-          <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
+          <CartCheckoutActions checkoutUrl={cart.checkoutUrl} cost={cart.cost} />
         </CartSummary>
       )}
     </div>
@@ -61,12 +61,10 @@ function CartLines({lines, layout}) {
 }
 
 function CartLineItem({layout, line}) {
-  console.log(line)
   const {id, merchandise} = line;
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
 
-  
   return (
     <li key={id} className="cart-line">
       <div className='flex md:gap-12 items-center'>
@@ -106,13 +104,13 @@ function CartLineItem({layout, line}) {
   );
 }
 
-function CartCheckoutActions({checkoutUrl}) {
+function CartCheckoutActions({checkoutUrl, cost}) {
   if (!checkoutUrl) return null;
 
   return (
     <div className='w-full px-4 md:w-[600px] mx-auto'>
       <a href={checkoutUrl} target="_self" className='atc-btn bg-[#fff] block'>
-        Check Out
+        Check Out <span className="md:hidden font-normal [&>*]:inline">- {<Money data={cost?.subtotalAmount} withoutTrailingZeros />}</span>
       </a>
       <br />
     </div>
@@ -124,7 +122,7 @@ export function CartSummary({cost, layout, children = null, itemCount=0}) {
   return (
       <div aria-labelledby="cart-summary" className='fixed bottom-0 pt-4 md:py-12 w-full md:w-[calc(100%-16rem)] bg-[#FFF] border-t-2 border-[#FFF]'>
         <AsteriskBorder top={true}>
-          <div className="flex w-full justify-between items-center px-12 uppercase">
+          <div className="hidden md:flex w-full justify-between items-center px-12 uppercase">
             <div>Total:</div>
             <div className='hidden md:block'>{itemCount} items</div>
             <div className='text-[2rem] sans-font'>{cost?.subtotalAmount?.amount ? (
@@ -140,22 +138,22 @@ export function CartSummary({cost, layout, children = null, itemCount=0}) {
 }
 
 function CartLineRemoveButton({lineIds}) {
-  return (
 
+  return (
     <CartForm
       route="/cart"
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button  className="hidden md:block" type="submit">
+      <button className="hidden md:block" type="submit">
       <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-<mask id="path-1-outside-1_707_1425" maskUnits="userSpaceOnUse" x="-1" y="0" width="22" height="23" fill="black">
-<rect fill="white" x="-1" width="22" height="23"/>
-<path d="M0 22L7.33887 10.7939L0.688477 0.525391H5.75684L10.0635 7.4248L14.2822 0.525391H19.3066L12.627 10.9551L19.9658 22H14.7363L9.97559 14.5732L5.2002 22H0Z"/>
-</mask>
-<path d="M0 22L7.33887 10.7939L0.688477 0.525391H5.75684L10.0635 7.4248L14.2822 0.525391H19.3066L12.627 10.9551L19.9658 22H14.7363L9.97559 14.5732L5.2002 22H0Z" fill="#0057FF"/>
-<path d="M0 22L-0.418282 21.7261C-0.518906 21.8797 -0.527193 22.0762 -0.439868 22.2377C-0.352542 22.3993 -0.183663 22.5 0 22.5L0 22ZM7.33887 10.7939L7.75715 11.0679C7.8656 10.9023 7.86615 10.6883 7.75854 10.5221L7.33887 10.7939ZM0.688477 0.525391V0.0253906C0.50527 0.0253906 0.336734 0.125588 0.249216 0.286539C0.161698 0.44749 0.169213 0.643416 0.268804 0.79719L0.688477 0.525391ZM5.75684 0.525391L6.18099 0.260634C6.08965 0.114305 5.92933 0.0253906 5.75684 0.0253906V0.525391ZM10.0635 7.4248L9.63933 7.68956C9.7311 7.83659 9.89247 7.9256 10.0658 7.9248C10.2391 7.924 10.3996 7.8335 10.4901 7.68564L10.0635 7.4248ZM14.2822 0.525391V0.0253906C14.1081 0.0253906 13.9465 0.115991 13.8557 0.264556L14.2822 0.525391ZM19.3066 0.525391L19.7277 0.795052C19.8263 0.641157 19.833 0.44575 19.7453 0.285422C19.6576 0.125095 19.4894 0.0253906 19.3066 0.0253906V0.525391ZM12.627 10.9551L12.2059 10.6854C12.099 10.8524 12.1008 11.0667 12.2105 11.2318L12.627 10.9551ZM19.9658 22V22.5C20.1501 22.5 20.3194 22.3987 20.4065 22.2363C20.4935 22.0739 20.4842 21.8768 20.3823 21.7233L19.9658 22ZM14.7363 22L14.3154 22.2698C14.4073 22.4133 14.566 22.5 14.7363 22.5V22ZM9.97559 14.5732L10.3965 14.3034C10.3047 14.1601 10.1462 14.0734 9.97593 14.0732C9.8057 14.0731 9.6471 14.1596 9.55502 14.3028L9.97559 14.5732ZM5.2002 22V22.5C5.37031 22.5 5.52875 22.4135 5.62076 22.2704L5.2002 22ZM0.418282 22.2739L7.75715 11.0679L6.92058 10.52L-0.418282 21.7261L0.418282 22.2739ZM7.75854 10.5221L1.10815 0.253591L0.268804 0.79719L6.91919 11.0657L7.75854 10.5221ZM0.688477 1.02539H5.75684V0.0253906H0.688477V1.02539ZM5.33268 0.790147L9.63933 7.68956L10.4876 7.16005L6.18099 0.260634L5.33268 0.790147ZM10.4901 7.68564L14.7088 0.786226L13.8557 0.264556L9.6369 7.16397L10.4901 7.68564ZM14.2822 1.02539H19.3066V0.0253906H14.2822V1.02539ZM18.8856 0.255729L12.2059 10.6854L13.048 11.2247L19.7277 0.795052L18.8856 0.255729ZM12.2105 11.2318L19.5494 22.2767L20.3823 21.7233L13.0434 10.6784L12.2105 11.2318ZM19.9658 21.5H14.7363V22.5H19.9658V21.5ZM15.1573 21.7302L10.3965 14.3034L9.55465 14.8431L14.3154 22.2698L15.1573 21.7302ZM9.55502 14.3028L4.77963 21.7296L5.62076 22.2704L10.3961 14.8437L9.55502 14.3028ZM5.2002 21.5H0V22.5H5.2002V21.5Z" fill="white" mask="url(#path-1-outside-1_707_1425)"/>
-</svg>
+        <mask id="path-1-outside-1_707_1425" maskUnits="userSpaceOnUse" x="-1" y="0" width="22" height="23" fill="black">
+        <rect fill="white" x="-1" width="22" height="23"/>
+        <path d="M0 22L7.33887 10.7939L0.688477 0.525391H5.75684L10.0635 7.4248L14.2822 0.525391H19.3066L12.627 10.9551L19.9658 22H14.7363L9.97559 14.5732L5.2002 22H0Z"/>
+        </mask>
+        <path d="M0 22L7.33887 10.7939L0.688477 0.525391H5.75684L10.0635 7.4248L14.2822 0.525391H19.3066L12.627 10.9551L19.9658 22H14.7363L9.97559 14.5732L5.2002 22H0Z" fill="#0057FF"/>
+        <path d="M0 22L-0.418282 21.7261C-0.518906 21.8797 -0.527193 22.0762 -0.439868 22.2377C-0.352542 22.3993 -0.183663 22.5 0 22.5L0 22ZM7.33887 10.7939L7.75715 11.0679C7.8656 10.9023 7.86615 10.6883 7.75854 10.5221L7.33887 10.7939ZM0.688477 0.525391V0.0253906C0.50527 0.0253906 0.336734 0.125588 0.249216 0.286539C0.161698 0.44749 0.169213 0.643416 0.268804 0.79719L0.688477 0.525391ZM5.75684 0.525391L6.18099 0.260634C6.08965 0.114305 5.92933 0.0253906 5.75684 0.0253906V0.525391ZM10.0635 7.4248L9.63933 7.68956C9.7311 7.83659 9.89247 7.9256 10.0658 7.9248C10.2391 7.924 10.3996 7.8335 10.4901 7.68564L10.0635 7.4248ZM14.2822 0.525391V0.0253906C14.1081 0.0253906 13.9465 0.115991 13.8557 0.264556L14.2822 0.525391ZM19.3066 0.525391L19.7277 0.795052C19.8263 0.641157 19.833 0.44575 19.7453 0.285422C19.6576 0.125095 19.4894 0.0253906 19.3066 0.0253906V0.525391ZM12.627 10.9551L12.2059 10.6854C12.099 10.8524 12.1008 11.0667 12.2105 11.2318L12.627 10.9551ZM19.9658 22V22.5C20.1501 22.5 20.3194 22.3987 20.4065 22.2363C20.4935 22.0739 20.4842 21.8768 20.3823 21.7233L19.9658 22ZM14.7363 22L14.3154 22.2698C14.4073 22.4133 14.566 22.5 14.7363 22.5V22ZM9.97559 14.5732L10.3965 14.3034C10.3047 14.1601 10.1462 14.0734 9.97593 14.0732C9.8057 14.0731 9.6471 14.1596 9.55502 14.3028L9.97559 14.5732ZM5.2002 22V22.5C5.37031 22.5 5.52875 22.4135 5.62076 22.2704L5.2002 22ZM0.418282 22.2739L7.75715 11.0679L6.92058 10.52L-0.418282 21.7261L0.418282 22.2739ZM7.75854 10.5221L1.10815 0.253591L0.268804 0.79719L6.91919 11.0657L7.75854 10.5221ZM0.688477 1.02539H5.75684V0.0253906H0.688477V1.02539ZM5.33268 0.790147L9.63933 7.68956L10.4876 7.16005L6.18099 0.260634L5.33268 0.790147ZM10.4901 7.68564L14.7088 0.786226L13.8557 0.264556L9.6369 7.16397L10.4901 7.68564ZM14.2822 1.02539H19.3066V0.0253906H14.2822V1.02539ZM18.8856 0.255729L12.2059 10.6854L13.048 11.2247L19.7277 0.795052L18.8856 0.255729ZM12.2105 11.2318L19.5494 22.2767L20.3823 21.7233L13.0434 10.6784L12.2105 11.2318ZM19.9658 21.5H14.7363V22.5H19.9658V21.5ZM15.1573 21.7302L10.3965 14.3034L9.55465 14.8431L14.3154 22.2698L15.1573 21.7302ZM9.55502 14.3028L4.77963 21.7296L5.62076 22.2704L10.3961 14.8437L9.55502 14.3028ZM5.2002 21.5H0V22.5H5.2002V21.5Z" fill="white" mask="url(#path-1-outside-1_707_1425)"/>
+        </svg>
 
       </button>
     </CartForm>
@@ -165,6 +163,7 @@ function CartLineRemoveButton({lineIds}) {
 function CartLineQuantity({line}) {
   if (!line || typeof line?.quantity === 'undefined') return null;
   const {id: lineId, quantity} = line;
+
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
@@ -187,7 +186,7 @@ function CartLineQuantity({line}) {
           name="increase-quantity"
           value={nextQuantity}
         >
-          <span>+</span>
+          +
         </button>
       </CartLineUpdateButton>
     </div>
@@ -296,7 +295,7 @@ function UpdateDiscountForm({discountCodes, children}) {
   );
 }
 
-function CartLineUpdateButton({children, lines}) {
+function CartLineUpdateButton({children, lines}) {  
   return (
     <CartForm
       route="/cart"

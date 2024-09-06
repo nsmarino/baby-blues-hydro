@@ -1,6 +1,8 @@
 @import url('tailwind.css');
 @import url('typography.css');
 
+html { scroll-behavior: smooth; }
+
 .test-font {
   border: 1px solid red;
   font-family: AlpinaThin;
@@ -61,7 +63,6 @@ aside header h3 {
 
 aside header .close {
   font-weight: bold;
-  opacity: 0.8;
   text-decoration: none;
   transition: all 200ms;
   font-size: 40px;
@@ -217,6 +218,18 @@ aside li {
   color: var(--color-light);
 }
 
+.menu-section {
+  padding-top: 130px;
+}
+.menu-section:first-of-type {
+  padding-top: 0px;
+}
+
+@media (min-width: 768px) {
+  .menu-section {
+    padding-top: 160px;
+  }
+}
 /*
 * --------------------------------------------------
 * components/Cart

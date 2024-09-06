@@ -92,9 +92,8 @@ export default function Menu() {
 const MenuSections = ({sections}) => {
 
   return (
-    <div className='my-24 flex justify-center items-center flex-col gap-[50px] text-blue mono-font w-full mx-auto'>
+    <div className='my-24 flex justify-center items-center flex-col text-blue mono-font w-full mx-auto'>
       {sections.map(section => {
-        console.log(section)
         if (section.handle === "specials") {
           return (
           <div key={section.id} id={section.handle} className="menu-section md:px-[80px] w-full flex flex-col gap-8 relative py-12 my-12">

@@ -29,7 +29,7 @@ export default function Shop() {
 }
 function Products({products, wys, settings}) {
   return (
-    <div className="mx-[20px]">
+    <div className="mx-[20px]  mt-[140px]">
       <div className="flex flex-col max-w-[500px] mx-auto my-24 gap-4 md:gap-12">
         {products.nodes.map((product) => (
           <Link

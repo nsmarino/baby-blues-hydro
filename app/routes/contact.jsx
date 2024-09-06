@@ -39,7 +39,7 @@ export default function Contact() {
           <p className='mb-8 uppercase mono' style={{textShadow: "var(--text-stroke-medium)"}}><a href='mailto:scout@babyblues.nyc' target='_blank'>scout@babyblues.nyc</a></p>
         </div>
         <div className='absolute bottom-[15%] left-1/2 -translate-x-1/2'>
-          <p className='info uppercase'><a href="/press">PRESS</a></p>
+          <p className='info uppercase'><a href="/press" className="hidden md:inline">PRESS</a></p>
         </div>
       </div>
     )

@@ -16,6 +16,7 @@ export const meta = () => {
  * @param {ActionFunctionArgs}
  */
 export async function action({request, context}) {
+  console.log("REQUEST !!!!")
   const {cart} = context;
 
   const formData = await request.formData();
@@ -34,6 +35,7 @@ export async function action({request, context}) {
       result = await cart.addLines(inputs.lines);
       break;
     case CartForm.ACTIONS.LinesUpdate:
+      console.log("Running lines update")
       result = await cart.updateLines(inputs.lines);
       break;
     case CartForm.ACTIONS.LinesRemove:

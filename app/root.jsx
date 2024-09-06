@@ -12,6 +12,7 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
 } from '@remix-run/react';
+import {useLocation} from 'react-router-dom';
 import favicon from './assets/favicon.svg';
 import resetStyles from './styles/reset.css';
 import appStyles from './styles/app.css';
@@ -115,6 +116,7 @@ export async function loader({context}) {
 
 export default function App() {
   const nonce = useNonce();
+  const {pathname} = useLocation()
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
 
@@ -130,7 +132,7 @@ export default function App() {
         <Layout {...data}>
           <Outlet />
         </Layout>
-        <ScrollRestoration nonce={nonce} />
+        {pathname !== '/menu' && <ScrollRestoration nonce={nonce} />}
         <Scripts nonce={nonce} />
         <LiveReload nonce={nonce} />
       </body>
