@@ -172,7 +172,7 @@ function CartLineQuantity({line}) {
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button
           aria-label="Decrease quantity"
-          disabled={quantity <= 1}
+          // disabled={quantity <= 1}
           name="decrease-quantity"
           value={prevQuantity}
         >
