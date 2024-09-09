@@ -121,7 +121,7 @@ export default function App() {
   const data = useLoaderData();
 
   return (
-    <html lang="en">
+    <html lang="en" style={{'--bg': data.settings.background_color.value}}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -241,27 +241,27 @@ const HEADER_QUERY = `#graphql
 `;
 
 const SETTINGS_QUERY = `#graphql
-query {
-    metaobjects(type: "settings", first: 1) {
-      nodes {
-        fields {
-          key
-          value
-          reference {
-            ... on MediaImage {
-              image {
-                url
-                width
-                id
-                height
-                altText
+  query {
+      metaobjects(type: "settings", first: 1) {
+        nodes {
+          fields {
+            key
+            value
+            reference {
+              ... on MediaImage {
+                image {
+                  url
+                  width
+                  id
+                  height
+                  altText
+                }
               }
             }
           }
         }
       }
-    }
-  }`;
+    }`;
 
 const FOOTER_QUERY = `#graphql
   query Footer(

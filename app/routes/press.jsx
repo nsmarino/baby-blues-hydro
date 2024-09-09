@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-target-blank */
+/* eslint-disable prettier/prettier */
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {defer} from '@shopify/remix-oxygen';
 import MenuNav from "~/components/Menu/MenuNav"
@@ -46,12 +48,17 @@ export default function Press() {
             <div className='absolute top-[500px] right-[200px] rotate-[10deg]'>Press</div>
             <div className='absolute top-[800px] right-[200px] rotate-[25deg]'>Press</div>
         </header>
-        <div className='md:max-w-[50vw] mx-auto flex flex-col mt-32 md:mt-[300px] bg-[#FFFFFF] relative p-4 md:p-12 m-4 hash-border dk-only'>
+        <div className='md:max-w-[50vw] mx-auto flex flex-col mt-32 md:mt-[300px] bg-[var(--bg)] relative p-4 md:p-12 m-4 hash-border dk-only'>
             <HashBorder top={true} />
             {articles.map(article => {
                 return (
                     <article key={article.id} className='mb-12'>
-                        <h2 className='uppercase'>{article.fields.title.value}</h2>
+                        <h2 className='uppercase'>
+                          {article.fields.link ? 
+                            <a href={article.fields.link.value} target="_blank">{article.fields.title.value}</a> 
+                            : 
+                            article.fields.title.value}
+                          </h2>
                         <p className="sans-font uppercase text-[20px]">{article.fields.subtitle.value}</p>
                         {article.fields.image &&
                         <Image

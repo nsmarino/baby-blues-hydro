@@ -1,8 +1,8 @@
 <svg width="28" height="14" viewBox="0 0 28 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_842_8)">
-<rect width="28" height="14" fill="white"/>
+<rect width="28" height="14" fill="var(--bg)"/>
 <mask id="path-1-outside-1_842_8" maskUnits="userSpaceOnUse" x="13" y="0" width="15" height="14" fill="black">
-<rect fill="white" x="13" width="15" height="14"/>
+<rect fill="var(--bg)" x="13" width="15" height="14"/>
 <path d="M21.7961 0.999999L21.2961 5.8L26.0961 4.45L26.4461 6.75L21.8461 7.125L24.8211 11.075L22.6711 12.25L20.5461 7.875L18.6211 12.25L16.3961 11.075L19.3211 7.125L14.7711 6.75L15.1211 4.45L19.8711 5.8L19.3461 0.999999H21.7961Z"/>
 </mask>
 <path d="M21.7961 0.999999L21.2961 5.8L26.0961 4.45L26.4461 6.75L21.8461 7.125L24.8211 11.075L22.6711 12.25L20.5461 7.875L18.6211 12.25L16.3961 11.075L19.3211 7.125L14.7711 6.75L15.1211 4.45L19.8711 5.8L19.3461 0.999999H21.7961Z" fill="#0057FF"/>
@@ -10,7 +10,7 @@
 </g>
 <defs>
 <clipPath id="clip0_842_8">
-<rect width="28" height="14" fill="white"/>
+<rect width="28" height="14" fill="var(--bg)"/>
 </clipPath>
 </defs>
 </svg>

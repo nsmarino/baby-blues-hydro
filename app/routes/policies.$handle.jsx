@@ -39,15 +39,13 @@ export default function Policy() {
   const { wys, allWysiwyg} = useLoaderData();
 
   return (
-    <div className='relative max-w-[50vw] mx-auto'>
-      <AsteriskBorder top={true}>
-        <div className='flex w-full justify-around mt-24 p-8 '>
+    <div className='relative md:max-w-[50vw] mx-auto'>
+        <div className='flex flex-col md:flex-row w-full justify-center items-center gap-4 md:justify-around mt-32 p-8 '>
           {allWysiwyg.metaobjects.nodes.map(node => 
             <a key={node.handle} href={`/policies/${node.handle}`}>{node.field.value}</a>
           )}
         </div>
-      </AsteriskBorder>
-      <div className='max-w-[50vw] mx-auto flex flex-col my-[100px]'>
+      <div className='md:max-w-[50vw] mx-auto flex flex-col md:my-[100px] px-4'>
         <div className="richtext" dangerouslySetInnerHTML={{__html: convertSchemaToHtml(wys.fields.content.value)}} />
       </div>
     </div>

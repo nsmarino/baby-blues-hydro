@@ -113,7 +113,7 @@ const MenuSections = ({sections}) => {
           <div key={section.id} id={section.handle} className='menu-section md:px-[80px] w-full flex flex-col gap-[50px] max-w-[1300px]'>
             <div className='w-full relative'>
               <div className={`${section.handle !== "drinks" ? "hidden md:block dot-bg" : ""}`}></div>
-              <h2 className='relative w-fit md:mx-auto md:border-2 md:py-4 md:px-12 rounded-[100%] bg-[#FFFFFF] mono-font md:mono-font-bold uppercase -mb-[30px] md:mb-0'>{section.fields.title.value}</h2>
+              <h2 className='relative w-fit md:mx-auto md:border-2 md:py-4 md:px-12 rounded-[100%] bg-[var(--bg)] mono-font md:mono-font-bold uppercase -mb-[30px] md:mb-0'>{section.fields.title.value}</h2>
             </div>
             {
               section.fields.items.references.nodes.map(menuItem => <MenuItem item={menuItem} key={menuItem.id} />)
@@ -133,21 +133,13 @@ const MenuItem = ({item}) => {
     },
     {},
   );
-  const modifiers = () => {
-    const showMod = (fieldsReduced.gluten_free && fieldsReduced.gluten_free.value==='true') || (fieldsReduced.vegan && fieldsReduced.vegan.value==='true')
-    const bothMod = (fieldsReduced.gluten_free && fieldsReduced.gluten_free.value==='true') && (fieldsReduced.vegan && fieldsReduced.vegan.value==='true')
-    return (
-      <>
-        {showMod && <span className='text-[14px]'>({(fieldsReduced.gluten_free && fieldsReduced.gluten_free.value==='true') && "G.F."}{bothMod && ","}{(fieldsReduced.vegan && fieldsReduced.vegan.value==='true') && "V."})</span>}
-      </>
-    )
-  }
+
 
   return (
     <>
     <div className='flex flex-wrap md:flex-nowrap md:flex-row w-full justify-between'>
       <div className='w-full md:basis-1/3 md:text-right md:pr-8 uppercase'>
-        <h3 className='flex flex-row-reverse md:flex-row justify-end gap-4'>{modifiers()}<span className='serif-font-bold md:mono-font-bold '>{fieldsReduced.title.value}</span></h3>
+        <h3 className='flex flex-row-reverse md:flex-row justify-end gap-4'><span className="text-[14px]">{fieldsReduced.dietary?.value}</span><span className='serif-font-bold md:mono-font-bold '>{fieldsReduced.title.value}</span></h3>
         <p className='subtitle'>{fieldsReduced.subtitle && fieldsReduced.subtitle.value}</p>
       </div>
 

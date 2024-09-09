@@ -26,6 +26,10 @@ img {
   border-radius: 4px;
 }
 
+body {
+  background-color: var(--bg);
+}
+
 /*
 * --------------------------------------------------
 * components/Aside
@@ -154,7 +158,7 @@ aside li {
 */
 .header {
   align-items: center;
-  background: #fff;
+  background: var(--bg);
   display: flex;
   height: var(--header-height);
   padding: 0 1rem;
@@ -186,8 +190,9 @@ aside li {
   }
 }
 
-.header-menu-item {
+.header-menu-item.info {
   cursor: pointer;
+  font-size: 24px;
 }
 
 .header-ctas {
@@ -381,6 +386,15 @@ aside li {
 .recommended-product img {
   height: auto;
 }
+.rollover:hover img:first-child {
+  opacity: 0;
+  transition: opacity 100ms;
+}
+.rollover:hover img:nth-child(2) {
+  opacity: 1;
+  transition: opacity 100ms;
+  transition-delay: 90ms;
+}
 
 /*
 * --------------------------------------------------
@@ -564,7 +578,7 @@ body {
   left: 20px; 
   right: 20px; 
   top: 0px;
-  border-top: 20px solid white;
+  border-top: 20px solid var(--bg);
   padding-top: 20px;
   position: fixed;
   z-index: 1;
@@ -643,7 +657,7 @@ body {
   right: 20px; 
   bottom: 0px; 
   height: 20px;
-  border-bottom: 20px solid white;
+  border-bottom: 20px solid var(--bg);
   padding-bottom: 20px;
   position: fixed;
   z-index: 1;
@@ -680,14 +694,23 @@ body {
 
 .hoursGrid {
   grid-template-areas: "marquee marquee marquee" "hours-1 images hours-2" ". . .";
-  padding-left: 19px;
 }
+
 .hoursGrid .marquee-in-grid {
   grid-area: marquee;
   align-self: end;
   min-height: 140px;
-  display: flex;
+  display: none;
   align-items: end;
+}
+@media (min-width: 768px) {
+  .hoursGrid {
+    padding-left: 19px;
+  }
+  .hoursGrid .marquee-in-grid {
+    display: flex;
+  }
+
 }
 .hoursGrid .hours-1-in-grid {
   grid-area: hours-1;
@@ -699,4 +722,28 @@ body {
 }
 .hoursGrid .hours-2-in-grid {
   grid-area: hours-2;
+}
+
+.contact-page p {
+  line-height: 120%;
+  text-shadow: var(--text-stroke-medium);
+  font-size: 20px;
+  letter-spacing: 1px;
+  font-family: 'EBGaramond';
+}
+.contact-page p:has(strong) {
+  text-transform: uppercase;
+  font-size: 14px;
+  margin-bottom: 2rem;
+  text-shadow: var(--text-stroke-medium);
+  letter-spacing: 1px;
+  font-weight: normal;
+}
+.contact-page p:has(em) {
+  font-family: EBGaramondItalic;
+  font-size: 16px;
+  text-shadow: var(--text-stroke-thin);
+  line-height: 100%;
+  margin-top: 1rem;
+  letter-spacing: 0;
 }

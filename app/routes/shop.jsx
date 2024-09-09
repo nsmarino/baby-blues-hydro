@@ -3,6 +3,7 @@ import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import AsteriskBorder from "~/components/AsteriskBorder"
+import WillBounce from "~/components/WillBounce"
 
 export async function loader({context}) {
     const {storefront} = context;
@@ -34,7 +35,7 @@ function Products({products, wys, settings}) {
         {products.nodes.map((product) => (
           <Link
             key={product.id}
-            className="recommended-product gap-4 flex flex-col"
+            className={`recommended-product gap-4 flex flex-col will-bounce relative ${product.images.nodes.length > 1 && "rollover"}`}
             to={`/products/${product.handle}`}
           >
             <Image
@@ -42,11 +43,17 @@ function Products({products, wys, settings}) {
               aspectRatio="1/1"
               sizes="(min-width: 45em) 20vw, 50vw"
             />
+            <Image
+              data={product.images.nodes[1]}
+              aspectRatio="1/1"
+              className="absolute top-0 left-0 opacity-0"
+              sizes="(min-width: 45em) 20vw, 50vw"
+            />
             <h2 className="uppercase sans-font text-center">
-              <span>{product.title}</span>
-              <span className="uppercase italic text-center">
+              <span><WillBounce text={product.title} /></span>
+              <div className="uppercase italic text-center">
                 <Money data={product.priceRange.minVariantPrice} withoutTrailingZeros/>
-              </span>                  
+              </div>                  
             </h2>
 
           </Link>
@@ -56,9 +63,9 @@ function Products({products, wys, settings}) {
 
       <div className='relative py-8 text-center uppercase'>
         <AsteriskBorder top={true}>
-          <div className='flex w-full justify-around'>
+          <div className='flex flex-col md:flex-row gap-6 md:gap-0 w-full justify-around'>
             {wys.metaobjects.nodes.map(node => 
-              <a className="h2 !text-[20px]" key={node.handle} href={`/policies/${node.handle}`}>{node.field.value}</a>
+              <a className="h2 !text-[20px] will-bounce" key={node.handle} href={`/policies/${node.handle}`}><WillBounce text={node.field.value} /></a>
             )}
           </div>
         </AsteriskBorder>

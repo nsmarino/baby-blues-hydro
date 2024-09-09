@@ -55,13 +55,13 @@
     }
     .nav-link img {
         padding-bottom: 10px;
-        border-bottom: 2px solid white;
+        border: 6px solid var(--bg);
     }
     
     @keyframes wiggle {
         0% { transform: rotate(0deg); }
-       15% { transform: rotate(-20deg); }
-       20% { transform: rotate(20deg); }
+       15% { transform: rotate(-5deg); }
+       20% { transform: rotate(5deg); }
        25% { transform: rotate(0deg); }
       100% { transform: rotate(0deg); }
     }

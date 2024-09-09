@@ -1,32 +1,31 @@
+/* eslint-disable no-console */
+/* eslint-disable prettier/prettier */
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {defer} from '@shopify/remix-oxygen';
-
+import { convertSchemaToHtml } from '@thebeyondgroup/shopify-rich-text-renderer'
+import WillBounce from '../components/WillBounce';
 export async function loader({context}) {
-    console.log("Context provided in route loader". context)
-    const {storefront} = context;
-    const data = await storefront.query(CONTACT_PAGE_QUERY);
-    return data
+  const {storefront} = context;
+
+  const settingsQu = await storefront.query(SETTINGS_QUERY);
+  const settingsObj = settingsQu.metaobjects.nodes[0].fields.reduce(
+    (accumulator, currentValue) => {
+        accumulator[currentValue.key] = {...currentValue}
+        return accumulator
+      },
+    {},
+  )    
+  return settingsObj
 }
 
 export default function Contact() {
-    const data = useLoaderData()
+    const data = useLoaderData();
+    
+    console.log(data.contact_page.value)
 
     return (
       <div className='relative h-full flex flex-col md:flex-row mt-32 md:mt-0 justify-center items-center gap-8 [&>*]:basis-full max-w-[80%] mx-auto'>
-        <div>
-          <p className='info uppercase mb-8 !text-[14px]'>Some things to note:</p>
-          <p className='info'>We are walk ins only.</p>
-          <p className='info'>We don't take reservations.</p>
-          <p className='info'>We get very busy.</p>
-          <p className='info'>We don’t have a phone. </p>
-          <p className='info'>We only have a few tables.</p>
-          <p className='info'>We have a small kitchen.</p>
-          <p className='info'>We are humans not robots.</p>
-          <p className='info'>We are a small business.</p>
-          <p className='info'>We greatly appreciate your patience and kindness.</p>
-          <p className='info'>We hope you enjoy your meal *</p>
-
-          <p className='info-sm mt-8'>* if you don’t, please consider if it is worth your time to complain about it on the internet.</p>
+        <div dangerouslySetInnerHTML={{__html: convertSchemaToHtml(data.contact_page.value)}} className="contact-page">
         </div>
         <div><img src="./OPA.png" alt="" className='w-[400px]'/></div>
         <div>
@@ -39,23 +38,32 @@ export default function Contact() {
           <p className='mb-8 uppercase mono' style={{textShadow: "var(--text-stroke-medium)"}}><a href='mailto:scout@babyblues.nyc' target='_blank'>scout@babyblues.nyc</a></p>
         </div>
         <div className='absolute bottom-[15%] left-1/2 -translate-x-1/2'>
-          <p className='info uppercase'><a href="/press" className="hidden md:inline">PRESS</a></p>
+          <p className='info uppercase'><a href="/press" className="hidden md:inline will-bounce"><WillBounce text="PRESS" /></a></p>
         </div>
       </div>
     )
 }
 
-const CONTACT_PAGE_QUERY = `#graphql
-query {
-    metaobjects(type: "test_data", first: 10) {
-      nodes {
-        handle
-        id
-        type
-        fields {
-          type
-          value
+
+  const SETTINGS_QUERY = `#graphql
+  query {
+      metaobjects(type: "settings", first: 1) {
+        nodes {
+          fields {
+            key
+            value
+            reference {
+              ... on MediaImage {
+                image {
+                  url
+                  width
+                  id
+                  height
+                  altText
+                }
+              }
+            }
+          }
         }
       }
-    }
-  }`;
+    }`;

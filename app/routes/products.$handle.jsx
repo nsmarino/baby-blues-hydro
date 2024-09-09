@@ -1,7 +1,9 @@
+/* eslint-disable prettier/prettier */
 import {Suspense, useState} from 'react';
 import {defer, redirect} from '@shopify/remix-oxygen';
 import {Await, Link, useLoaderData} from '@remix-run/react';
 import { convertSchemaToHtml } from '@thebeyondgroup/shopify-rich-text-renderer'
+import WillBounce from "~/components/WillBounce"
 
 import Carousel from "react-simply-carousel";
 import {
@@ -124,7 +126,7 @@ export default function Product() {
   const {selectedVariant} = product;
   return (
     <>
-      <div className="flex flex-col md:flex-row-reverse w-full justify-center [&>*]:basis-full md:px-24 pt-24 md:py-[160px] gap-8">
+      <div className="flex flex-col md:flex-row-reverse w-full justify-center [&>*]:basis-full md:px-24 pt-[7rem] md:py-[160px] md:gap-8">
         <ProductImages images={product?.images} />
         <ProductMain
           selectedVariant={selectedVariant}
@@ -137,9 +139,9 @@ export default function Product() {
       </div>
       <div className='relative py-8 text-center uppercase hidden md:block'>
         <AsteriskBorder top={true}>
-          <div className='flex w-full justify-around'>
+          <div className='flex flex-col md:flex-row gap-6 md:gap-0 w-full justify-around'>
             {allWysiwyg.metaobjects.nodes.map(node => 
-              <a className="h2 !text-[20px]" key={node.handle} href={`/policies/${node.handle}`}>{node.field.value}</a>
+              <a className="h2 !text-[20px] will-bounce" key={node.handle} href={`/policies/${node.handle}`}><WillBounce text={node.field.value} /></a>
             )}
           </div>
         </AsteriskBorder>
@@ -195,12 +197,12 @@ function ProductImages({images}) {
   const [activeSlide, setActiveSlide] = useState(0);
 
   return (
-    <div className='relative pb-[80px] self-start sticky top-24'>
+    <div className='relative pb-[60px] md:pb-[80px] self-start md:sticky md:top-24'>
     <Carousel
       containerProps={{
       }}
       preventScrollOnSwipe
-      swipeTreshold={60}
+      swipeThreshold={60}
       activeSlideIndex={activeSlide}
       activeSlideProps={{
       }}
@@ -278,9 +280,9 @@ function ProductMain({selectedVariant, product, variants}) {
   const [activeTab, setActiveTab] = useState("")
 
   return (
-    <div className="flex flex-col gap-[40px] items-center text-center px-4">
+    <div className="flex flex-col gap-[20px] md:gap-[40px] items-center text-center px-4">
       <h2 className="sans-font uppercase leading-none">{title}</h2>
-      <ProductPrice selectedVariant={selectedVariant} />
+      <ProductPrice selectedVariant={selectedVariant} mobile={false} />
       <div className="[&>p]:sans-font [&>p]:uppercase [&>p]:text-[16px]" dangerouslySetInnerHTML={{__html: descriptionHtml}} />
       <Suspense
         fallback={
@@ -335,19 +337,19 @@ function ProductMain({selectedVariant, product, variants}) {
  *   selectedVariant: ProductFragment['selectedVariant'];
  * }}
  */
-function ProductPrice({selectedVariant}) {
+function ProductPrice({selectedVariant, mobile}) {
   return (
-    <div className="h2 sans-font italic leading-none">
+    <div className={`h2 sans-font italic leading-none ${mobile ? 'inline md:hidden' : 'hidden md:block'}`}>
       {selectedVariant?.compareAtPrice ? (
         <>
           
-          <div className="product-price-on-sale relative">
-            <div className='absolute -top-2 -left-2 w-[100px] h-[3px] opacity-40 bg-blue rotate-[30deg] origin-top-left'></div>
+          <span className="product-price-on-sale relative">
+            <span className='absolute -top-2 -left-2 w-[100px] h-[3px] opacity-40 bg-blue rotate-[30deg] origin-top-left'></span>
             <Money data={selectedVariant.compareAtPrice} withoutTrailingZeros/>
-            <div className='absolute -top-2 -right-6 translate-x-full flex gap-4 items-end -rotate-12'>
+            <span className='absolute -top-2 -right-6 translate-x-full flex gap-4 items-end -rotate-12'>
               {selectedVariant ? <Money data={selectedVariant.price} withoutTrailingZeros/> : null} <span className='text-sm tracking-[0.4em]'>SALE!</span>
-            </div>
-          </div>
+            </span>
+          </span>
         </>
       ) : (
         selectedVariant?.price && <Money data={selectedVariant?.price} withoutTrailingZeros />
@@ -394,31 +396,33 @@ function ProductForm({product, selectedVariant, variants}) {
         </div>
 
       </div>
-      <AddToCartButton
-        disabled={!selectedVariant || !selectedVariant.availableForSale}
-        onClick={(e) => {
-          window.location.href = window.location.href + '#cart-aside';
-          const innerText = e.target.innerText
-          e.target.classList.add("add-confirmed")
-          e.target.innerText = "Added to your cart!"
-          setTimeout(() => {
-            e.target.classList.remove("add-confirmed")
-            e.target.innerText = innerText
-          }, 2000)
-        }}
-        lines={
-          selectedVariant
-            ? [
-                {
-                  merchandiseId: selectedVariant.id,
-                  quantity: quantity,
-                },
-              ]
-            : []
-        }
-      >
-        {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
-      </AddToCartButton>
+      <div class="fixed bottom-2 left-2 right-2 md:relative">
+        <AddToCartButton
+          disabled={!selectedVariant || !selectedVariant.availableForSale}
+          onClick={(e) => {
+            window.location.href = window.location.href + '#cart-aside';
+            const innerText = e.target.innerText
+            e.target.classList.add("add-confirmed")
+            e.target.innerText = "Added to your cart!"
+            setTimeout(() => {
+              e.target.classList.remove("add-confirmed")
+              e.target.innerText = innerText
+            }, 2000)
+          }}
+          lines={
+            selectedVariant
+              ? [
+                  {
+                    merchandiseId: selectedVariant.id,
+                    quantity: quantity,
+                  },
+                ]
+              : []
+          }
+        >
+          {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}&nbsp;- <ProductPrice selectedVariant={selectedVariant} mobile={true} />
+        </AddToCartButton>
+      </div>
     </div>
   );
 }
@@ -475,7 +479,7 @@ function AddToCartButton({analytics, children, disabled, lines, onClick}) {
             type="submit"
             onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
-            className='atc-btn'
+            className='atc-btn bg-[var(--bg)]'
           >
             {children}
           </button>
@@ -497,7 +501,7 @@ function Products({products, currentProdId}) {
                   return (
                   <Link
                     key={product.id}
-                    className="recommended-product gap-4 flex flex-col"
+                    className={`recommended-product gap-4 flex flex-col will-bounce relative ${product.images.nodes.length > 1 && "rollover"}`}
                     to={`/products/${product.handle}`}
                   >
                     <Image
@@ -505,11 +509,17 @@ function Products({products, currentProdId}) {
                       aspectRatio="1/1"
                       sizes="(min-width: 45em) 20vw, 50vw"
                     />
+                    <Image
+                      data={product.images.nodes[1]}
+                      aspectRatio="1/1"
+                      className="absolute top-0 left-0 opacity-0"
+                      sizes="(min-width: 45em) 20vw, 50vw"
+                    />
                     <h2 className="uppercase sans-font text-center">
-                      <span>{product.title}</span>
-                      <span className="italic">
+                    <span><WillBounce text={product.title} /></span>
+                    <div className="italic">
                         <Money data={product.priceRange.minVariantPrice} withoutTrailingZeros/>
-                      </span> 
+                      </div> 
                     </h2>
                   </Link>
                 )
