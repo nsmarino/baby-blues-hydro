@@ -396,7 +396,7 @@ function ProductForm({product, selectedVariant, variants}) {
         </div>
 
       </div>
-      <div class="fixed bottom-2 left-2 right-2 md:relative">
+      <div class="fixed bottom-2 left-2 right-2 z-[100] md:relative">
         <AddToCartButton
           disabled={!selectedVariant || !selectedVariant.availableForSale}
           onClick={(e) => {
@@ -420,7 +420,7 @@ function ProductForm({product, selectedVariant, variants}) {
               : []
           }
         >
-          {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}&nbsp;- <ProductPrice selectedVariant={selectedVariant} mobile={true} />
+          {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}<span className="md:hidden">&nbsp;- </span><ProductPrice selectedVariant={selectedVariant} mobile={true} />
         </AddToCartButton>
       </div>
     </div>

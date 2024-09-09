@@ -30,7 +30,7 @@ export default function Hours() {
 
     return (
         <>
-          <div className='hoursGrid h-full flex flex-col md:grid justify-center items-center gap-12 md:gap-16 mb-12 md:mb-0'>
+          <div className='hoursGrid h-full flex flex-col md:grid justify-center items-center gap-12 md:gap-4 xl:gap-16 mb-12 md:mb-0'>
             <div className='marquee-in-grid'>
               <Marquee>
                   <p className='announcement !text-[20px]'>{settings.hours_announcement.value}&nbsp;</p>
