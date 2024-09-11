@@ -90,7 +90,7 @@ export async function loader({params, request, context}) {
   const variants = storefront.query(VARIANTS_QUERY, {
     variables: {handle},
   });
-
+  console.log(product)
   const allProducts = storefront.query(ALL_PRODUCTS_QUERY);
   const allWysiwyg = await storefront.query(ALL_WYSIWYG_QUERY);
 
@@ -126,7 +126,7 @@ export default function Product() {
   const {selectedVariant} = product;
   return (
     <>
-      <div className="flex flex-col md:flex-row-reverse w-full justify-center [&>*]:basis-full md:px-24 pt-[7rem] md:py-[160px] md:gap-8">
+      <div className="flex flex-col md:flex-row-reverse w-full justify-center [&>*]:basis-full md:px-24 pt-[7rem] md:py-[160px] md:gap-0">
         <ProductImages images={product?.images} />
         <ProductMain
           selectedVariant={selectedVariant}
@@ -137,18 +137,16 @@ export default function Product() {
       <div>
         <Products products={allProducts} currentProdId={product?.id} />
       </div>
-      <div className='relative py-8 text-center uppercase hidden md:block'>
-        <AsteriskBorder top={true}>
+      <div className='relative pb-8 pt-12 text-center uppercase hidden md:block ast-border top-only'>
           <div className='flex flex-col md:flex-row gap-6 md:gap-0 w-full justify-around'>
             {allWysiwyg.metaobjects.nodes.map(node => 
               <a className="h2 !text-[20px] will-bounce" key={node.handle} href={`/policies/${node.handle}`}><WillBounce text={node.field.value} /></a>
             )}
           </div>
-        </AsteriskBorder>
+        
       </div>
       <div className='gap-8 w-full justify-between hidden md:flex'>
-        <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch pb-32'>
-          <AsteriskBorder top={true} right={true} />
+        <div className='relative p-24 basis-full text-center uppercase font-serif font-bold justify-stretch pb-32 ast-border top-and-right'>
             <div className='flex flex-col h-full'>
               <div className='flex h2 !text-[20px]'><span>IG:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>@babybluesny</span></div>
               <div className='flex h2 !text-[20px]'><span>E:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>info@babyblues.nyc</span></div>
@@ -157,8 +155,7 @@ export default function Product() {
             </div>
           
         </div>          
-        <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch pb-32'>
-          <AsteriskBorder top={true} left={true} />
+        <div className='relative p-24 basis-full text-center uppercase font-serif font-bold justify-stretch pb-32 ast-border top-and-left'>
             <div className='flex flex-col h-full'>
               <div className='flex h2 !text-[20px]'><span>Monday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
               <div className='flex h2 !text-[20px]'><span>Tuesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
@@ -276,7 +273,7 @@ function ProductImage({image}) {
  * }}
  */
 function ProductMain({selectedVariant, product, variants}) {
-  const {title, descriptionHtml, shipping, fit, details } = product;
+  const {title, descriptionHtml, shipping, fit, details, comingsoon } = product;
   const [activeTab, setActiveTab] = useState("")
 
   return (
@@ -300,6 +297,7 @@ function ProductMain({selectedVariant, product, variants}) {
           {(data) => (
             <ProductForm
               product={product}
+              comingSoon={comingsoon[0]?.value=="true" || false}
               selectedVariant={selectedVariant}
               variants={data.product?.variants.nodes || []}
             />
@@ -365,7 +363,7 @@ function ProductPrice({selectedVariant, mobile}) {
  *   variants: Array<ProductVariantFragment>;
  * }}
  */
-function ProductForm({product, selectedVariant, variants}) {
+function ProductForm({product, selectedVariant, variants, comingSoon}) {
   const [quantity, setQuantity] = useState(1)
   return (
     <div className="product-form flex flex-col gap-[40px] w-full justify-center">
@@ -398,7 +396,7 @@ function ProductForm({product, selectedVariant, variants}) {
       </div>
       <div class="fixed bottom-2 left-2 right-2 z-[100] md:relative">
         <AddToCartButton
-          disabled={!selectedVariant || !selectedVariant.availableForSale}
+          disabled={!selectedVariant || !selectedVariant.availableForSale || comingSoon}
           onClick={(e) => {
             window.location.href = window.location.href + '#cart-aside';
             const innerText = e.target.innerText
@@ -420,7 +418,8 @@ function ProductForm({product, selectedVariant, variants}) {
               : []
           }
         >
-          {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}<span className="md:hidden">&nbsp;- </span><ProductPrice selectedVariant={selectedVariant} mobile={true} />
+          
+          {comingSoon ? "Coming soon" : (selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out')}<span className="md:hidden">&nbsp;- </span><ProductPrice selectedVariant={selectedVariant} mobile={true} />
         </AddToCartButton>
       </div>
     </div>
@@ -577,6 +576,10 @@ const PRODUCT_FRAGMENT = `#graphql
     handle
     descriptionHtml
     description
+    comingsoon: metafields(identifiers: {key: "coming_soon", namespace: "custom"}) {
+      key
+      value
+    }
     shipping: metafields(identifiers: {key: "shipping_returns", namespace: "custom"}) {
       key
       value

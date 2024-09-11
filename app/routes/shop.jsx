@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {defer} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense} from 'react';
@@ -61,18 +62,15 @@ function Products({products, wys, settings}) {
       </div>
       <br />
 
-      <div className='relative py-8 text-center uppercase'>
-        <AsteriskBorder top={true}>
+      <div className='relative pb-8 pt-16 text-center uppercase ast-border top-only'>
           <div className='flex flex-col md:flex-row gap-6 md:gap-0 w-full justify-around'>
             {wys.metaobjects.nodes.map(node => 
               <a className="h2 !text-[20px] will-bounce" key={node.handle} href={`/policies/${node.handle}`}><WillBounce text={node.field.value} /></a>
             )}
           </div>
-        </AsteriskBorder>
       </div>
       <div className='gap-8 w-full justify-between hidden md:flex'>
-        <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch pb-32'>
-          <AsteriskBorder top={true} right={true} />
+        <div className='relative p-24 basis-full text-center uppercase font-serif font-bold justify-stretch pb-32 ast-border top-and-right'>
             <div className='flex flex-col h-full'>
               <div className='flex h2 !text-[20px]'><span>IG:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>@babybluesny</span></div>
               <div className='flex h2 !text-[20px]'><span>E:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>info@babyblues.nyc</span></div>
@@ -81,8 +79,7 @@ function Products({products, wys, settings}) {
             </div>
           
         </div>          
-        <div className='relative p-12 basis-full text-center uppercase font-serif font-bold justify-stretch pb-32'>
-          <AsteriskBorder top={true} left={true} />
+        <div className='relative p-24 basis-full text-center uppercase font-serif font-bold justify-stretch pb-32 ast-border top-and-left'>
             <div className='flex flex-col h-full'>
               <div className='flex h2 !text-[20px]'><span>Monday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
               <div className='flex h2 !text-[20px]'><span>Tuesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>

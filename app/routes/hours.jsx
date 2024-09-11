@@ -32,9 +32,11 @@ export default function Hours() {
         <>
           <div className='hoursGrid h-full flex flex-col md:grid justify-center items-center gap-12 md:gap-4 xl:gap-16 mb-12 md:mb-0'>
             <div className='marquee-in-grid'>
+            {settings.hours_announcement &&
               <Marquee>
                   <p className='announcement !text-[20px]'>{settings.hours_announcement.value}&nbsp;</p>
-              </Marquee>                 
+              </Marquee>
+}                
             </div>
             
             <div className='hours-1-in-grid flex flex-col justify-center items-center gap-4 hash-border top-and-bottom-hash w-[222px] h-[160px] order-2 md:order-1' style={{ borderImageWidth: "22px 0;"}}>

@@ -376,9 +376,12 @@ export default function Homepage() {
         <span><a href="https://maps.app.goo.gl/BJhhWQ3buH4231rr5" target='_blank'>Brooklyn, <span className='inline md:hidden'>NY</span><span className='hidden md:inline'>New York</span></a></span>
       </div>  
 
+{settings.homepage_announcement &&
       <Marquee style={{}}>
         <p className='hidden md:block w-full text-center uppercase footer-note mt-24'>{settings.homepage_announcement.value}&nbsp;{settings.homepage_announcement.value}</p>
       </Marquee> 
+}
+
     </div>
 
     </>

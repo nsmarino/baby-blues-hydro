@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {defer} from '@shopify/remix-oxygen';
 import MenuNav from "~/components/Menu/MenuNav"
@@ -42,27 +43,21 @@ export default function Menu() {
         <div className='mx-[20px] flex flex-col'>
           <MenuNav sections={sections} />
           <MenuSections sections={sections} />
-          <div className='relative pb-8 pt-12 text-center uppercase mono-font-bold '>
-            <AsteriskBorder top={true}>
+          <div className='relative pb-8 pt-12 text-center uppercase mono-font-bold ast-border top-only'>
               <h3>*20% gratuity will be added to parties of six or more</h3>
-            </AsteriskBorder>
           </div>
-          <div className='relative pb-8 pt-12 text-center uppercase sans-font font-bold'>
-            <AsteriskBorder top={true}>
+          <div className='relative pb-8 pt-12 text-center uppercase sans-font font-bold ast-border top-only'>
               <p className='announcement'>!!!!!!!!!!!!!!!!! PLEASE ADVISE US OF ANY FOOD ALLERGIES !!!!!!!!!!!!!!!!!</p>
-            </AsteriskBorder>
           </div>
-          <div className='relative pb-8 pt-12 text-center uppercase mono-font-bold'>
-            <AsteriskBorder top={true}>
+          <div className='relative pb-8 pt-12 text-center uppercase mono-font-bold ast-border top-only'>
               <div className='flex w-full justify-around flex-col md:flex-row'>
                 <p className='h3'>(GF) - GLUTEN FREE</p>
                 <p className='h3'>(N) - CONTAINS NUTS</p>
                 <p className='h3'>(V) - VEGAN</p>
               </div>
-            </AsteriskBorder>
           </div>
           <div className='gap-8 flex-col md:flex-row w-full justify-between flex'>
-            <div className='relative py-12 md:px-12 md:pb-32 basis-full text-center uppercase font-serif font-bold justify-stretch ast-border md:top-and-right hidden md:block'>
+            <div className='relative py-12 md:px-24  md:pt-24 md:pb-32 basis-full text-center uppercase font-serif font-bold justify-stretch ast-border md:top-and-right hidden md:block'>
                 <div className='flex flex-col h-full'>
                   <div className='flex h2'><span>IG:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span><a href="https://www.instagram.com/babybluesny/" target="_blank">@babybluesny</a></span></div>
                   <div className='flex h2'><span>E:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span><a href="mailto:info@babyblues.nyc" target="_blank">info@babyblues.nyc</a></span></div>
@@ -72,7 +67,7 @@ export default function Menu() {
                 </div>
               
             </div>          
-            <div className='relative py-12 md:px-12 md:pb-32 basis-full text-center uppercase font-serif font-bold justify-stretch ast-border top-only md:top-and-left'>
+            <div className='relative py-12 md:px-24 md:pt-24 md:pb-32 basis-full text-center uppercase font-serif font-bold justify-stretch ast-border top-only md:top-and-left'>
                 <div className='flex flex-col h-full'>
                   <div className='flex h2'><span>Monday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
                   <div className='flex h2'><span>Tuesday</span><div className='relative basis-full mx-4'><div className="dot-line"></div></div><span className='whitespace-nowrap'>{settings.weekday_hours.value}</span></div>
@@ -115,6 +110,8 @@ const MenuSections = ({sections}) => {
               <div className={`${section.handle !== "drinks" ? "hidden md:block dot-bg" : ""}`}></div>
               <h2 className='relative w-fit md:mx-auto md:border-2 md:py-4 md:px-12 rounded-[100%] bg-[var(--bg)] mono-font md:mono-font-bold uppercase -mb-[30px] md:mb-0'>{section.fields.title.value}</h2>
             </div>
+            {section.handle == "sandwiches" &&<p className="serif-font italic md:text-right -mt-4 pr-8">All sandwiches come with a side salad and pickle from <a className="underline" href="https://www.sweetpicklebooks.com/">Sweet Pickle Books</a></p>}
+
             {
               section.fields.items.references.nodes.map(menuItem => <MenuItem item={menuItem} key={menuItem.id} />)
             }

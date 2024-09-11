@@ -157,8 +157,18 @@ p.hash-border {
     text-transform: uppercase;
     text-align: center;
     width: 100%;
+
     text-shadow: var(--text-stroke-thick);
     padding: 10px;
+}
+@media (min-width: 768px) {
+    .atc-btn {
+        max-width: min(460px, 33vw);
+    }
+
+}
+.atc-btn:disabled {
+    opacity: 0.6;
 }
 .atc-btn.add-confirmed, .atc-btn.add-confirmed:hover {
     color: white;

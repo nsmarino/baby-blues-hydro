@@ -479,6 +479,10 @@ aside li {
   flex-wrap: wrap;
   grid-gap: 60px;
   justify-content: center;
+  @media (min-width: 768px) {
+    max-width: 40vw;
+
+  }
 }
 .product-options-grid .selected::after {
   content: "";
