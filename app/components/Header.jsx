@@ -139,7 +139,7 @@ function HeaderCtas({isLoggedIn, cart}) {
     <nav className="header-ctas justify-between p-4 pb-8 md:pb-4 md:pl-0 ast-border bottom-only border-mobile-only bg-[var(--bg)] md:bg-transparent" role="navigation">
       <HeaderMenuMobileToggle />
       <a href="/" className='block md:hidden max-w-[60%]'>
-        <svg class="w-full h-auto" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 237.46 51.62">
+        <svg className="w-full h-auto" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 237.46 51.62">
           <polygon fill="#0057FF" points="120.74 3.3 120.73 3.3 120.5 4.68 120.74 3.3"/>
           <polygon fill="#0057FF" points="120.74 3.3 120.73 3.3 120.5 4.68 120.74 3.3"/>
           <g>

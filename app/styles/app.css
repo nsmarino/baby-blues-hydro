@@ -751,3 +751,9 @@ body {
   margin-top: 1rem;
   letter-spacing: 0;
 }
+
+@media (prefers-reduced-motion) {
+  .rfm-marquee {
+    animation: none !important;
+  }
+}

@@ -30,6 +30,7 @@ export default function Shop() {
     )
 }
 function Products({products, wys, settings}) {
+  console.log(products)
   return (
     <div className="mx-[20px]  mt-[140px]">
       <div className="flex flex-col max-w-[500px] mx-auto my-24 gap-4 md:gap-12">
@@ -132,7 +133,7 @@ const PRODUCTS_QUERY = `#graphql
   }
   query Products ($country: CountryCode, $language: LanguageCode)
     @inContext(country: $country, language: $language) {
-    products(first: 4, sortKey: UPDATED_AT, reverse: false) {
+    products(first: 20, sortKey: UPDATED_AT, reverse: false) {
       nodes {
         ...ProductData
       }

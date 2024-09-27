@@ -205,7 +205,7 @@ function ProductImages({images}) {
       }}
       onRequestChange={setActiveSlide}
       forwardBtnProps={{
-        children: <CarouselButton dir="forward" />,
+        children: <div className='info'>→</div>,
         style: {
           width: 60,
           height: 60,
@@ -216,7 +216,7 @@ function ProductImages({images}) {
         }
       }}
       backwardBtnProps={{
-        children: <CarouselButton  dir="back" />,
+        children: <div className='info'>←</div>,
         style: {
           width: 60,
           height: 60,
@@ -229,6 +229,7 @@ function ProductImages({images}) {
       dotsNav={{
         show: false,
       }}
+      hideNavIfAllVisible={false}
       itemsToShow={1}
       speed={400}
     >
@@ -394,7 +395,7 @@ function ProductForm({product, selectedVariant, variants, comingSoon}) {
         </div>
 
       </div>
-      <div class="fixed bottom-2 left-2 right-2 z-[100] md:relative">
+      <div className="fixed bottom-2 left-2 right-2 z-[100] md:relative">
         <AddToCartButton
           disabled={!selectedVariant || !selectedVariant.availableForSale || comingSoon}
           onClick={(e) => {
@@ -682,7 +683,7 @@ const ALL_PRODUCTS_QUERY = `#graphql
   }
   query Products ($country: CountryCode, $language: LanguageCode)
     @inContext(country: $country, language: $language) {
-    products(first: 4, sortKey: UPDATED_AT, reverse: false) {
+    products(first: 20, sortKey: UPDATED_AT, reverse: false) {
       nodes {
         ...ProductData
       }

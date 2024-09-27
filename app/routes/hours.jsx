@@ -84,6 +84,7 @@ const [activeSlide, setActiveSlide] = useState(0);
 return (
   <div className='relative pb-[80px]'>
     <Carousel
+      hideNavIfAllVisible={false}
       containerProps={{
       }}
       preventScrollOnSwipe
