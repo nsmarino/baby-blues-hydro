@@ -48,7 +48,6 @@ export function links() {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
-    {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }
 
@@ -125,6 +124,8 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link rel="icon" href="https://cdn.shopify.com/s/files/1/0889/0436/8418/files/SHOP.svg?v=1723489680" type="image/svg+xml" />
+
         <Meta />
         <Links />
       </head>
@@ -159,6 +160,8 @@ export function ErrorBoundary() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link rel="icon" href="https://cdn.shopify.com/s/files/1/0889/0436/8418/files/SHOP.svg?v=1723489680" type="image/svg+xml" />
+
         <Meta />
         <Links />
       </head>
