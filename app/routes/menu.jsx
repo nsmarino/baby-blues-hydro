@@ -136,7 +136,7 @@ const MenuItem = ({item}) => {
     <>
     <div className='flex flex-wrap md:flex-nowrap md:flex-row w-full justify-between'>
       <div className='w-full md:basis-1/3 md:text-right md:pr-8 uppercase'>
-        <h3 className='flex flex-row-reverse md:flex-row justify-end gap-4'><span className="text-[14px]">{fieldsReduced.dietary?.value}</span><span className='serif-font-bold md:mono-font-bold '>{fieldsReduced.title.value}</span></h3>
+        <h3 className='flex flex-row-reverse md:flex-row justify-end gap-4'><span style={{textShadow: "none"}} className="text-[14px]">{fieldsReduced.dietary?.value}</span><span className='serif-font-bold md:mono-font-bold '>{fieldsReduced.title.value}</span></h3>
         <p className='subtitle'>{fieldsReduced.subtitle && fieldsReduced.subtitle.value}</p>
       </div>
 

@@ -27,7 +27,7 @@ export function Header({header, settings, isLoggedIn, cart}) {
               <span className='rounded-outline font-sans uppercase italic font-bold text-[30px] bg-white block -translate-y-[2px] :focus:text-inherit bg-[var(--bg)]'>Baby Blues Luncheonette</span>
             </NavLink>          
           </div>
-          <div className='fixed whitespace-nowrap bottom-[20px] right-[20px] w-fit z-20 pl-2  flex flex-col items-end'>
+          <div className='fixed whitespace-nowrap bottom-[20px] right-[20px] w-fit z-20 pl-2 bg-[#FFF] flex flex-col items-end'>
             <NavLink prefetch="intent" to="/contact" style={activeLinkStyle} end>
             <div className='flex flex-col items-end nav-link will-bounce'>
               <img src={settings.contact_icon.reference.image.url} alt="" className='bg-[var(--bg)]' />
@@ -37,7 +37,7 @@ export function Header({header, settings, isLoggedIn, cart}) {
             </div>
             </NavLink>
           </div>
-          <div className='fixed whitespace-nowrap top-[20px] right-[20px] pl-2 w-fit z-20  flex flex-col items-end'>
+          <div className='fixed whitespace-nowrap top-[18px] right-[16px] bg-[#FFF] pl-[2px] w-fit z-20  flex flex-col items-end'>
             <NavLink prefetch="intent" to="/menu" style={activeLinkStyle} end>
             <div className=' flex flex-col items-end nav-link will-bounce'>
               <img src={settings.menu_icon.reference.image.url} alt=""  className='bg-[var(--bg)]'/>
@@ -48,7 +48,7 @@ export function Header({header, settings, isLoggedIn, cart}) {
 
             </NavLink>
           </div>
-          <div className='fixed whitespace-nowrap bottom-[20px] left-[20px] w-fit z-20 pr-2 nav-link will-bounce'>
+          <div className='fixed whitespace-nowrap bottom-[20px] left-[20px] bg-[#FFF] w-fit z-20 pr-2 nav-link will-bounce'>
             <NavLink prefetch="intent" to="/shop" style={activeLinkStyle} end>
             <img src={settings.shop_icon.reference.image.url} className='bg-[var(--bg)]' />
             <div className='bg-[var(--bg)]'>
@@ -69,7 +69,7 @@ export function Header({header, settings, isLoggedIn, cart}) {
       <div className='fixed whitespace-nowrap top-0 md:top-1/2 md:-translate-y-1/2 md:left-[20px] w-full md:w-fit z-20'>
         <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
       </div>
-      <div className='fixed whitespace-nowrap top-0 md:top-1/2 md:-translate-y-1/2 md:right-[20px] w-full md:w-fit z-20 hidden md:flex flex-col items-end'>
+      <div className='fixed whitespace-nowrap top-0 md:top-1/2 md:-translate-y-1/2 md:right-[18px] bg-[#FFF] w-full md:w-fit z-20 hidden md:flex flex-col items-end'>
       <NavLink prefetch="intent" to="/press" style={activeLinkStyle} end>
         <div className='flex flex-col items-end nav-link will-bounce'>
           <img src={settings.press_icon.reference.image.url} alt="" style={{maxWidth: '45px'}}  className='bg-[var(--bg)]'/>
@@ -198,7 +198,7 @@ function SearchToggle() {
  * @param {{count: number}}
  */
 function CartBadge({count}) {
-  return <NavLink prefetch="intent" to="/cart" style={activeLinkStyle} end><span className='flex flex-col justify-center md:justify-start'><span className='text-[14px] md:text-[24px] bg-[var(--bg)] md:pb-2 will-bounce'>
+  return <NavLink prefetch="intent" to="/cart" style={activeLinkStyle} end><span className='flex flex-col justify-center md:justify-start'><span className='text-[14px] md:text-[24px] bg-[var(--bg)] leading-5	md:pb-2 will-bounce'>
     <WillBounce text="Cart" />
     </span><span className='text-center md:text-left !text-[24px] serif-font info bg-[var(--bg)]'>({count})</span></span></NavLink>;
 }

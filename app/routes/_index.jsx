@@ -46,7 +46,7 @@ export default function Homepage() {
 
   return (
     <>
-    <div className="home h-[66vh] mx-[20px] md:h-full flex flex-col justify-center items-center">
+    <div className="home h-[70vh] mx-[20px] md:h-full flex flex-col justify-center items-center">
       <div className="relative w-full md:w-[810px] p-12 md:p-24 ast-border mt-auto md:mt-0">
           <h1>
             <img src={settings.homepage_logo.reference.image.url} alt="" className='aspect-square md:hidden object-cover' />
