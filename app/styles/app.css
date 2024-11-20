@@ -743,7 +743,7 @@ body {
   letter-spacing: 1px;
   font-weight: normal;
 }
-.contact-page p:has(em) {
+.contact-page p:has(em), .contact-page-footer p:has(em), .mobile-credit {
   font-family: EBGaramondItalic;
   font-size: 16px;
   text-shadow: var(--text-stroke-thin);

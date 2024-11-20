@@ -59,8 +59,8 @@ export default function Menu() {
           <div className='gap-8 flex-col md:flex-row w-full justify-between flex'>
             <div className='relative py-12 md:px-24  md:pt-24 md:pb-32 basis-full text-center uppercase font-serif font-bold justify-stretch ast-border md:top-and-right hidden md:block'>
                 <div className='flex flex-col h-full'>
-                  <div className='flex h2'><span>IG:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span><a href="https://www.instagram.com/babybluesny/" target="_blank">@babybluesny</a></span></div>
-                  <div className='flex h2'><span>E:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span><a href="mailto:info@babyblues.nyc" target="_blank">info@babyblues.nyc</a></span></div>
+                <a href="https://www.instagram.com/babybluesny/" target="_blank"><div className='flex h2'><span>IG:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>@babybluesny</span></div></a>
+                <a href="mailto:info@babyblues.nyc" target="_blank"><div className='flex h2'><span>E:</span><div className='relative basis-full ml-4 mr-2'><div className="dot-line"></div></div><span>info@babyblues.nyc</span></div></a>
                   <div className='relative py-12'><div className="dot-line"></div></div>
                   <div className='h2 mt-auto mb-4'>No reservations - walk ins only</div>
 
@@ -136,7 +136,7 @@ const MenuItem = ({item}) => {
     <>
     <div className='flex flex-wrap md:flex-nowrap md:flex-row w-full justify-between'>
       <div className='w-full md:basis-1/3 md:text-right md:pr-8 uppercase'>
-        <h3 className='flex flex-row-reverse md:flex-row justify-end gap-4'><span className="text-[14px]">{fieldsReduced.dietary?.value}</span><span className='serif-font-bold md:mono-font-bold '>{fieldsReduced.title.value}</span></h3>
+        <h3 className='flex flex-row-reverse md:flex-row justify-end gap-4'><span style={{textShadow: "none"}} className="text-[14px]">{fieldsReduced.dietary?.value}</span><span className='serif-font-bold md:mono-font-bold '>{fieldsReduced.title.value}</span></h3>
         <p className='subtitle'>{fieldsReduced.subtitle && fieldsReduced.subtitle.value}</p>
       </div>
 

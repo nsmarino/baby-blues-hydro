@@ -36,9 +36,11 @@ export default function Contact() {
           <p className='mb-8 mono' style={{textShadow: "var(--text-stroke-medium)"}}><a href="https://maps.app.goo.gl/BJhhWQ3buH4231rr5" target='_blank'>Brooklyn, NY 11221</a></p>
           <p className='info uppercase !text-[14px]'>Filming:</p>
           <p className='mb-8 uppercase mono' style={{textShadow: "var(--text-stroke-medium)"}}><a href='mailto:scout@babyblues.nyc' target='_blank'>scout@babyblues.nyc</a></p>
+          <a className="mobile-credit md:hidden inline-block mb-12" href="https://virtuallyreal.nyc/" target='_blank'>Site by Virtually Real</a>
         </div>
-        <div className='absolute bottom-[15%] left-1/2 -translate-x-1/2'>
+        <div className='absolute bottom-[15%] left-1/2 -translate-x-1/2 flex items-center justify-center flex-col contact-page-footer'>
           <p className='info uppercase'><a href="/press" className="hidden md:inline will-bounce"><WillBounce text="PRESS" /></a></p>
+          <p className=''><a href="https://virtuallyreal.nyc/" target='_blank' className="hidden md:inline will-bounce"><em><WillBounce text="Site by Virtually Real" /></em></a></p>
         </div>
       </div>
     )
