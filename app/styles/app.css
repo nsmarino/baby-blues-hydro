@@ -149,6 +149,7 @@ aside li {
 /* reveal aside */
 .overlay:target aside {
   transform: translateX(calc(var(--aside-width) * -1));
+  transition: transform 200ms ease-in-out;
 }
 
 /*

@@ -95,11 +95,11 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
   const className = `header-menu-${viewport}`;
 
   function closeAside(event) {
-    setTimeout(() => (window.location.hash = ''), 200);
-    // if (viewport === 'mobile') {
-    //   event.preventDefault();
-    //   window.location.href = event.currentTarget.href;
-    // }
+    // window.location.hash = '';
+    if (viewport === 'mobile') {
+      event.preventDefault();
+      window.location.href = event.currentTarget.href;
+    }
   }
 
   return (
@@ -115,17 +115,14 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
             ? new URL(item.url).pathname
             : item.url;
         return (
-          <NavLink
+          <a
+            href={url}
             className="header-menu-item info"
-            end
             key={item.id}
-            onClick={closeAside}
-            prefetch="intent"
-            style={activeLinkStyle}
-            to={url}
+            style={{activeLinkStyle}}
           >
-            - {item.title}
-          </NavLink>
+            {item.title}
+          </a>
         );
       })}
     </nav>
