@@ -95,7 +95,7 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
   const className = `header-menu-${viewport}`;
 
   function closeAside(event) {
-    window.location.hash = '';
+    setTimeout(() => (window.location.hash = ''), 200);
     // if (viewport === 'mobile') {
     //   event.preventDefault();
     //   window.location.href = event.currentTarget.href;
