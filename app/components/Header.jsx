@@ -95,10 +95,11 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
   const className = `header-menu-${viewport}`;
 
   function closeAside(event) {
-    if (viewport === 'mobile') {
-      event.preventDefault();
-      window.location.href = event.currentTarget.href;
-    }
+    window.location.hash = '';
+    // if (viewport === 'mobile') {
+    //   event.preventDefault();
+    //   window.location.href = event.currentTarget.href;
+    // }
   }
 
   return (
@@ -123,7 +124,7 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
             style={activeLinkStyle}
             to={url}
           >
-            {item.title}
+            - {item.title}
           </NavLink>
         );
       })}
