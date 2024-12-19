@@ -42,7 +42,7 @@ export default function Menu() {
     return (
         <div className='mx-[20px] flex flex-col'>
           <MenuNav sections={sections} />
-          <MenuSections sections={sections} />
+          <MenuSections sections={sections} settings={settings} />
           <div className='relative pb-8 pt-12 text-center uppercase mono-font-bold ast-border top-only'>
               <h3>*20% gratuity will be added to parties of six or more</h3>
           </div>
@@ -84,7 +84,7 @@ export default function Menu() {
     )
 }
 
-const MenuSections = ({sections}) => {
+const MenuSections = ({sections, settings}) => {
 
   return (
     <div className='my-24 flex justify-center items-center flex-col text-blue mono-font w-full mx-auto'>
@@ -97,7 +97,7 @@ const MenuSections = ({sections}) => {
                 <h2 className="announcement uppercase">SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPECIALS!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
               </Marquee>  
             </AsteriskBorder>
-            <p className='footer-note text-center uppercase py-[40px]'>Please ask your server about daily specials!</p>
+            <p className='footer-note text-center uppercase py-[40px]'>{settings.specials_info?.value}</p>
             <div className='flex flex-col w-full max-w-[1300px] justify-center mx-auto gap-8 pb-[100px]'>   
               {
                 section.fields.items.references.nodes.map(menuItem => <MenuItem item={menuItem} key={menuItem.id} />)
@@ -108,9 +108,9 @@ const MenuSections = ({sections}) => {
           <div key={section.id} id={section.handle} className='menu-section md:px-[80px] w-full flex flex-col gap-[50px] max-w-[1300px]'>
             <div className='w-full relative'>
               <div className={`${section.handle !== "drinks" ? "hidden md:block dot-bg" : ""}`}></div>
-              <h2 className='relative w-fit md:mx-auto md:border-2 md:py-4 md:px-12 rounded-[100%] bg-[var(--bg)] mono-font md:mono-font-bold uppercase -mb-[30px] md:mb-0'>{section.fields.title.value}</h2>
+              <h2 className='relative w-fit md:mx-auto md:border-2 md:py-4 md:px-12 rounded-[100%] bg-[var(--bg)] mono-font-bold uppercase -mb-[30px] md:mb-0'>{section.fields.title.value}</h2>
             </div>
-            {section.handle == "sandwiches" &&<p className="serif-font italic md:text-right -mt-4 pr-8">All sandwiches come with a side salad and pickle from <a className="underline" href="https://www.sweetpicklebooks.com/">Sweet Pickle Books</a></p>}
+            {section.handle == "sandwiches" &&<p className="serif-font italic md:text-center -mt-4 pr-8 md:pr-0">All sandwiches come with a side salad and pickle from <a className="underline" href="https://www.sweetpicklebooks.com/">Sweet Pickle Books</a></p>}
 
             {
               section.fields.items.references.nodes.map(menuItem => <MenuItem item={menuItem} key={menuItem.id} />)

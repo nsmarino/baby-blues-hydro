@@ -399,13 +399,10 @@ function ProductForm({product, selectedVariant, variants, comingSoon}) {
         <AddToCartButton
           disabled={!selectedVariant || !selectedVariant.availableForSale || comingSoon}
           onClick={(e) => {
-            window.location.href = window.location.href + '#cart-aside';
-            const innerText = e.target.innerText
-            e.target.classList.add("add-confirmed")
-            e.target.innerText = "Added to your cart!"
-            setTimeout(() => {
-              e.target.classList.remove("add-confirmed")
-              e.target.innerText = innerText
+            const btn = e.currentTarget
+            btn.classList.add("add-confirmed")
+            setTimeout((e) => {
+              btn.classList.remove("add-confirmed")
             }, 2000)
           }}
           lines={
@@ -413,14 +410,15 @@ function ProductForm({product, selectedVariant, variants, comingSoon}) {
               ? [
                   {
                     merchandiseId: selectedVariant.id,
-                    quantity: quantity,
+                    quantity,
                   },
                 ]
               : []
           }
         >
           
-          {comingSoon ? "Coming soon" : (selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out')}<span className="md:hidden">&nbsp;- </span><ProductPrice selectedVariant={selectedVariant} mobile={true} />
+          <span className="cta-text-prepurchase">{comingSoon ? "Coming soon" : (selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out')}<span className="md:hidden">&nbsp;- </span><ProductPrice selectedVariant={selectedVariant} mobile={true} /></span>
+          <span className="cta-text-purchase-confirm">Added to your cart!</span>
         </AddToCartButton>
       </div>
     </div>

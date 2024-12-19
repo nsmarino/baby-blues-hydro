@@ -50,7 +50,7 @@ function CartLines({lines, layout}) {
   if (!lines) return null;
 
   return (
-    <div className="pt-12 md:pb-32" aria-labelledby="cart-lines">
+    <div className="pt-12 pb-48" aria-labelledby="cart-lines">
       <ul>
         {lines.nodes.map((line) => (
           <CartLineItem key={line.id} line={line} layout={layout} />
@@ -93,7 +93,7 @@ function CartLineItem({layout, line}) {
             }
           }}
         >
-          <div className='sans-font uppercase text-[2rem]'>
+          <div className='sans-font uppercase text-center text-[1.4rem] mt-2 md:mt-0 md:text-[2rem]'>
             {product.title}{merchandise.title != "Default Title" && <> - {merchandise.title}</>}
           </div>
         </Link>
@@ -171,6 +171,7 @@ function CartLineQuantity({line}) {
     <div className="cart-line-quantity">
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button
+          className="w-[48px] h-[48px]"
           aria-label="Decrease quantity"
           // disabled={quantity <= 1}
           name="decrease-quantity"
@@ -182,6 +183,7 @@ function CartLineQuantity({line}) {
         <div>{quantity}</div>
       <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
         <button
+          className="w-[48px] h-[48px]"
           aria-label="Increase quantity"
           name="increase-quantity"
           value={nextQuantity}

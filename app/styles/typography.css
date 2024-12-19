@@ -170,9 +170,21 @@ p.hash-border {
 .atc-btn:disabled {
     opacity: 0.6;
 }
+.atc-btn .cta-text-prepurchase {}
+
+.atc-btn .cta-text-purchase-confirm {
+    display: none;
+}
+
 .atc-btn.add-confirmed, .atc-btn.add-confirmed:hover {
     color: white;
     background: #0057FF;
+}
+.atc-btn.add-confirmed .cta-text-prepurchase {
+    display: none;
+}
+.atc-btn.add-confirmed .cta-text-purchase-confirm {
+    display: inline-block;
 }
 .atc-btn:hover {
     border: 3px solid #0057FF;
@@ -221,6 +233,10 @@ p.hash-border {
         font-size: 20px;
         letter-spacing: 0;
         text-shadow: none;
+    }
+    .menu-section h2 {
+        font-size: 32px;
+        line-height: 1.4;
     }
 
 }

@@ -27,7 +27,16 @@ export default function Contact() {
       <div className='relative h-full flex flex-col md:flex-row mt-32 md:mt-0 justify-center items-center gap-8 [&>*]:basis-full max-w-[80%] mx-auto'>
         <div dangerouslySetInnerHTML={{__html: convertSchemaToHtml(data.contact_page.value)}} className="contact-page">
         </div>
-        <div><img src="./OPA.png" alt="" className='w-[400px]'/></div>
+        <div className="flex flex-col">
+          <img src="./OPA.png" alt="" className='w-[400px] shrink-1'/>
+          <div className='flex items-center justify-center flex-col contact-page-footer'>
+          <p className=''>
+            <a href="https://virtuallyreal.nyc/" target='_blank' rel="noreferrer" className="hidden md:inline will-bounce">
+              <em><WillBounce text="Site by Virtually Real" /></em>
+            </a>
+          </p>
+        </div>
+        </div>
         <div>
           <p className='info uppercase !text-[14px]'>For Private Events & Parties:</p>
           <p className='mb-8 uppercase mono' style={{textShadow: "var(--text-stroke-medium)"}}><a href='mailto:info@babyblues.nyc' target='_blank'>info@babyblues.nyc</a></p>
@@ -37,10 +46,6 @@ export default function Contact() {
           <p className='info uppercase !text-[14px]'>Filming:</p>
           <p className='mb-8 uppercase mono' style={{textShadow: "var(--text-stroke-medium)"}}><a href='mailto:scout@babyblues.nyc' target='_blank'>scout@babyblues.nyc</a></p>
           <a className="mobile-credit md:hidden inline-block mb-12" href="https://virtuallyreal.nyc/" target='_blank'>Site by Virtually Real</a>
-        </div>
-        <div className='absolute bottom-[15%] left-1/2 -translate-x-1/2 flex items-center justify-center flex-col contact-page-footer'>
-          <p className='info uppercase'><a href="/press" className="hidden md:inline will-bounce"><WillBounce text="PRESS" /></a></p>
-          <p className=''><a href="https://virtuallyreal.nyc/" target='_blank' className="hidden md:inline will-bounce"><em><WillBounce text="Site by Virtually Real" /></em></a></p>
         </div>
       </div>
     )
